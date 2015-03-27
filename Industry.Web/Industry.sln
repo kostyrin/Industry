@@ -7,22 +7,61 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Industry.Web", "Industry.We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Industry.Tests", "Industry.Tests\Industry.Tests.csproj", "{93AC94C0-01E0-4117-8AFB-344F029D037C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Industry.BaseModules", "Industry.BaseModules", "{339AC19D-AA01-4FB7-903F-1F2BCEE6A5C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Pattern", "Industry.BaseModules\Repository.Pattern\Repository.Pattern.csproj", "{6E682A14-C872-4813-B620-76E108DEA683}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Pattern.Ef6", "Industry.BaseModules\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj", "{F68A1D19-93FB-47C1-A22B-42BEA3E4FD8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Pattern", "Industry.BaseModules\Service.Pattern\Service.Pattern.csproj", "{86F86650-EE3C-4372-8FEC-40C2FE015022}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A7BFDB02-A4AB-4B47-80AA-5FDB0E20C68F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A7BFDB02-A4AB-4B47-80AA-5FDB0E20C68F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7BFDB02-A4AB-4B47-80AA-5FDB0E20C68F}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{A7BFDB02-A4AB-4B47-80AA-5FDB0E20C68F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7BFDB02-A4AB-4B47-80AA-5FDB0E20C68F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7BFDB02-A4AB-4B47-80AA-5FDB0E20C68F}.Release|x86.ActiveCfg = Release|Any CPU
 		{93AC94C0-01E0-4117-8AFB-344F029D037C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{93AC94C0-01E0-4117-8AFB-344F029D037C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93AC94C0-01E0-4117-8AFB-344F029D037C}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{93AC94C0-01E0-4117-8AFB-344F029D037C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93AC94C0-01E0-4117-8AFB-344F029D037C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93AC94C0-01E0-4117-8AFB-344F029D037C}.Release|x86.ActiveCfg = Release|Any CPU
+		{6E682A14-C872-4813-B620-76E108DEA683}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E682A14-C872-4813-B620-76E108DEA683}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E682A14-C872-4813-B620-76E108DEA683}.Debug|x86.ActiveCfg = Debug|x86
+		{6E682A14-C872-4813-B620-76E108DEA683}.Debug|x86.Build.0 = Debug|x86
+		{6E682A14-C872-4813-B620-76E108DEA683}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E682A14-C872-4813-B620-76E108DEA683}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E682A14-C872-4813-B620-76E108DEA683}.Release|x86.ActiveCfg = Release|x86
+		{6E682A14-C872-4813-B620-76E108DEA683}.Release|x86.Build.0 = Release|x86
+		{F68A1D19-93FB-47C1-A22B-42BEA3E4FD8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F68A1D19-93FB-47C1-A22B-42BEA3E4FD8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F68A1D19-93FB-47C1-A22B-42BEA3E4FD8C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F68A1D19-93FB-47C1-A22B-42BEA3E4FD8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F68A1D19-93FB-47C1-A22B-42BEA3E4FD8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F68A1D19-93FB-47C1-A22B-42BEA3E4FD8C}.Release|x86.ActiveCfg = Release|Any CPU
+		{86F86650-EE3C-4372-8FEC-40C2FE015022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86F86650-EE3C-4372-8FEC-40C2FE015022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86F86650-EE3C-4372-8FEC-40C2FE015022}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{86F86650-EE3C-4372-8FEC-40C2FE015022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86F86650-EE3C-4372-8FEC-40C2FE015022}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86F86650-EE3C-4372-8FEC-40C2FE015022}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6E682A14-C872-4813-B620-76E108DEA683} = {339AC19D-AA01-4FB7-903F-1F2BCEE6A5C2}
+		{F68A1D19-93FB-47C1-A22B-42BEA3E4FD8C} = {339AC19D-AA01-4FB7-903F-1F2BCEE6A5C2}
+		{86F86650-EE3C-4372-8FEC-40C2FE015022} = {339AC19D-AA01-4FB7-903F-1F2BCEE6A5C2}
 	EndGlobalSection
 EndGlobal
