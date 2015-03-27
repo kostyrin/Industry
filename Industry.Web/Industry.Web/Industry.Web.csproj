@@ -369,6 +369,18 @@
       <Project>{86f86650-ee3c-4372-8fec-40c2fe015022}</Project>
       <Name>Service.Pattern</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Industry.Data\Industry.Data.csproj">
+      <Project>{6ef4f640-80c7-4ef6-bad1-c16ed109b9ce}</Project>
+      <Name>Industry.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Industry.Domain\Industry.Domain.csproj">
+      <Project>{fdacaee1-8797-4cd5-9af6-4cc52d83728d}</Project>
+      <Name>Industry.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Industry.Services\Industry.Services.csproj">
+      <Project>{13798359-3c9f-44c3-a72f-0d32421dfae7}</Project>
+      <Name>Industry.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
