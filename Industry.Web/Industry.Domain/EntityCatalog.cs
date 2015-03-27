@@ -7,9 +7,9 @@ using Repository.Pattern.Infrastructure;
 namespace Industry.Domain
 {
     /// <summary>
-    /// Base class for entities
+    /// Base class for catalogs
     /// </summary>
-    public abstract class EntityDocument : Entity
+    public abstract class EntityCatalog : Entity
     {
         #region Members
 
@@ -25,7 +25,7 @@ namespace Industry.Domain
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(AutoGenerateFilter = false)]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [Display(ShortName = "Активный")]
         public bool IsActive { get; set; }
@@ -112,7 +112,7 @@ namespace Industry.Domain
 
         }
 
-        public static bool operator ==(EntityDocument left, EntityDocument right)
+        public static bool operator ==(EntityCatalog left, EntityCatalog right)
         {
             if (Object.Equals(left, null))
                 return (Object.Equals(right, null)) ? true : false;
@@ -120,7 +120,7 @@ namespace Industry.Domain
                 return left.Equals(right);
         }
 
-        public static bool operator !=(EntityDocument left, EntityDocument right)
+        public static bool operator !=(EntityCatalog left, EntityCatalog right)
         {
             return !(left == right);
         }

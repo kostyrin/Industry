@@ -1,6 +1,6 @@
 namespace Industry.Domain.Entities
 {
-    public partial class SerialBidDetail : EntityDocument
+    public partial class SerialBidDetail : EntityBase
     {
         public long BidId { get; set; }
         public int ProductId { get; set; }

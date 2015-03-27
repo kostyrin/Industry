@@ -17,17 +17,32 @@ namespace Industry.Data.DataModel
         {
             var shopper = new Shopper()
             {
-                Name = "Позитрон",
-                Address = "Верхнеозерная 24",
+                Name = "Покупатель",
+                Address = "Калининград",
                 IsActive = true,
+                CreatedId = 1,
+                CreatedDate = DateTime.Now,
                 ObjectState = ObjectState.Added
             };
             context.Shoppers.Add(shopper);
 
+            var category = new SerialCategory()
+            {
+                CategoryName = "Спорт",
+                IsActive = true,
+                CreatedId = 1,
+                CreatedDate = DateTime.Now,
+                ObjectState = ObjectState.Added
+            };
+
             var product = new SerialProduct()
             {
                 ObjectState = ObjectState.Added,
-                ProductName = "Беговая дорожка"
+                ProductName = "Беговая дорожка",
+                IsActive = true,
+                CreatedDate = DateTime.Now,
+                CreatedId = 1,
+                Category = category
             };
 
             context.SerialBids.Add(entity: new SerialBid()
@@ -36,6 +51,8 @@ namespace Industry.Data.DataModel
                 Shopper = shopper,
                 BidDate = DateTime.Now,
                 IsActive = true,
+                CreatedId = 1,
+                CreatedDate = DateTime.Now,
                 BidDetails = new Collection<SerialBidDetail>(new SerialBidDetail[]
                 {
                     new SerialBidDetail()
@@ -46,6 +63,21 @@ namespace Industry.Data.DataModel
                 })
             });
 
+            var customerType = new CustomerType()
+            {
+                Name = "Заказчик",
+                ObjectState = ObjectState.Added
+            };
+
+            context.Customers.Add(new Customer()
+            {
+                Name = "Позитрон",
+                IsActive = true,
+                CreatedDate = DateTime.Now,
+                CreatedId = 1,
+                CustomerType = customerType,
+                ObjectState = ObjectState.Added
+            });
             context.SaveChanges();
 
 

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Industry.Domain.Entities
 {
-    public partial class Shopper : EntityBase
+    public partial class Shopper : EntityCatalog
     {
         public Shopper()
         {

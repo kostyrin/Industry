@@ -12,6 +12,7 @@ namespace Industry.Data.DataModel
             Database.SetInitializer(new ERPModelInitializer());
         }
 
+        public DbSet<Customer> Customers { get; set; }
         public DbSet<SerialCategory> SerialCategories { get; set; }
         public DbSet<Shopper> Shoppers { get; set; }
         public DbSet<SerialBidDetail> SerialBidDetails { get; set; }

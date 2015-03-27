@@ -4,7 +4,7 @@ namespace Industry.Services.DTOs
 {
     public class ShopperDTO
     {
-        public string ShopperId { get; set; }
+        public int ShopperId { get; set; }
 
         [Required(ErrorMessage = "*")]
         [StringLength(50)]

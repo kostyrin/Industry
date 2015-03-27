@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Industry.Domain.Entities
 {
-    public partial class SerialCategory : EntityBase
+    public partial class SerialCategory : EntityCatalog
     {
         public SerialCategory()
         {

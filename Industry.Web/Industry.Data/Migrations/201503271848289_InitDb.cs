@@ -8,18 +8,50 @@ namespace Industry.Data.Migrations
         public override void Up()
         {
             CreateTable(
+                "dbo.Customer",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 100),
+                        Code = c.String(maxLength: 50),
+                        Descr = c.String(maxLength: 250),
+                        Phone = c.String(maxLength: 50),
+                        Email = c.String(maxLength: 50),
+                        Website = c.String(maxLength: 50),
+                        CustomerTypeId = c.Int(nullable: false),
+                        Province = c.String(maxLength: 150),
+                        ResponsibleUserId = c.Int(),
+                        IsActive = c.Boolean(nullable: false),
+                        CreatedId = c.Int(nullable: false),
+                        ModifiedId = c.Int(),
+                        CreatedDate = c.DateTime(nullable: false),
+                        ModifiedDate = c.DateTime(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.CustomerType", t => t.CustomerTypeId)
+                .Index(t => t.CustomerTypeId);
+            
+            CreateTable(
+                "dbo.CustomerType",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 50),
+                        IsActive = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.SerialBidDetail",
                 c => new
                     {
-                        Id = c.Long(nullable: false, identity: true),
+                        Id = c.Int(nullable: false, identity: true),
                         BidId = c.Long(nullable: false),
                         ProductId = c.Int(nullable: false),
                         UnitPrice = c.Decimal(nullable: false, precision: 18, scale: 2),
                         Quantity = c.Short(nullable: false),
                         Discount = c.Single(nullable: false),
                         IsActive = c.Boolean(nullable: false),
-                        CreatedId = c.Int(nullable: false),
-                        ModifiedId = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.SerialBid", t => t.BidId)
@@ -48,6 +80,8 @@ namespace Industry.Data.Migrations
                         IsActive = c.Boolean(nullable: false),
                         CreatedId = c.Int(nullable: false),
                         ModifiedId = c.Int(),
+                        CreatedDate = c.DateTime(nullable: false),
+                        ModifiedDate = c.DateTime(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Shopper", t => t.ShopperId)
@@ -69,6 +103,10 @@ namespace Industry.Data.Migrations
                         Phone = c.String(),
                         Fax = c.String(),
                         IsActive = c.Boolean(nullable: false),
+                        CreatedId = c.Int(nullable: false),
+                        ModifiedId = c.Int(),
+                        CreatedDate = c.DateTime(nullable: false),
+                        ModifiedDate = c.DateTime(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -87,6 +125,10 @@ namespace Industry.Data.Migrations
                         ReorderLevel = c.Short(),
                         Discontinued = c.Boolean(nullable: false),
                         IsActive = c.Boolean(nullable: false),
+                        CreatedId = c.Int(nullable: false),
+                        ModifiedId = c.Int(),
+                        CreatedDate = c.DateTime(nullable: false),
+                        ModifiedDate = c.DateTime(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.SerialCategory", t => t.CategoryId)
@@ -101,6 +143,10 @@ namespace Industry.Data.Migrations
                         Description = c.String(),
                         Picture = c.Binary(),
                         IsActive = c.Boolean(nullable: false),
+                        CreatedId = c.Int(nullable: false),
+                        ModifiedId = c.Int(),
+                        CreatedDate = c.DateTime(nullable: false),
+                        ModifiedDate = c.DateTime(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -112,15 +158,19 @@ namespace Industry.Data.Migrations
             DropForeignKey("dbo.SerialBidDetail", "ProductId", "dbo.SerialProduct");
             DropForeignKey("dbo.SerialBid", "ShopperId", "dbo.Shopper");
             DropForeignKey("dbo.SerialBidDetail", "BidId", "dbo.SerialBid");
+            DropForeignKey("dbo.Customer", "CustomerTypeId", "dbo.CustomerType");
             DropIndex("dbo.SerialProduct", new[] { "CategoryId" });
             DropIndex("dbo.SerialBid", new[] { "ShopperId" });
             DropIndex("dbo.SerialBidDetail", new[] { "ProductId" });
             DropIndex("dbo.SerialBidDetail", new[] { "BidId" });
+            DropIndex("dbo.Customer", new[] { "CustomerTypeId" });
             DropTable("dbo.SerialCategory");
             DropTable("dbo.SerialProduct");
             DropTable("dbo.Shopper");
             DropTable("dbo.SerialBid");
             DropTable("dbo.SerialBidDetail");
+            DropTable("dbo.CustomerType");
+            DropTable("dbo.Customer");
         }
     }
 }

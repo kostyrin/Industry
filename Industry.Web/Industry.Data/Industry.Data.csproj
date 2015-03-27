@@ -52,14 +52,15 @@
     <Compile Include="DataModel\ERPContext.cs" />
     <Compile Include="DataModel\ERPModelInitializer.cs" />
     <Compile Include="DataModule.cs" />
-    <Compile Include="Migrations\201503181334471_InitDb.cs" />
-    <Compile Include="Migrations\201503181334471_InitDb.Designer.cs">
-      <DependentUpon>201503181334471_InitDb.cs</DependentUpon>
+    <Compile Include="Migrations\201503271848289_InitDb.cs" />
+    <Compile Include="Migrations\201503271848289_InitDb.Designer.cs">
+      <DependentUpon>201503271848289_InitDb.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\SerialShopperBid.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BidRepository.cs" />
+    <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\ShopperRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -81,8 +82,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503181334471_InitDb.resx">
-      <DependentUpon>201503181334471_InitDb.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503271848289_InitDb.resx">
+      <DependentUpon>201503271848289_InitDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

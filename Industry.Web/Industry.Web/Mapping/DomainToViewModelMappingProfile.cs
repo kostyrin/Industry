@@ -16,6 +16,14 @@ namespace Industry.Web.Mapping
             //Mapper.CreateMap<ParentDto, Parent>()
             //.ForMember(m => m.Children, o => o.Ignore()) // To avoid automapping attempt
             //.AfterMap((p, o) => { o.Children = ToISet<ChildDto, Child>(p.Children); });
+            Mapper.CreateMap<Customer, CustomerListDTO>()
+                  .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.Id))
+                  .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Name))
+                  .ForMember(dest => dest.CustomerTypeName, opt => opt.MapFrom(src => src.CustomerType.Name));
+            Mapper.CreateMap<Customer, CustomerDTO>()
+                 .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.Id))
+                 .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Name))
+                 .ForMember(dest => dest.CustomerTypeName, opt => opt.MapFrom(src => src.CustomerType.Name));
 
             Mapper.CreateMap<Shopper, ShopperListDTO>()
                   .ForMember(dest => dest.ShopperId, opt => opt.MapFrom(src => src.Id))

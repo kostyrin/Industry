@@ -232,6 +232,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\BidController.cs" />
+    <Compile Include="Api\CustomerController.cs" />
     <Compile Include="Api\ShopperController.cs" />
     <Compile Include="App_Start\Bootstrapper.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Industry.Domain.Entities
 {
-    public partial class SerialProduct : EntityBase
+    public partial class SerialProduct : EntityCatalog
     {
         public SerialProduct()
         {
