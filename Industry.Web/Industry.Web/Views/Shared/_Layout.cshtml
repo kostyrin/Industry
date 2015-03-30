@@ -8,33 +8,35 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "HelpPage" }, null)</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+<body class="skin-green fixed">
+    <div class="wrapper">
+
+        @Html.Partial("_MainHeaderPartial")
+
+        <!-- Left side column. contains the sidebar -->
+        <div class="main-sidebar">
+            <div class="sidebar">
+                @Html.Partial("_LeftMenu")
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        @*@RenderSection("SPAViews", required: false)*@
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        
+        <section class="content-header">
+            @RenderSection("ContentHeader", required: false)
+        </section>
+
+        <div class="content-wrapper">
+            <section class="content">
+                @RenderBody()
+            </section>
+        </div>
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Версия</b> 1.0
+            </div>
+            <strong> @DateTime.Now.Year <a href="http://www.industry.ru">Industry</a>.</strong> &copy; All rights reserved.
         </footer>
+
     </div>
 
     @Scripts.Render("~/bundles/jquery")

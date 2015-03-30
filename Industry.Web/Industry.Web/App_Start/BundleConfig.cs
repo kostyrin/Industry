@@ -11,9 +11,12 @@ namespace Industry.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
 
-            // Set EnableOptimizations to false for debugging. For more information,
-            // visit http://go.microsoft.com/fwlink/?LinkId=301862
-            BundleTable.EnableOptimizations = false;
+            
+
+            // Use the development version of Modernizr to develop with and learn from. Then, when you're
+            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
+            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
+                "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                 "~/Scripts/jquery-{version}.js"));
@@ -24,10 +27,7 @@ namespace Industry.Web
 
             
 
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                "~/Scripts/modernizr-*"));
+            
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                         "~/Scripts/angular.js"
@@ -44,14 +44,24 @@ namespace Industry.Web
                         , "~/Scripts/App/Directives/*.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                "~/Scripts/bootstrap.js",
-                "~/Scripts/respond.js"));
+                  "~/Scripts/bootstrap.js"
+                , "~/Scripts/respond.js"
+                , "~/Content/Theme/js/app.js"
+                , "~/Content/Theme/js/app.min.js"
+                ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                 "~/Content/bootstrap.css",
-                 "~/Content/Site.css"));
+                   "~/Content/bootstrap.css"
+                 , "~/Content/Theme/css/skins/skin-green.css"
+                 , "~/Content/Theme/css/AdminLTE.css"
+                 , "~/Content/Theme/css/AdminLTE.min.css"
+                 , "~/Content/font-awesome.css"
+                 , "~/Content/font-awesome.min.css"
+                 ));
 
-            
+            // Set EnableOptimizations to false for debugging. For more information,
+            // visit http://go.microsoft.com/fwlink/?LinkId=301862
+            BundleTable.EnableOptimizations = false;
         }
     }
 }
