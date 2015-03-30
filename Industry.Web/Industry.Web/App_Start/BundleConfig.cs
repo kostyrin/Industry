@@ -10,6 +10,11 @@ namespace Industry.Web
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+
+            // Set EnableOptimizations to false for debugging. For more information,
+            // visit http://go.microsoft.com/fwlink/?LinkId=301862
+            BundleTable.EnableOptimizations = false;
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                 "~/Scripts/jquery-{version}.js"));
 
@@ -17,22 +22,26 @@ namespace Industry.Web
                 "~/Scripts/jquery.unobtrusive*",
                 "~/Scripts/jquery.validate*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
-                "~/Scripts/knockout-{version}.js",
-                "~/Scripts/knockout.validation.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/app").Include(
-                "~/Scripts/sammy-{version}.js",
-                "~/Scripts/app/common.js",
-                "~/Scripts/app/app.datamodel.js",
-                "~/Scripts/app/app.viewmodel.js",
-                "~/Scripts/app/home.viewmodel.js",
-                "~/Scripts/app/_run.js"));
+            
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                 "~/Scripts/modernizr-*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                        "~/Scripts/angular.js"
+                        , "~/Scripts/angular-resource.js"
+                        , "~/Scripts/angular-route.js"
+                        , "~/Scripts/angular-ui/ui-bootstrap-tpls.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                        "~/Scripts/App/app.js"
+                        , "~/Scripts/App/config.js"
+                        , "~/Scripts/App/Controllers/*.js"
+                        , "~/Scripts/App/Filters/*.js"
+                        , "~/Scripts/App/Services/*.js"
+                        , "~/Scripts/App/Directives/*.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                 "~/Scripts/bootstrap.js",
@@ -42,9 +51,7 @@ namespace Industry.Web
                  "~/Content/bootstrap.css",
                  "~/Content/Site.css"));
 
-            // Set EnableOptimizations to false for debugging. For more information,
-            // visit http://go.microsoft.com/fwlink/?LinkId=301862
-            BundleTable.EnableOptimizations = true;
+            
         }
     }
 }

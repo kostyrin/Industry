@@ -1,7 +1,7 @@
-﻿@section SPAViews {
-    @Html.Partial("_Home")
-}
-@section Scripts{
-    @Scripts.Render("~/bundles/knockout")
-    @Scripts.Render("~/bundles/app")
-}
+﻿<div class="navbar">
+    <ul class="nav">
+            <li><a href="/#/employees">Employees</a></li>
+            <li><a href="/#/customers">Customers</a></li>
+        </ul>
+</div>
+<ng-view></ng-view>

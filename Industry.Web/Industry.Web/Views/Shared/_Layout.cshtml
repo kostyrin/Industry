@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html ng-app="app">
 <head>
     <meta charset="utf-8" />
     <title>@ViewBag.Title - My ASP.NET Application</title>
@@ -30,7 +30,7 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        @RenderSection("SPAViews", required: false)
+        @*@RenderSection("SPAViews", required: false)*@
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
@@ -39,6 +39,8 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/app")
     @RenderSection("Scripts", required: false)
 </body>
 </html>
