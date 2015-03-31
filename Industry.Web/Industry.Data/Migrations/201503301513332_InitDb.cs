@@ -29,7 +29,9 @@ namespace Industry.Data.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.CustomerType", t => t.CustomerTypeId)
-                .Index(t => t.CustomerTypeId);
+                .ForeignKey("dbo.User", t => t.ResponsibleUserId)
+                .Index(t => t.CustomerTypeId)
+                .Index(t => t.ResponsibleUserId);
             
             CreateTable(
                 "dbo.CustomerType",
@@ -38,6 +40,35 @@ namespace Industry.Data.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false, maxLength: 50),
                         IsActive = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.User",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Email = c.String(),
+                        FirstName = c.String(),
+                        LastName = c.String(),
+                        MiddleName = c.String(),
+                        Image = c.Binary(),
+                        DealerId = c.Int(),
+                        DepartmentId = c.Int(),
+                        DateOfBirth = c.DateTime(),
+                        Gender = c.Boolean(),
+                        Address = c.String(),
+                        City = c.String(),
+                        State = c.String(),
+                        Country = c.String(),
+                        ZipCode = c.Double(),
+                        ContactNo = c.Double(),
+                        GlobalUserId = c.String(),
+                        IsActive = c.Boolean(nullable: false),
+                        CreatedId = c.Int(nullable: false),
+                        ModifiedId = c.Int(),
+                        CreatedDate = c.DateTime(nullable: false),
+                        ModifiedDate = c.DateTime(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -158,17 +189,20 @@ namespace Industry.Data.Migrations
             DropForeignKey("dbo.SerialBidDetail", "ProductId", "dbo.SerialProduct");
             DropForeignKey("dbo.SerialBid", "ShopperId", "dbo.Shopper");
             DropForeignKey("dbo.SerialBidDetail", "BidId", "dbo.SerialBid");
+            DropForeignKey("dbo.Customer", "ResponsibleUserId", "dbo.User");
             DropForeignKey("dbo.Customer", "CustomerTypeId", "dbo.CustomerType");
             DropIndex("dbo.SerialProduct", new[] { "CategoryId" });
             DropIndex("dbo.SerialBid", new[] { "ShopperId" });
             DropIndex("dbo.SerialBidDetail", new[] { "ProductId" });
             DropIndex("dbo.SerialBidDetail", new[] { "BidId" });
+            DropIndex("dbo.Customer", new[] { "ResponsibleUserId" });
             DropIndex("dbo.Customer", new[] { "CustomerTypeId" });
             DropTable("dbo.SerialCategory");
             DropTable("dbo.SerialProduct");
             DropTable("dbo.Shopper");
             DropTable("dbo.SerialBid");
             DropTable("dbo.SerialBidDetail");
+            DropTable("dbo.User");
             DropTable("dbo.CustomerType");
             DropTable("dbo.Customer");
         }

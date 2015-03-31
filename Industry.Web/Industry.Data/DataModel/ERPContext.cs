@@ -18,6 +18,7 @@ namespace Industry.Data.DataModel
         public DbSet<SerialBidDetail> SerialBidDetails { get; set; }
         public DbSet<SerialBid> SerialBids { get; set; }
         public DbSet<SerialProduct> SerialProducts { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

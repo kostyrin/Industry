@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\CustomerType.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="EntityCatalog.cs" />
     <Compile Include="EntityDocument.cs" />
     <Compile Include="EntityBase.cs" />

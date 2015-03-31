@@ -76,9 +76,7 @@ namespace Industry.Domain.Entities
         /// <summary>
         /// Ответственное лицо
         /// </summary>
-        //TODO сделать!!
-        //[Display(AutoGenerateFilter = false)]
-        //public virtual  ResponsibleUser { get; set; }
+        public virtual User  ResponsibleUser { get; set; }
 
         /// <summary>
         /// Идентификатор ответственного лица

@@ -8,24 +8,31 @@ using AutoMapper;
 using Industry.Domain.Entities;
 using Industry.Services.DTOs;
 using Industry.Services.Services;
+using Industry.Web.Models;
+using Microsoft.AspNet.Identity;
 using Repository.Pattern.UnitOfWork;
 
 namespace Industry.Web.Api
 {
+    [Authorize]
     public class CustomerController : ApiController
     {
         private readonly ICustomerService _customerService;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
-
+        
         public CustomerController(ICustomerService customerService, IUnitOfWorkAsync unitOfWorkAsync)
         {
             _customerService = customerService;
             _unitOfWorkAsync = unitOfWorkAsync;
         }
 
+        
         // GET: api/Customer
         public IEnumerable<CustomerListDTO> Get()
         {
+            var name = User.Identity.GetUserName();
+            var id = User.Identity.GetUserId();
+            id = RequestContext.Principal.Identity.GetUserId();
             var customers = _customerService.GetCustomers();
             var customerList = Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerListDTO>>(customers);
             return customerList;

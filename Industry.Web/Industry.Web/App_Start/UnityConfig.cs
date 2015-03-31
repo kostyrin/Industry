@@ -50,9 +50,9 @@ namespace Industry.Web
             container
                 .RegisterType<IDataContextAsync, ERPContext>(new PerRequestLifetimeManager())
                 .RegisterType<IRepositoryProvider, RepositoryProvider>(
-                    new PerRequestLifetimeManager(), 
-                    new InjectionConstructor(new object[]{new RepositoryFactories()})
-                    )
+                    new PerRequestLifetimeManager(),
+                    new InjectionConstructor(new object[] {new RepositoryFactories()})
+                )
                 .RegisterType<IUnitOfWorkAsync, UnitOfWork>(new PerRequestLifetimeManager())
                 .RegisterType<IRepositoryAsync<Shopper>, Repository<Shopper>>()
                 .RegisterType<IRepositoryAsync<SerialBid>, Repository<SerialBid>>()
