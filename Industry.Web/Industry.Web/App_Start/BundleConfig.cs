@@ -46,17 +46,17 @@ namespace Industry.Web
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                   "~/Scripts/bootstrap.js"
                 , "~/Scripts/respond.js"
-                , "~/Content/Theme/js/app.js"
-                , "~/Content/Theme/js/app.min.js"
+                , "~/Content/Theme/js/app.admin.lte.js"
+                //, "~/Content/Theme/js/app.admin.lte.min.js"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                    "~/Content/bootstrap.css"
                  , "~/Content/Theme/css/skins/skin-green.css"
                  , "~/Content/Theme/css/AdminLTE.css"
-                 , "~/Content/Theme/css/AdminLTE.min.css"
+                 //, "~/Content/Theme/css/AdminLTE.min.css"
                  , "~/Content/font-awesome.css"
-                 , "~/Content/font-awesome.min.css"
+                 //, "~/Content/font-awesome.min.css"
                  ));
 
             // Set EnableOptimizations to false for debugging. For more information,

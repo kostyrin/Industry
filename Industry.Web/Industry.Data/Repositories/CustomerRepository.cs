@@ -15,13 +15,12 @@ namespace Industry.Data.Repositories
         {
             return repository.Queryable()
                              .Include(c => c.CustomerType)
-                             //.Include(c => c.ContactInfo)
                              .Include(c => c.ManagerUser)
                              .FirstOrDefault(s => s.Id == customerId);
         }
         public static IEnumerable<Customer> GetCustomers(this IRepository<Customer> repository)
         {
-            return repository.Queryable();
+            return repository.Queryable().Include(c => c.CustomerType);
         }
     }
 }

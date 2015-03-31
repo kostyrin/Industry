@@ -344,8 +344,8 @@
     <Content Include="Content\Theme\img\user6-128x128.jpg" />
     <Content Include="Content\Theme\img\user7-128x128.jpg" />
     <Content Include="Content\Theme\img\user8-128x128.jpg" />
-    <Content Include="Content\Theme\js\app.js" />
-    <Content Include="Content\Theme\js\app.min.js" />
+    <Content Include="Content\Theme\js\app.admin.lte.js" />
+    <Content Include="Content\Theme\js\app.admin.lte.min.js" />
     <Content Include="Content\Theme\js\demo.js" />
     <Content Include="Content\Theme\js\pages\dashboard.js" />
     <Content Include="Content\Theme\js\pages\dashboard2.js" />

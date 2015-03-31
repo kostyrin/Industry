@@ -85,16 +85,8 @@ namespace Industry.Services.DTOs
         #endregion
 
 
-        #region ResponsibleUser
-        /// <summary>
-        /// Ответственное лицо
-        /// </summary>
-        //TODO сделать!!
-
-        public int? ResponsibleUserId { get; set; }
-        public string ResponsibleUserName { get; set; }
-
-        #endregion
+        public int? ManagerUserId { get; set; }
+        public string ManagerUserName { get; set; }
 
         public bool IsActive { get; set; }
         
