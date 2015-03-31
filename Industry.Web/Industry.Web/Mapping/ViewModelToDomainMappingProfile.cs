@@ -16,8 +16,7 @@ namespace Industry.Web.Mapping
             //TODO Здесь мапим только *DTO!!!!!!!!
 
             Mapper.CreateMap<ShopperDTO, Shopper>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ShopperId))
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ShopperName));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ShopperId));
 
             Mapper.CreateMap<BidDTO, SerialBid>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.BidId));

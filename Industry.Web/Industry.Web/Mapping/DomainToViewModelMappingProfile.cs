@@ -18,19 +18,17 @@ namespace Industry.Web.Mapping
             //.AfterMap((p, o) => { o.Children = ToISet<ChildDto, Child>(p.Children); });
             Mapper.CreateMap<Customer, CustomerListDTO>()
                   .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.Id))
-                  .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Name))
-                  .ForMember(dest => dest.CustomerTypeName, opt => opt.MapFrom(src => src.CustomerType.Name));
+                  .ForMember(dest => dest.CustomerTypeName, opt => opt.MapFrom(src => src.CustomerType.CustomerTypeName));
             Mapper.CreateMap<Customer, CustomerDTO>()
                  .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.Id))
-                 .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Name))
-                 .ForMember(dest => dest.CustomerTypeName, opt => opt.MapFrom(src => src.CustomerType.Name));
+                 .ForMember(dest => dest.CustomerTypeName, opt => opt.MapFrom(src => src.CustomerType.CustomerTypeName));
+            Mapper.CreateMap<ContactInfo, ContactInfoDTO>()
+                  .ForMember(dest => dest.ContactInfoId, opt => opt.MapFrom(src => src.Id));
 
             Mapper.CreateMap<Shopper, ShopperListDTO>()
-                  .ForMember(dest => dest.ShopperId, opt => opt.MapFrom(src => src.Id))
-                  .ForMember(dest => dest.ShopperName, opt => opt.MapFrom(src => src.Name));
+                  .ForMember(dest => dest.ShopperId, opt => opt.MapFrom(src => src.Id));
             Mapper.CreateMap<Shopper, ShopperDTO>()
-                  .ForMember(dest => dest.ShopperId, opt => opt.MapFrom(src => src.Id))
-                  .ForMember(dest => dest.ShopperName, opt => opt.MapFrom(src => src.Name));
+                  .ForMember(dest => dest.ShopperId, opt => opt.MapFrom(src => src.Id));
 
             Mapper.CreateMap<SerialBid, BidListDTO>()
                   .ForMember(dest => dest.BidId, opt => opt.MapFrom(src => src.Id));

@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Industry.Domain.Entities;
+using Repository.Pattern.Infrastructure;
 
 namespace Industry.Services.DTOs
 {
@@ -15,7 +17,6 @@ namespace Industry.Services.DTOs
         /// </summary>
         [Required(ErrorMessage = @"Поле обязательно для заполения")]
         [MaxLength(100, ErrorMessage = @"Поле ограничено 100 символами")] //поле обязательное и ограничено по длине 100
-        [StringLength(100, ErrorMessage = @"Не более 100 символов")]
         [Display(ShortName = "Наименование")]
         public string CustomerName { get; set; }
 
@@ -31,33 +32,9 @@ namespace Industry.Services.DTOs
         /// </summary>
         [MaxLength(250, ErrorMessage = @"Поле ограничено 250 символами")]
         [Display(ShortName = "Описание", AutoGenerateFilter = false)]
-        public string Descr { get; set; }
+        public string CustomerDescr { get; set; }
 
-        /// <summary>
-        /// Телефон
-        /// </summary>
-        [MaxLength(50)]
-        [Display(ShortName = "Телефон", AutoGenerateFilter = false)]
-        public string Phone { get; set; }
-
-        /// <summary>
-        /// Адрес электронной почты
-        /// </summary>
-        [MaxLength(50)]
-        [Display(ShortName = "E-mail", AutoGenerateFilter = false)]
-        public string Email { get; set; }
-
-        /// <summary>
-        /// Вебсайт
-        /// </summary>
-        [MaxLength(50)]
-        [Display(ShortName = "Вебсайт", AutoGenerateFilter = false)]
-        public string Website { get; set; }
-
-        //Реквизиты бизнес-логики
-
-
-
+        
         #region CustomerType
 
         /// <summary>
@@ -72,30 +49,20 @@ namespace Industry.Services.DTOs
 
         #endregion
 
-
-        #region Province
-
-        /// <summary>
-        /// Регион
-        /// </summary>
-        [MaxLength(150)]
-        [Display(ShortName = "Регион")]
-        public string Province { get; set; }
-
-        #endregion
-
-
-        #region ResponsibleUser
-        /// <summary>
-        /// Ответственное лицо
-        /// </summary>
-        //TODO сделать!!
-
-        public int? ResponsibleUserId { get; set; }
-        public string ResponsibleUserName { get; set; }
-
-        #endregion
+        public int? ManagerUserId { get; set; }
+        public string ManagerUserName { get; set; }
 
         public bool IsActive { get; set; }
+        public int CreatedId { get; set; }
+        public int ModifiedId { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
+        public DateTime CreatedDate { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
+        public DateTime ModifiedDate { get; set; }
+        public ObjectState ObjectState { get; set; }
+
+        public virtual IEnumerable<ContactInfoDTO> ContactInfos  { get; set; }
     }
 }

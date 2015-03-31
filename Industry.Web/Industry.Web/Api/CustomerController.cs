@@ -14,15 +14,18 @@ using Repository.Pattern.UnitOfWork;
 
 namespace Industry.Web.Api
 {
+    [RoutePrefix("api/customers")]
     [Authorize]
     public class CustomerController : ApiController
     {
         private readonly ICustomerService _customerService;
+        private readonly IContactInfoService _contactInfoService;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
-        
-        public CustomerController(ICustomerService customerService, IUnitOfWorkAsync unitOfWorkAsync)
+
+        public CustomerController(ICustomerService customerService, IContactInfoService contactInfoService, IUnitOfWorkAsync unitOfWorkAsync)
         {
             _customerService = customerService;
+            _contactInfoService = contactInfoService;
             _unitOfWorkAsync = unitOfWorkAsync;
         }
 
@@ -43,6 +46,7 @@ namespace Industry.Web.Api
         {
             var customer = _customerService.GetCustomerById(id);
             var customerForm = Mapper.Map<Customer, CustomerDTO>(customer);
+            customerForm.ContactInfos = Mapper.Map<IEnumerable<ContactInfo>, IEnumerable<ContactInfoDTO>>(_contactInfoService.GetContactInfosByCustomerId(customer.Id));
             return customerForm;
         }
 

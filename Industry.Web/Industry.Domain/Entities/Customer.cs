@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Industry.Domain.Entities
 {
@@ -7,88 +8,27 @@ namespace Industry.Domain.Entities
     /// </summary>
     public class Customer : EntityCatalog
     {
-        /// <summary>
-        /// Наименование
-        /// </summary>
-        [Required(ErrorMessage = @"Поле обязательно для заполения")]
-        [MaxLength(100,ErrorMessage = @"Поле ограничено 100 символами")] //поле обязательное и ограничено по длине 100
-        [StringLength(100, ErrorMessage = @"Не более 100 символов")]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Код
-        /// </summary>
+        [Required] [MaxLength(100)]
+        public string CustomerName { get; set; }
         [MaxLength(50)]
-        public string Code { get; set; } 
-
-        /// <summary>
-        /// Описание
-        /// </summary>
-        [MaxLength(250, ErrorMessage = @"Поле ограничено 250 символами")]
-        public string Descr { get; set; }
-
-        /// <summary>
-        /// Телефон
-        /// </summary>
-        [MaxLength(50)]
-        public string Phone { get; set; } 
-
-        /// <summary>
-        /// Адрес электронной почты
-        /// </summary>
-        [MaxLength(50)]
-        public string Email { get; set; }  
-    
-        /// <summary>
-        /// Вебсайт
-        /// </summary>
-        [MaxLength(50)]
-        public string Website { get; set; } 
-
-
-        #region CustomerType
-
-        /// <summary>
-        /// Тип клиента
-        /// </summary>
-        public virtual CustomerType CustomerType { get; set; } 
-
-        /// <summary>
-        /// Идентификатор типа клиента
-        /// </summary>
+        public string CustomerCode { get; set; } 
+        [MaxLength(250)]
+        public string CustomerDescr { get; set; }
         public int CustomerTypeId { get; set; }
+        public int? ManagerUserId { get; set; }
 
-        #endregion
-
-
-        #region Province
-
-        /// <summary>
-        /// Регион
-        /// </summary>
-        [MaxLength(150)]
-        public string Province { get; set; }
         
-        #endregion
-
-
-        #region ResponsibleUser
-        /// <summary>
-        /// Ответственное лицо
-        /// </summary>
-        public virtual User  ResponsibleUser { get; set; }
-
-        /// <summary>
-        /// Идентификатор ответственного лица
-        /// </summary>
-        public int? ResponsibleUserId { get; set; }
-        #endregion
+        public virtual CustomerType CustomerType { get; set; }
+        public virtual User ManagerUser { get; set; }
+        public virtual Collection<ContactInfo> ContactInfo { get; set; }
 
         
         public override string ToString()
         {
-            return string.Format("{0}", Name);
+            return string.Format("{0}", CustomerName);
         }
+
+
 
 
         

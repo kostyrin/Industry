@@ -33,7 +33,7 @@ namespace Industry.Data.Repositories
         {
             return repository
                 .Queryable()
-                .Where(x => x.Name.Contains(companyName))
+                .Where(x => x.ShopperName.Contains(companyName))
                 .AsEnumerable();
         }
 

@@ -12,13 +12,23 @@ namespace Industry.Data.DataModel
             Database.SetInitializer(new ERPModelInitializer());
         }
 
+        //Сущности клиентского блока
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<SerialCategory> SerialCategories { get; set; }
+        public DbSet<CustomerType> CustomerTypes { get; set; }
+        public DbSet<ContactInfo> ContactInfos { get; set; }
+        public DbSet<ContactInfoType> ContactInfoTypes { get; set; }
+        public DbSet<Contractor> Contractors { get; set; }
+        public DbSet<User> Users { get; set; }
+
+        //Сущности производства
         public DbSet<Shopper> Shoppers { get; set; }
+        public DbSet<SerialCategory> SerialCategories { get; set; }
+        public DbSet<SerialProduct> SerialProducts { get; set; }
+        
         public DbSet<SerialBidDetail> SerialBidDetails { get; set; }
         public DbSet<SerialBid> SerialBids { get; set; }
-        public DbSet<SerialProduct> SerialProducts { get; set; }
-        public DbSet<User> Users { get; set; }
+        
+        
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

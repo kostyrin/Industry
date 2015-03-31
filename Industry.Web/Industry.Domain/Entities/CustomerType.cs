@@ -13,7 +13,7 @@ namespace Industry.Domain.Entities
         /// Наименование
         /// </summary>
         [Required] [MaxLength(50)]
-        public string Name { get; set; }
+        public string CustomerTypeName { get; set; }
         
         /// <summary>
         /// Клиенты с таким типом
@@ -22,15 +22,17 @@ namespace Industry.Domain.Entities
 
         public override string ToString()
         {
-            return string.Format("{0}", Name);
+            return string.Format("{0}", CustomerTypeName);
         }
 
         public enum PredefinedTypeIds
         {
-            //Клиент
+            //Покупатель
             Customer = 1,
-            //Транспортная компания
-            TransportCompany
+            //Поставщик
+            Supplier,
+            //Виртуальный
+            Virtual
         }
     }
 }

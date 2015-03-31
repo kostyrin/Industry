@@ -8,19 +8,48 @@ namespace Industry.Data.Migrations
         public override void Up()
         {
             CreateTable(
+                "dbo.ContactInfo",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        ContactInfoName = c.String(nullable: false, maxLength: 100),
+                        ContactInfoDescr = c.String(),
+                        IsBasic = c.Boolean(nullable: false),
+                        CustomerId = c.Int(),
+                        ContactId = c.Int(),
+                        ContactInfoTypeId = c.Int(nullable: false),
+                        IsActive = c.Boolean(nullable: false),
+                        CreatedId = c.Int(nullable: false),
+                        ModifiedId = c.Int(),
+                        CreatedDate = c.DateTime(nullable: false),
+                        ModifiedDate = c.DateTime(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.ContactInfoType", t => t.ContactInfoTypeId)
+                .ForeignKey("dbo.Customer", t => t.CustomerId)
+                .Index(t => t.CustomerId)
+                .Index(t => t.ContactInfoTypeId);
+            
+            CreateTable(
+                "dbo.ContactInfoType",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        ContactInfoTypeName = c.String(nullable: false, maxLength: 50),
+                        IsActive = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.Customer",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 100),
-                        Code = c.String(maxLength: 50),
-                        Descr = c.String(maxLength: 250),
-                        Phone = c.String(maxLength: 50),
-                        Email = c.String(maxLength: 50),
-                        Website = c.String(maxLength: 50),
+                        CustomerName = c.String(nullable: false, maxLength: 100),
+                        CustomerCode = c.String(maxLength: 50),
+                        CustomerDescr = c.String(maxLength: 250),
                         CustomerTypeId = c.Int(nullable: false),
-                        Province = c.String(maxLength: 150),
-                        ResponsibleUserId = c.Int(),
+                        ManagerUserId = c.Int(),
                         IsActive = c.Boolean(nullable: false),
                         CreatedId = c.Int(nullable: false),
                         ModifiedId = c.Int(),
@@ -29,16 +58,16 @@ namespace Industry.Data.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.CustomerType", t => t.CustomerTypeId)
-                .ForeignKey("dbo.User", t => t.ResponsibleUserId)
+                .ForeignKey("dbo.User", t => t.ManagerUserId)
                 .Index(t => t.CustomerTypeId)
-                .Index(t => t.ResponsibleUserId);
+                .Index(t => t.ManagerUserId);
             
             CreateTable(
                 "dbo.CustomerType",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 50),
+                        CustomerTypeName = c.String(nullable: false, maxLength: 50),
                         IsActive = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
@@ -71,6 +100,44 @@ namespace Industry.Data.Migrations
                         ModifiedDate = c.DateTime(),
                     })
                 .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Contractor",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        ContractorName = c.String(nullable: false, maxLength: 100),
+                        FullName = c.String(),
+                        Code = c.String(),
+                        Descr = c.String(),
+                        INN = c.String(),
+                        KPP = c.String(),
+                        OGRN = c.String(),
+                        OKPO = c.String(),
+                        Phone = c.String(),
+                        Email = c.String(),
+                        PostAddress = c.String(),
+                        RegistrationAddress = c.String(),
+                        Account = c.String(),
+                        Bank = c.String(),
+                        BIK = c.String(),
+                        CorrAccount = c.String(),
+                        PrintInface = c.String(),
+                        PrintOn = c.String(),
+                        PrintPosition = c.String(),
+                        PrintFullFIO = c.String(),
+                        ContractorTypeId = c.Int(nullable: false),
+                        ContractorFormId = c.Int(nullable: false),
+                        CustomerId = c.Int(),
+                        IsActive = c.Boolean(nullable: false),
+                        CreatedId = c.Int(nullable: false),
+                        ModifiedId = c.Int(),
+                        CreatedDate = c.DateTime(nullable: false),
+                        ModifiedDate = c.DateTime(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Customer", t => t.CustomerId)
+                .Index(t => t.CustomerId);
             
             CreateTable(
                 "dbo.SerialBidDetail",
@@ -123,7 +190,7 @@ namespace Industry.Data.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
+                        ShopperName = c.String(),
                         ContactName = c.String(),
                         ContactTitle = c.String(),
                         Address = c.String(),
@@ -189,22 +256,31 @@ namespace Industry.Data.Migrations
             DropForeignKey("dbo.SerialBidDetail", "ProductId", "dbo.SerialProduct");
             DropForeignKey("dbo.SerialBid", "ShopperId", "dbo.Shopper");
             DropForeignKey("dbo.SerialBidDetail", "BidId", "dbo.SerialBid");
-            DropForeignKey("dbo.Customer", "ResponsibleUserId", "dbo.User");
+            DropForeignKey("dbo.Contractor", "CustomerId", "dbo.Customer");
+            DropForeignKey("dbo.Customer", "ManagerUserId", "dbo.User");
             DropForeignKey("dbo.Customer", "CustomerTypeId", "dbo.CustomerType");
+            DropForeignKey("dbo.ContactInfo", "CustomerId", "dbo.Customer");
+            DropForeignKey("dbo.ContactInfo", "ContactInfoTypeId", "dbo.ContactInfoType");
             DropIndex("dbo.SerialProduct", new[] { "CategoryId" });
             DropIndex("dbo.SerialBid", new[] { "ShopperId" });
             DropIndex("dbo.SerialBidDetail", new[] { "ProductId" });
             DropIndex("dbo.SerialBidDetail", new[] { "BidId" });
-            DropIndex("dbo.Customer", new[] { "ResponsibleUserId" });
+            DropIndex("dbo.Contractor", new[] { "CustomerId" });
+            DropIndex("dbo.Customer", new[] { "ManagerUserId" });
             DropIndex("dbo.Customer", new[] { "CustomerTypeId" });
+            DropIndex("dbo.ContactInfo", new[] { "ContactInfoTypeId" });
+            DropIndex("dbo.ContactInfo", new[] { "CustomerId" });
             DropTable("dbo.SerialCategory");
             DropTable("dbo.SerialProduct");
             DropTable("dbo.Shopper");
             DropTable("dbo.SerialBid");
             DropTable("dbo.SerialBidDetail");
+            DropTable("dbo.Contractor");
             DropTable("dbo.User");
             DropTable("dbo.CustomerType");
             DropTable("dbo.Customer");
+            DropTable("dbo.ContactInfoType");
+            DropTable("dbo.ContactInfo");
         }
     }
 }
