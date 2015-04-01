@@ -9,6 +9,7 @@ using Industry.Data.DataModel;
 using Industry.Domain.Entities;
 using Industry.Services.Services;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Industry.Web.Models;
@@ -20,7 +21,7 @@ namespace Industry.Web.Controllers
     public class AccountController : Controller
     {
         private ApplicationUserManager _userManager;
-
+        
         public AccountController()
         {
         }
@@ -172,8 +173,11 @@ namespace Industry.Web.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Hometown = model.Hometown };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, "User");
+
                     using (var db = new ERPContext())
                     {
                         User usr = db.Users.FirstOrDefault(u => u.Email == user.Email);
@@ -192,6 +196,7 @@ namespace Industry.Web.Controllers
                         }
                     }
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
