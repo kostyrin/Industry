@@ -31,8 +31,9 @@ namespace Industry.Front.Web
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                         "~/Scripts/angular.js"
-                        , "~/Scripts/angular-resource.js"
                         , "~/Scripts/angular-route.js"
+                        , "~/Scripts/angular-resource.js"
+                        
                         , "~/Scripts/angular-ui/ui-bootstrap-tpls.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
