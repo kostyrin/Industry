@@ -1,0 +1,74 @@
+{
+  "$id": "1",
+  "customerId": 1,
+  "customerName": "Позитрон",
+  "customerCode": "001",
+  "customerDescr": "Основной покупатель",
+  "customerTypeName": "Покупатель",
+  "customerTypeId": 1,
+  "managerUserId": null,
+  "managerUserName": null,
+  "isActive": true,
+  "createdId": 1,
+  "modifiedId": 0,
+  "createdDate": "2015-03-31T13:54:05.527",
+  "modifiedDate": "0001-01-01T00:00:00",
+  "objectState": 0,
+  "contactInfos": [
+    {
+      "$id": "2",
+      "contactInfoId": 1,
+      "contactInfoName": "+7 (4012) 527 713",
+      "contactInfoDescr": "Основной телефон",
+      "isBasic": true,
+      "customerId": 1,
+      "contactId": null,
+      "contactInfoTypeId": 1,
+      "objectState": 0
+    },
+    {
+      "$id": "3",
+      "contactInfoId": 2,
+      "contactInfoName": "236008, Российская Федерация, Калининградская обл, г Калининград, ул Верхнеозерная, д. 24",
+      "contactInfoDescr": "Основной адрес",
+      "isBasic": true,
+      "customerId": 1,
+      "contactId": null,
+      "contactInfoTypeId": 2,
+      "objectState": 0
+    },
+    {
+      "$id": "4",
+      "contactInfoId": 3,
+      "contactInfoName": "ds@ipositron.ru",
+      "contactInfoDescr": "Основная почта",
+      "isBasic": true,
+      "customerId": 1,
+      "contactId": null,
+      "contactInfoTypeId": 3,
+      "objectState": 0
+    },
+    {
+      "$id": "5",
+      "contactInfoId": 4,
+      "contactInfoName": "www.ipositron.ru",
+      "contactInfoDescr": "Основной сайт",
+      "isBasic": true,
+      "customerId": 1,
+      "contactId": null,
+      "contactInfoTypeId": 4,
+      "objectState": 0
+    },
+    {
+      "$id": "6",
+      "contactInfoId": 5,
+      "contactInfoName": "+7 (921) 710 77 13 ",
+      "contactInfoDescr": "Мобильный телефон",
+      "isBasic": true,
+      "customerId": 1,
+      "contactId": null,
+      "contactInfoTypeId": 1,
+      "objectState": 0
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+﻿@using Industry.Front.Web.HtmlHelperExtensions
+@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+        <!-- left, vertical navbar -->
+        <ul class="sidebar-menu" id="menu">
+            
+
+            <li class="header">Меню навигации</li>
+            
+            @Html.MenuItem(" Домой", "Index", "Home", "fa   fa-home fa-fw")
+            @Html.MenuItem(" Доска", "Index", "Dashboard", "fa  fa-dashboard fa-fw")
+            @Html.MenuItem(" Покупатели", "Index", "Shopper", "fa  fa-male fa-fw")
+            @Html.MenuItem(" Заявка", "Index", "Bid", "fa  fa-envelope-o fa-fw")
+            <li><a href="/#/employees">Employees</a></li>
+            <li><a href="/#/customers">Customers</a></li>
+
+        </ul>
+}
