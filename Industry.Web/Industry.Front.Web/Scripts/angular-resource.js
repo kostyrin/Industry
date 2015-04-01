@@ -71,7 +71,7 @@ function shallowClearAndCopy(src, dst) {
  *
  * @description
  * A factory which creates a resource object that lets you interact with
- * [RESTful](http://en.wikipedia.org/wiki/ReFrontal_State_Transfer) server-side data sources.
+ * [RESTful](http://en.wikipedia.org/wiki/Representational_State_Transfer) server-side data sources.
  *
  * The returned resource object has action methods which provide high-level behaviors without
  * the need to interact with the low level {@link ng.$http $http} service.

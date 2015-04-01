@@ -36,7 +36,7 @@ namespace Industry.Front.Web.Api
 
         
         // GET: api/Customer
-        public IEnumerable<CustomerListVM> Get()
+        public IHttpActionResult Get()
         {
             var id = RequestContext.Principal.Identity.GetUserId();
             var customers = Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerListVM>>(_customerService.GetCustomers());
@@ -58,7 +58,7 @@ namespace Industry.Front.Web.Api
                     if (email != null) item.Email = email.ContactInfoName;
                 }
             }
-            return customers;
+            return Ok(customers);
         }
 
         // GET: api/Customer/5
