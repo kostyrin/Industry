@@ -14,6 +14,8 @@ namespace Industry.Services.Services
     {
         Customer GetCustomerById(int shopperId);
         IEnumerable<Customer> GetCustomers();
+        IEnumerable<Customer> GetCustomersWithParams(int count, int page, string sortField, string sortOrder, ref int totalCount);
+        Customer AddOrUpdateCustomer(Customer customer);
     }
 
     public class CustomerService : Service<Customer>, ICustomerService
@@ -36,6 +38,17 @@ namespace Industry.Services.Services
         public IEnumerable<Customer> GetCustomers()
         {
             return _repository.GetCustomers();
+        }
+
+        public IEnumerable<Customer> GetCustomersWithParams(int count, int page, string sortField, string sortOrder, ref int totalCount)
+        {
+            return _repository.GetCustomersWithParams(count, page, sortField, sortOrder, ref totalCount);
+        }
+
+        public Customer AddOrUpdateCustomer(Customer customer)
+        {
+            _repository.InsertOrUpdateGraph(customer);
+            return customer;
         }
     }
 }

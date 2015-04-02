@@ -61,6 +61,19 @@ namespace Industry.Front.Web.Api
             return Ok(customers);
         }
 
+        // GET: api/Customer&count=0&page0&softField='name'&sortOrder='asc'
+        public IHttpActionResult Get(int count, int page, string sortField, string sortOrder)
+        {
+            int totalCount = 0;
+            var customers = _customerService.GetCustomersWithParams(count, page, sortField, sortOrder, ref totalCount).ToList();
+            IEnumerable<CustomerListVM> customerViewModels = new List<CustomerListVM>();
+            Mapper.Map(customers, customerViewModels);
+            PagedCollectionVM<CustomerListVM> viewModel = new PagedCollectionVM<CustomerListVM> { Data = customerViewModels, TotalCount = totalCount };
+
+            return Ok(viewModel);
+
+        }
+
         // GET: api/Customer/5
         public CustomerVM Get(int id)
         {
@@ -71,18 +84,53 @@ namespace Industry.Front.Web.Api
         }
 
         // POST: api/Customer
-        public void Post([FromBody]string value)
+        public IHttpActionResult Post(CustomerVM customerVM)
         {
+            string userId = RequestContext.Principal.Identity.GetUserId();
+            var user = _userService.GetUserByGlobalId(userId);
+
+            Customer customer = new Customer();
+            Mapper.Map(customerVM, customer);
+            customer.CreatedDate = DateTime.Now;
+            customer.CreatedId = user.Id;
+            _customerService.AddOrUpdateCustomer(customer);
+            _unitOfWorkAsync.SaveChangesAsync();
+            customerVM.CustomerId = customer.Id;
+
+            return Created(Url.Link("DefaultApi", new { contoller = "Customer", CustomerId = customerVM.CustomerId}), customerVM);
         }
 
         // PUT: api/Customer/5
-        public void Put(int id, [FromBody]string value)
+        public IHttpActionResult Put(int id, CustomerVM customerVM)
         {
+            string userId = RequestContext.Principal.Identity.GetUserId();
+            var user = _userService.GetUserByGlobalId(userId);
+
+            customerVM.CustomerId = id;
+            customerVM.ModifiedDate = DateTime.Now;
+            customerVM.ModifiedId = user.Id;
+            var customer = _customerService.GetCustomerById(id);
+            Mapper.Map(customerVM, customer);
+            _customerService.AddOrUpdateCustomer(customer);
+            _unitOfWorkAsync.SaveChangesAsync();
+            return Ok(customerVM);
         }
 
         // DELETE: api/Customer/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            string userId = RequestContext.Principal.Identity.GetUserId();
+            var user = _userService.GetUserByGlobalId(userId);
+
+            
+            var customer = _customerService.GetCustomerById(id);
+            customer.ModifiedDate = DateTime.Now;
+            customer.ModifiedId = user.Id;
+            customer.IsActive = false;
+
+            _customerService.Update(customer);
+            _unitOfWorkAsync.SaveChangesAsync();
+            return Ok();
         }
     }
 }

@@ -22,5 +22,28 @@ namespace Industry.Data.Repositories
         {
             return repository.Queryable().Include(c => c.CustomerType);
         }
+
+        public static IEnumerable<Customer> GetCustomersWithParams(this IRepository<Customer> repository, int count, int page, string sortField, string sortOrder, ref int totalCount)
+        {
+            var query = repository.Queryable();
+            switch (sortField)
+            {
+                case "CustomerType":
+                {
+                    query = sortOrder.ToLower() == "asc" ? query.OrderBy(res => res.CustomerType) : query.OrderByDescending(res => res.CustomerType);
+                    break;
+                }
+
+                default:
+                {
+                    query = sortOrder.ToLower() == "asc" ? query.OrderBy(res => res.CustomerName) : query.OrderByDescending(res => res.CustomerName);
+                    break;
+                }
+            }
+
+            totalCount = query.Count();
+            var customers = query.Skip((page - 1)*count).Take(count);
+            return customers;
+        }
     }
 }
