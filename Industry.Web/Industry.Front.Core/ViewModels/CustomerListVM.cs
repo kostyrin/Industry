@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using Repository.Pattern.Infrastructure;
 
 namespace Industry.Front.Core.ViewModels
 {
@@ -26,7 +28,7 @@ namespace Industry.Front.Core.ViewModels
         /// </summary>
         [MaxLength(250, ErrorMessage = @"Поле ограничено 250 символами")]
         [Display(ShortName = "Описание", AutoGenerateFilter = false)]
-        public string Descr { get; set; }
+        public string CustomerDescr { get; set; }
 
         /// <summary>
         /// Телефон
@@ -79,11 +81,20 @@ namespace Industry.Front.Core.ViewModels
 
         #endregion
 
+        //TODO пока не нужно!
+        //public int CreatedId { get; set; }
+        //public int ModifiedId { get; set; }
+        //[DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
+        //public DateTime CreatedDate { get; set; }
+        //[DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
+        //public DateTime ModifiedDate { get; set; }
+
 
         public int? ManagerUserId { get; set; }
         public string ManagerUserName { get; set; }
 
         public bool IsActive { get; set; }
+        public ObjectState ObjectState { get; set; }
         
     }
 }

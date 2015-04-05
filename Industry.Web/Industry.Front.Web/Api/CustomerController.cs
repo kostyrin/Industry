@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using Industry.Domain.Entities;
@@ -10,6 +12,7 @@ using Industry.Front.Core.ViewModels;
 using Industry.Services.Services;
 using Industry.Front.Web.Models;
 using Microsoft.AspNet.Identity;
+using Repository.Pattern.Infrastructure;
 using Repository.Pattern.UnitOfWork;
 
 namespace Industry.Front.Web.Api
@@ -84,7 +87,7 @@ namespace Industry.Front.Web.Api
         }
 
         // POST: api/Customer
-        public IHttpActionResult Post(CustomerVM customerVM)
+        public async Task<IHttpActionResult> Post(CustomerVM customerVM)
         {
             string userId = RequestContext.Principal.Identity.GetUserId();
             var user = _userService.GetUserByGlobalId(userId);
@@ -94,25 +97,40 @@ namespace Industry.Front.Web.Api
             customer.CreatedDate = DateTime.Now;
             customer.CreatedId = user.Id;
             _customerService.AddOrUpdateCustomer(customer);
-            _unitOfWorkAsync.SaveChangesAsync();
+            try
+            {
+                await _unitOfWorkAsync.SaveChangesAsync();
+            }
+            catch
+            {
+                return BadRequest();
+            }
             customerVM.CustomerId = customer.Id;
 
             return Created(Url.Link("DefaultApi", new { contoller = "Customer", CustomerId = customerVM.CustomerId}), customerVM);
         }
 
         // PUT: api/Customer/5
-        public IHttpActionResult Put(int id, CustomerVM customerVM)
+        public async Task<IHttpActionResult> Put(int id, CustomerVM customerVM)
         {
             string userId = RequestContext.Principal.Identity.GetUserId();
             var user = _userService.GetUserByGlobalId(userId);
 
-            customerVM.CustomerId = id;
-            customerVM.ModifiedDate = DateTime.Now;
-            customerVM.ModifiedId = user.Id;
             var customer = _customerService.GetCustomerById(id);
             Mapper.Map(customerVM, customer);
+            //customer.CustomerId = id;
+            customer.ModifiedDate = DateTime.Now;
+            customer.ModifiedId = user.Id;
+            customer.ObjectState = ObjectState.Modified; //TODO временно
             _customerService.AddOrUpdateCustomer(customer);
-            _unitOfWorkAsync.SaveChangesAsync();
+            try
+            {
+                await _unitOfWorkAsync.SaveChangesAsync();
+            }
+            catch
+            {
+                return BadRequest();
+            }
             return Ok(customerVM);
         }
 

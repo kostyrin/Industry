@@ -20,6 +20,9 @@ namespace Industry.Front.Core.Mapping
 
             Mapper.CreateMap<BidVM, SerialBid>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.BidId));
+
+            Mapper.CreateMap<CustomerVM, Customer>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.CustomerId));
         }
     }
 }

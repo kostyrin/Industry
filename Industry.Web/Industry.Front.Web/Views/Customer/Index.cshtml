@@ -1,0 +1,38 @@
+﻿<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Customers</h3>
+    </div>
+    <div class="box-body" ng-controller="customerController">
+        <div class="dataTables_wrapper form-inline">
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th class="sorting_asc">#</th>
+                    <td class="sorting_asc">Name</td>
+                    <th>Code</th>
+                    <th>Descr</th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="customer in customers">
+                    <td><strong ng-hide="customer.editMode">{{ customer.CustomerId }}</strong></td>
+                    <td>
+                        <p ng-hide="customer.editMode">{{ customer.CustomerName }}</p>
+                        <input ng-show="customer.editMode" type="text" ng-model="customer.CustomerName" />
+                    </td>
+                    <td>
+                        <p ng-hide="customer.editMode">{{ customer.CustomerCode }}</p>
+                        <input ng-show="customer.editMode" type="text" ng-model="customer.CustomerCode" />
+                    </td>
+                    <td>
+                        <p ng-hide="customer.editMode">{{ customer.CustomerDescr }}</p>
+                        <input ng-show="customer.editMode" type="text" ng-model="customer.CustomerDescr" />
+                    </td>
+                    <td>
+                        <p ng-hide="customer.editMode"><a ng-click="toggleEdit(customer)" href="javascript:;">Edit</a> | <a ng-click="deletecustomer(customer)" href="javascript:;">Delete</a></p>
+                        <p ng-show="customer.editMode"><a ng-click="save(customer)" href="javascript:;">Save</a> | <a ng-click="toggleEdit(customer)" href="javascript:;">Cancel</a></p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+

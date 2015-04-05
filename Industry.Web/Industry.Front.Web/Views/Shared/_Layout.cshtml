@@ -10,10 +10,8 @@
 </head>
 <body class="skin-green fixed">
     <div class="wrapper">
-
         @Html.Partial("_MainHeaderPartial")
-        
-        
+
 
         <!-- Left side column. contains the sidebar -->
         <div class="main-sidebar">
@@ -21,26 +19,22 @@
                 @Html.Partial("_LeftMenu")
             </div>
         </div>
-        
+
         <section class="content-header">
             @RenderSection("ContentHeader", required: false)
         </section>
-
         <div class="content-wrapper">
             <section class="content">
                 @RenderBody()
             </section>
         </div>
-
         <footer class="main-footer">
             <div class="pull-right hidden-xs">
                 <b>Версия</b> 1.0
             </div>
             <strong> @DateTime.Now.Year <a href="http://www.industry.ru">Industry</a>.</strong> &copy; All rights reserved.
         </footer>
-
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/angular")

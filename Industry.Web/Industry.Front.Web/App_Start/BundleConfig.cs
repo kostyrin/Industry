@@ -37,12 +37,13 @@ namespace Industry.Front.Web
                         , "~/Scripts/angular-ui/ui-bootstrap-tpls.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
-                        "~/Scripts/App/app.js"
-                        , "~/Scripts/App/config.js"
-                        , "~/Scripts/App/Controllers/*.js"
-                        , "~/Scripts/App/Filters/*.js"
-                        , "~/Scripts/App/Services/*.js"
-                        , "~/Scripts/App/Directives/*.js"));
+                        //"~/Scripts/App/app.js"
+                        //, "~/Scripts/App/config.js"
+                        "~/Scripts/App/Controllers/customerCtrl.js"
+                        //, "~/Scripts/App/Filters/*.js"
+                        //, "~/Scripts/App/Services/*.js"
+                        //, "~/Scripts/App/Directives/*.js"
+                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                   "~/Scripts/bootstrap.js"
