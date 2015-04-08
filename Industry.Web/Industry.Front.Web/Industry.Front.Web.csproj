@@ -481,6 +481,10 @@
       <Project>{86f86650-ee3c-4372-8fec-40c2fe015022}</Project>
       <Name>Service.Pattern</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Industry.Common\Industry.Common.csproj">
+      <Project>{b477ee85-a242-4175-8895-2db92048e461}</Project>
+      <Name>Industry.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Industry.Data\Industry.Data.csproj">
       <Project>{6ef4f640-80c7-4ef6-bad1-c16ed109b9ce}</Project>
       <Name>Industry.Data</Name>

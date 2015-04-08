@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
+using Industry.Common.Enums;
 using Industry.Domain.Entities;
 using Industry.Front.Core.ViewModels;
 using Industry.Services.Services;
@@ -17,16 +18,19 @@ namespace Industry.Front.Web.Controllers.Api
     [Authorize]
     public class CustomerController : ApiController
     {
+        private readonly IActionLogService _actionLogService;
         private readonly ICustomerService _customerService;
         private readonly IContactInfoService _contactInfoService;
         private readonly IUserService _userService;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
 
-        public CustomerController(ICustomerService customerService
+        public CustomerController( IActionLogService actionLogService
+                                , ICustomerService customerService
                                 , IContactInfoService contactInfoService
                                 , IUserService userService
                                 , IUnitOfWorkAsync unitOfWorkAsync)
         {
+            _actionLogService = actionLogService;
             _customerService = customerService;
             _contactInfoService = contactInfoService;
             _userService = userService;
@@ -91,6 +95,7 @@ namespace Industry.Front.Web.Controllers.Api
             Customer customer = new Customer();
             Mapper.Map(customerVM, customer);
             _customerService.AddOrUpdateCustomer(customer);
+            _actionLogService.AddActionLog(user.Id, customer.GlobalId, (int)ActionTypeNames.Common.Modified, "",customer.GetType());
             try
             {
                 await _unitOfWorkAsync.SaveChangesAsync();
@@ -115,6 +120,7 @@ namespace Industry.Front.Web.Controllers.Api
             //customer.CustomerId = id;
             customer.ObjectState = ObjectState.Modified; //TODO временно
             _customerService.AddOrUpdateCustomer(customer);
+            _actionLogService.AddActionLog(user.Id, customer.GlobalId, (int)ActionTypeNames.Common.Modified, "", customer.GetType());
             try
             {
                 await _unitOfWorkAsync.SaveChangesAsync();

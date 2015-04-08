@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Industry.Common.Enums;
 using Industry.Data.DataModel;
 using Industry.Domain.Entities;
 using Industry.Services.Services;
@@ -193,7 +194,7 @@ namespace Industry.Front.Web.Controllers
                             };
                             db.Users.Add(usr);
 
-                            db.ActionLogs.Add(new ActionLog().Save(usr, usr.GlobalId, 1, "Добавлен автоматически", usr.GetType()));
+                            db.ActionLogs.Add(new ActionLog().SaveTypeId(usr, usr.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", usr.GetType()));
                             await db.SaveChangesAsync();
                         }
                     }

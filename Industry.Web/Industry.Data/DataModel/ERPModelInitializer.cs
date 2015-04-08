@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Industry.Common.Enums;
 using Industry.Data.Repositories;
 using Industry.Domain.Entities;
 using Industry.Data.DataModel;
@@ -216,14 +217,14 @@ namespace Industry.Data.DataModel
 
             var log = new Collection<ActionLog>()
             {
-                new ActionLog().Save(admin, admin.GlobalId, actionTypeAdd, "Добавлен автоматически", admin.GetType()),
-                new ActionLog().Save(admin, shopper.GlobalId, actionTypeAdd, "Добавлен автоматически", shopper.GetType()),
-                new ActionLog().Save(admin, category.GlobalId, actionTypeAdd, "Добавлен автоматически", category.GetType()),
-                new ActionLog().Save(admin, product.GlobalId, actionTypeAdd, "Добавлен автоматически", product.GetType()),
-                new ActionLog().Save(admin, bid.GlobalId, actionTypeAdd, "Добавлен автоматически", product.GetType()),
-                new ActionLog().Save(admin, customer.GlobalId, actionTypeAdd, "Добавлен автоматически", customer.GetType()),
+                new ActionLog().SaveByIds(admin.Id, admin.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", admin.GetType()),
+                new ActionLog().SaveByIds(admin.Id, shopper.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", shopper.GetType()),
+                new ActionLog().SaveByIds(admin.Id, category.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", category.GetType()),
+                new ActionLog().SaveByIds(admin.Id, product.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", product.GetType()),
+                new ActionLog().SaveByIds(admin.Id, bid.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", product.GetType()),
+                new ActionLog().SaveByIds(admin.Id, customer.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", customer.GetType()),
             };
-            contactdata.ForEach(ci => log.Add(new ActionLog().Save(admin, ci.GlobalId, actionTypeAdd.Id, "Добавлен автоматически", ci.GetType())));
+            contactdata.ForEach(ci => log.Add(new ActionLog().SaveByIds(admin.Id, ci.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", ci.GetType())));
             context.ActionLogs.AddRange(log);
 
             #endregion activelog

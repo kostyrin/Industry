@@ -40,9 +40,22 @@ namespace Industry.Domain.Entities
             return this;
         }
 
-        public ActionLog Save(User user, Guid globalId, int actionTypeId, string comment, Type entityType)
+        public ActionLog SaveTypeId(User user, Guid globalId, int typeId, string comment, Type entityType)
         {
             this.User = user;
+            this.EntityGlobalId = globalId;
+            this.ActionTypeId = typeId;
+            this.Comment = comment;
+            this.Mnemocode = entityType.Name;
+            this.Date = DateTime.Now;
+            this.ObjectState = ObjectState.Added;
+
+            return this;
+        }
+
+        public ActionLog SaveByIds(int userId, Guid globalId, int actionTypeId, string comment, Type entityType)
+        {
+            this.UserId = userId;
             this.EntityGlobalId = globalId;
             this.ActionTypeId = actionTypeId;
             this.Comment = comment;
