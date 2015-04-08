@@ -183,15 +183,17 @@ namespace Industry.Front.Web.Controllers
                         User usr = db.Users.FirstOrDefault(u => u.Email == user.Email);
                         if (usr == null)
                         {
-                            db.Users.Add(new User()
+                            usr = new User()
                             {
                                 Email = user.Email,
                                 GlobalUserId = user.Id,
-                                CreatedDate = DateTime.Now,
-                                CreatedId = 1,
+                                GlobalId = Guid.NewGuid(),
                                 ObjectState = ObjectState.Added,
                                 IsActive = true
-                            });
+                            };
+                            db.Users.Add(usr);
+
+                            db.ActionLogs.Add(new ActionLog().Save(usr, usr.GlobalId, 1, "Добавлен автоматически", usr.GetType()));
                             await db.SaveChangesAsync();
                         }
                     }

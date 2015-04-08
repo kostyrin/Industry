@@ -27,10 +27,8 @@ namespace Industry.Domain
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Display(AutoGenerateFilter = false)]
         public int Id { get; set; }
 
-        [Display(ShortName = "Активный")]
         public bool IsActive { get; set; }
 
         #endregion

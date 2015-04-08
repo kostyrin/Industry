@@ -8,66 +8,30 @@ namespace Industry.Data.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.ContactInfo",
+                "dbo.ActionLog",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        ContactInfoName = c.String(nullable: false, maxLength: 100),
-                        ContactInfoDescr = c.String(),
-                        IsBasic = c.Boolean(nullable: false),
-                        CustomerId = c.Int(),
-                        ContactId = c.Int(),
-                        ContactInfoTypeId = c.Int(nullable: false),
+                        UserId = c.Int(nullable: false),
+                        EntityGlobalId = c.Guid(nullable: false),
+                        Date = c.DateTime(nullable: false),
+                        Comment = c.String(),
+                        ActionTypeId = c.Int(nullable: false),
+                        Mnemocode = c.String(),
                         IsActive = c.Boolean(nullable: false),
-                        CreatedId = c.Int(nullable: false),
-                        ModifiedId = c.Int(),
-                        CreatedDate = c.DateTime(nullable: false),
-                        ModifiedDate = c.DateTime(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.ContactInfoType", t => t.ContactInfoTypeId)
-                .ForeignKey("dbo.Customer", t => t.CustomerId)
-                .Index(t => t.CustomerId)
-                .Index(t => t.ContactInfoTypeId);
+                .ForeignKey("dbo.ActionType", t => t.ActionTypeId)
+                .ForeignKey("dbo.User", t => t.UserId)
+                .Index(t => t.UserId)
+                .Index(t => t.ActionTypeId);
             
             CreateTable(
-                "dbo.ContactInfoType",
+                "dbo.ActionType",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        ContactInfoTypeName = c.String(nullable: false, maxLength: 50),
-                        IsActive = c.Boolean(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.Customer",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        CustomerName = c.String(nullable: false, maxLength: 100),
-                        CustomerCode = c.String(maxLength: 50),
-                        CustomerDescr = c.String(maxLength: 250),
-                        CustomerTypeId = c.Int(nullable: false),
-                        ManagerUserId = c.Int(),
-                        IsActive = c.Boolean(nullable: false),
-                        CreatedId = c.Int(nullable: false),
-                        ModifiedId = c.Int(),
-                        CreatedDate = c.DateTime(nullable: false),
-                        ModifiedDate = c.DateTime(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.CustomerType", t => t.CustomerTypeId)
-                .ForeignKey("dbo.User", t => t.ManagerUserId)
-                .Index(t => t.CustomerTypeId)
-                .Index(t => t.ManagerUserId);
-            
-            CreateTable(
-                "dbo.CustomerType",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        CustomerTypeName = c.String(nullable: false, maxLength: 50),
+                        Name = c.String(),
                         IsActive = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
@@ -94,10 +58,66 @@ namespace Industry.Data.Migrations
                         ContactNo = c.Double(),
                         GlobalUserId = c.String(),
                         IsActive = c.Boolean(nullable: false),
-                        CreatedId = c.Int(nullable: false),
-                        ModifiedId = c.Int(),
-                        CreatedDate = c.DateTime(nullable: false),
-                        ModifiedDate = c.DateTime(),
+                        GlobalId = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Customer",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        CustomerName = c.String(nullable: false, maxLength: 100),
+                        CustomerCode = c.String(maxLength: 50),
+                        CustomerDescr = c.String(maxLength: 250),
+                        CustomerTypeId = c.Int(nullable: false),
+                        ManagerUserId = c.Int(),
+                        IsActive = c.Boolean(nullable: false),
+                        GlobalId = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.CustomerType", t => t.CustomerTypeId)
+                .ForeignKey("dbo.User", t => t.ManagerUserId)
+                .Index(t => t.CustomerTypeId)
+                .Index(t => t.ManagerUserId);
+            
+            CreateTable(
+                "dbo.ContactInfo",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        ContactInfoName = c.String(nullable: false, maxLength: 100),
+                        ContactInfoDescr = c.String(),
+                        IsBasic = c.Boolean(nullable: false),
+                        CustomerId = c.Int(),
+                        ContactId = c.Int(),
+                        ContactInfoTypeId = c.Int(nullable: false),
+                        IsActive = c.Boolean(nullable: false),
+                        GlobalId = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.ContactInfoType", t => t.ContactInfoTypeId)
+                .ForeignKey("dbo.Customer", t => t.CustomerId)
+                .Index(t => t.CustomerId)
+                .Index(t => t.ContactInfoTypeId);
+            
+            CreateTable(
+                "dbo.ContactInfoType",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        ContactInfoTypeName = c.String(nullable: false, maxLength: 50),
+                        IsActive = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.CustomerType",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        CustomerTypeName = c.String(nullable: false, maxLength: 50),
+                        IsActive = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -130,14 +150,36 @@ namespace Industry.Data.Migrations
                         ContractorFormId = c.Int(nullable: false),
                         CustomerId = c.Int(),
                         IsActive = c.Boolean(nullable: false),
-                        CreatedId = c.Int(nullable: false),
-                        ModifiedId = c.Int(),
-                        CreatedDate = c.DateTime(nullable: false),
-                        ModifiedDate = c.DateTime(),
+                        GlobalId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Customer", t => t.CustomerId)
                 .Index(t => t.CustomerId);
+            
+            CreateTable(
+                "dbo.Culture",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Code = c.String(),
+                        IsActive = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.LocaleString",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Value = c.String(),
+                        CultureId = c.Int(nullable: false),
+                        IsActive = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Culture", t => t.CultureId)
+                .Index(t => t.CultureId);
             
             CreateTable(
                 "dbo.SerialBidDetail",
@@ -176,10 +218,7 @@ namespace Industry.Data.Migrations
                         ShipPostalCode = c.String(),
                         ShipCountry = c.String(),
                         IsActive = c.Boolean(nullable: false),
-                        CreatedId = c.Int(nullable: false),
-                        ModifiedId = c.Int(),
-                        CreatedDate = c.DateTime(nullable: false),
-                        ModifiedDate = c.DateTime(),
+                        GlobalId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Shopper", t => t.ShopperId)
@@ -201,10 +240,7 @@ namespace Industry.Data.Migrations
                         Phone = c.String(),
                         Fax = c.String(),
                         IsActive = c.Boolean(nullable: false),
-                        CreatedId = c.Int(nullable: false),
-                        ModifiedId = c.Int(),
-                        CreatedDate = c.DateTime(nullable: false),
-                        ModifiedDate = c.DateTime(),
+                        GlobalId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -223,10 +259,7 @@ namespace Industry.Data.Migrations
                         ReorderLevel = c.Short(),
                         Discontinued = c.Boolean(nullable: false),
                         IsActive = c.Boolean(nullable: false),
-                        CreatedId = c.Int(nullable: false),
-                        ModifiedId = c.Int(),
-                        CreatedDate = c.DateTime(nullable: false),
-                        ModifiedDate = c.DateTime(),
+                        GlobalId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.SerialCategory", t => t.CategoryId)
@@ -241,10 +274,7 @@ namespace Industry.Data.Migrations
                         Description = c.String(),
                         Picture = c.Binary(),
                         IsActive = c.Boolean(nullable: false),
-                        CreatedId = c.Int(nullable: false),
-                        ModifiedId = c.Int(),
-                        CreatedDate = c.DateTime(nullable: false),
-                        ModifiedDate = c.DateTime(),
+                        GlobalId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -256,31 +286,41 @@ namespace Industry.Data.Migrations
             DropForeignKey("dbo.SerialBidDetail", "ProductId", "dbo.SerialProduct");
             DropForeignKey("dbo.SerialBid", "ShopperId", "dbo.Shopper");
             DropForeignKey("dbo.SerialBidDetail", "BidId", "dbo.SerialBid");
+            DropForeignKey("dbo.LocaleString", "CultureId", "dbo.Culture");
             DropForeignKey("dbo.Contractor", "CustomerId", "dbo.Customer");
+            DropForeignKey("dbo.ActionLog", "UserId", "dbo.User");
             DropForeignKey("dbo.Customer", "ManagerUserId", "dbo.User");
             DropForeignKey("dbo.Customer", "CustomerTypeId", "dbo.CustomerType");
             DropForeignKey("dbo.ContactInfo", "CustomerId", "dbo.Customer");
             DropForeignKey("dbo.ContactInfo", "ContactInfoTypeId", "dbo.ContactInfoType");
+            DropForeignKey("dbo.ActionLog", "ActionTypeId", "dbo.ActionType");
             DropIndex("dbo.SerialProduct", new[] { "CategoryId" });
             DropIndex("dbo.SerialBid", new[] { "ShopperId" });
             DropIndex("dbo.SerialBidDetail", new[] { "ProductId" });
             DropIndex("dbo.SerialBidDetail", new[] { "BidId" });
+            DropIndex("dbo.LocaleString", new[] { "CultureId" });
             DropIndex("dbo.Contractor", new[] { "CustomerId" });
-            DropIndex("dbo.Customer", new[] { "ManagerUserId" });
-            DropIndex("dbo.Customer", new[] { "CustomerTypeId" });
             DropIndex("dbo.ContactInfo", new[] { "ContactInfoTypeId" });
             DropIndex("dbo.ContactInfo", new[] { "CustomerId" });
+            DropIndex("dbo.Customer", new[] { "ManagerUserId" });
+            DropIndex("dbo.Customer", new[] { "CustomerTypeId" });
+            DropIndex("dbo.ActionLog", new[] { "ActionTypeId" });
+            DropIndex("dbo.ActionLog", new[] { "UserId" });
             DropTable("dbo.SerialCategory");
             DropTable("dbo.SerialProduct");
             DropTable("dbo.Shopper");
             DropTable("dbo.SerialBid");
             DropTable("dbo.SerialBidDetail");
+            DropTable("dbo.LocaleString");
+            DropTable("dbo.Culture");
             DropTable("dbo.Contractor");
-            DropTable("dbo.User");
             DropTable("dbo.CustomerType");
-            DropTable("dbo.Customer");
             DropTable("dbo.ContactInfoType");
             DropTable("dbo.ContactInfo");
+            DropTable("dbo.Customer");
+            DropTable("dbo.User");
+            DropTable("dbo.ActionType");
+            DropTable("dbo.ActionLog");
         }
     }
 }

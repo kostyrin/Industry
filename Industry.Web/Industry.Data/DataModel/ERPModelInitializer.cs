@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Industry.Data.Repositories;
 using Industry.Domain.Entities;
 using Industry.Data.DataModel;
 using Repository.Pattern.Infrastructure;
@@ -15,14 +17,53 @@ namespace Industry.Data.DataModel
     {
         protected override void Seed(ERPContext context)
         {
+            var admin = new User()
+            {
+                Email = "admin@ipositron.ru",
+                GlobalId = Guid.NewGuid(),
+                ObjectState = ObjectState.Added,
+                IsActive = true
+            };
+
+            context.Users.Add(admin);
+
+            var cultureEn = new Culture() {Name = "English", Code = "en-GB", ObjectState = ObjectState.Added };
+            var cultureRu = new Culture() { Name = "Russian", Code = "ru-RU", ObjectState = ObjectState.Added };
+            context.Cultures.Add(cultureEn);
+            context.Cultures.Add(cultureRu);
+
+            context.SaveChanges();
+
+            var locals = new Collection<LocaleString>()
+            {
+                new LocaleString() { Name = "Common.Added", Culture = cultureEn, Value = "Added", ObjectState = ObjectState.Added },
+                new LocaleString() { Name = "Common.Added", Culture = cultureRu, Value = "Добавлен", ObjectState = ObjectState.Added },
+                new LocaleString() { Name = "Common.Modified", Culture = cultureEn, Value = "Modified", ObjectState = ObjectState.Added },
+                new LocaleString() { Name = "Common.Modified", Culture = cultureRu, Value = "Изменён", ObjectState = ObjectState.Added },
+                new LocaleString() { Name = "Common.Deleted", Culture = cultureEn, Value = "Deleted", ObjectState = ObjectState.Added },
+                new LocaleString() { Name = "Common.Deleted", Culture = cultureRu, Value = "Удалён", ObjectState = ObjectState.Added },
+            };
+            context.LocaleStrings.AddRange(locals);
+
+            var actionTypeAdd = new ActionType() { Name = "Common.Added", ObjectState = ObjectState.Added };
+            context.ActionTypes.Add(actionTypeAdd);
+
+            var actions = new Collection<ActionType>()
+            {
+                new ActionType() { Name = "Common.Modified", ObjectState = ObjectState.Added },
+                new ActionType() { Name = "Common.Deleted", ObjectState = ObjectState.Added },
+            };
+            context.ActionTypes.AddRange(actions);
+
+            context.SaveChanges();
+
             var shopper = new Shopper()
             {
                 ShopperName = "Покупатель",
                 Address = "Калининград",
                 IsActive = true,
-                CreatedId = 1,
-                CreatedDate = DateTime.Now,
-                ObjectState = ObjectState.Added
+                ObjectState = ObjectState.Added,
+                GlobalId = Guid.NewGuid()
             };
             context.Shoppers.Add(shopper);
 
@@ -30,9 +71,8 @@ namespace Industry.Data.DataModel
             {
                 CategoryName = "Спорт",
                 IsActive = true,
-                CreatedId = 1,
-                CreatedDate = DateTime.Now,
-                ObjectState = ObjectState.Added
+                ObjectState = ObjectState.Added,
+                GlobalId = Guid.NewGuid()
             };
 
             var product = new SerialProduct()
@@ -40,28 +80,27 @@ namespace Industry.Data.DataModel
                 ObjectState = ObjectState.Added,
                 ProductName = "Беговая дорожка",
                 IsActive = true,
-                CreatedDate = DateTime.Now,
-                CreatedId = 1,
-                Category = category
+                Category = category,
+                GlobalId = Guid.NewGuid()
             };
 
-            context.SerialBids.Add(entity: new SerialBid()
+            var bid = new SerialBid()
             {
                 ObjectState = ObjectState.Added,
+                GlobalId = Guid.NewGuid(),
                 Shopper = shopper,
                 BidDate = DateTime.Now,
                 IsActive = true,
-                CreatedId = 1,
-                CreatedDate = DateTime.Now,
                 BidDetails = new Collection<SerialBidDetail>(new SerialBidDetail[]
                 {
                     new SerialBidDetail()
                     {
                         ObjectState = ObjectState.Added,
                         Product = product,
-                    } 
+                    }
                 })
-            });
+            };
+            context.SerialBids.Add(bid);
 
             var customerType = new CustomerType()
             {
@@ -75,14 +114,14 @@ namespace Industry.Data.DataModel
                 CustomerName = "Позитрон",
                 CustomerCode = "001",
                 CustomerDescr = "Основной покупатель",
-                //ManagerUserId = 1,
                 IsActive = true,
-                CreatedDate = DateTime.Now,
-                CreatedId = 1,
                 CustomerType = customerType,
-                ObjectState = ObjectState.Added
+                ObjectState = ObjectState.Added,
+                GlobalId = Guid.NewGuid()
             };
             context.Customers.Add(customer);
+
+            context.SaveChanges();
 
             #region Контактные Данные
 
@@ -109,9 +148,8 @@ namespace Industry.Data.DataModel
                     Customer = customer,
                     ContactInfoDescr = "Основной телефон",
                     IsBasic = true,
-                    CreatedDate = DateTime.Now,
-                    CreatedId = 1,
-                    IsActive = true, ObjectState = ObjectState.Added
+                    IsActive = true, ObjectState = ObjectState.Added,
+                    GlobalId = Guid.NewGuid()
                 },
                 new ContactInfo()
                 {
@@ -120,9 +158,8 @@ namespace Industry.Data.DataModel
                     Customer = customer,
                     ContactInfoDescr = "Основной адрес",
                     IsBasic = true,
-                    CreatedDate = DateTime.Now,
-                    CreatedId = 1,
-                    IsActive = true, ObjectState = ObjectState.Added
+                    IsActive = true, ObjectState = ObjectState.Added,
+                    GlobalId = Guid.NewGuid()
                 },
                 new ContactInfo()
                 {
@@ -131,9 +168,8 @@ namespace Industry.Data.DataModel
                     Customer = customer,
                     ContactInfoDescr = "Основная почта",
                     IsBasic = true,
-                    CreatedDate = DateTime.Now,
-                    CreatedId = 1,
-                    IsActive = true, ObjectState = ObjectState.Added
+                    IsActive = true, ObjectState = ObjectState.Added,
+                    GlobalId = Guid.NewGuid()
                 },
                 new ContactInfo()
                 {
@@ -142,9 +178,8 @@ namespace Industry.Data.DataModel
                     Customer = customer,
                     ContactInfoDescr = "Основной сайт",
                     IsBasic = true,
-                    CreatedDate = DateTime.Now,
-                    CreatedId = 1,
-                    IsActive = true, ObjectState = ObjectState.Added
+                    IsActive = true, ObjectState = ObjectState.Added,
+                    GlobalId = Guid.NewGuid()
                 },
                 new ContactInfo()
                 {
@@ -153,16 +188,45 @@ namespace Industry.Data.DataModel
                     Customer = customer,
                     ContactInfoDescr = "Мобильный телефон",
                     IsBasic = true,
-                    CreatedDate = DateTime.Now,
-                    CreatedId = 1,
-                    IsActive = true, ObjectState = ObjectState.Added
+                    IsActive = true, ObjectState = ObjectState.Added,
+                    GlobalId = Guid.NewGuid()
                 },
             };
             contactdata.ForEach(cd => context.ContactInfos.Add(cd));
+
+            context.SaveChanges();
             #endregion
 
             context.CustomerTypes.Add(new CustomerType() { CustomerTypeName = "Поставщик", IsActive = true, ObjectState = ObjectState.Added });
             context.CustomerTypes.Add(new CustomerType() { CustomerTypeName = "Виртуальный", IsActive = true, ObjectState = ObjectState.Added });
+
+            #region activelog
+
+            //var action1 = new ActionLog()
+            //{
+            //    User = admin,
+            //    EntityGlobalId = shopper.GlobalId,
+            //    ActionType = actionTypeAddRu,
+            //    Date = DateTime.Now,
+            //    Comment = "Добавлен автоматически",
+            //    Mnemocode = shopper.GetType().Name,
+            //    ObjectState = ObjectState.Added
+            //};
+            //context.ActionLogs.Add(action1);
+
+            var log = new Collection<ActionLog>()
+            {
+                new ActionLog().Save(admin, admin.GlobalId, actionTypeAdd, "Добавлен автоматически", admin.GetType()),
+                new ActionLog().Save(admin, shopper.GlobalId, actionTypeAdd, "Добавлен автоматически", shopper.GetType()),
+                new ActionLog().Save(admin, category.GlobalId, actionTypeAdd, "Добавлен автоматически", category.GetType()),
+                new ActionLog().Save(admin, product.GlobalId, actionTypeAdd, "Добавлен автоматически", product.GetType()),
+                new ActionLog().Save(admin, bid.GlobalId, actionTypeAdd, "Добавлен автоматически", product.GetType()),
+                new ActionLog().Save(admin, customer.GlobalId, actionTypeAdd, "Добавлен автоматически", customer.GetType()),
+            };
+            contactdata.ForEach(ci => log.Add(new ActionLog().Save(admin, ci.GlobalId, actionTypeAdd.Id, "Добавлен автоматически", ci.GetType())));
+            context.ActionLogs.AddRange(log);
+
+            #endregion activelog
 
             context.SaveChanges();
 

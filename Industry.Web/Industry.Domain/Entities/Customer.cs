@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Industry.Domain.Entities
@@ -16,6 +17,7 @@ namespace Industry.Domain.Entities
         public string CustomerDescr { get; set; }
         public int CustomerTypeId { get; set; }
         public int? ManagerUserId { get; set; }
+        
 
         
         public virtual CustomerType CustomerType { get; set; }

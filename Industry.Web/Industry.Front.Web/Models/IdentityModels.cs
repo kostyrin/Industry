@@ -75,17 +75,10 @@ namespace Industry.Front.Web.Models
                     using (var db = new ERPContext())
                     {
                         User usr = db.Users.FirstOrDefault(u => u.Email == user.Email);
-                        if (usr == null)
+                        if (usr != null)
                         {
-                            db.Users.Add(new User()
-                            {
-                                Email = user.Email,
-                                GlobalUserId = user.Id,
-                                CreatedDate = DateTime.Now,
-                                CreatedId = 1,
-                                ObjectState = ObjectState.Added,
-                                IsActive = true
-                            });
+                            usr.GlobalUserId = user.Id;
+                            usr.ObjectState = ObjectState.Modified;
                             db.SaveChanges();
                         }
                     }

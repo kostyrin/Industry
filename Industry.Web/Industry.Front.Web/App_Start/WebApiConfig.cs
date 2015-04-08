@@ -20,14 +20,14 @@ namespace Industry.Front.Web
             //config.SuppressDefaultHostAuthentication();
             //config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
-            //MediaTypeFormatterCollection formatters = config.Formatters;
-            //formatters.Remove(formatters.XmlFormatter);
+            MediaTypeFormatterCollection formatters = config.Formatters;
+            formatters.Remove(formatters.XmlFormatter);
 
-            //JsonSerializerSettings jsonSettings = formatters.JsonFormatter.SerializerSettings;
-            //jsonSettings.Formatting = Formatting.Indented;
-            //jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            JsonSerializerSettings jsonSettings = formatters.JsonFormatter.SerializerSettings;
+            jsonSettings.Formatting = Formatting.Indented;
+            jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
-            //formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
+            formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
 
             // Web API routes
             config.MapHttpAttributeRoutes();

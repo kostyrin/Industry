@@ -1,4 +1,4 @@
-﻿app.factory('customersService', ['$http', '$resource', '$q', function ($http, $resource, $q) {
+﻿erpApp.factory('customersService', ['$http', '$resource', '$q', function ($http, $resource, $q) {
     var resource = $resource('/api/customer/:id', { id: '@id' });
     return {
         query: function () {

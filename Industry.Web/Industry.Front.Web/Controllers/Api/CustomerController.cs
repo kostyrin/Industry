@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using Industry.Domain.Entities;
 using Industry.Front.Core.ViewModels;
 using Industry.Services.Services;
-using Industry.Front.Web.Models;
 using Microsoft.AspNet.Identity;
 using Repository.Pattern.Infrastructure;
 using Repository.Pattern.UnitOfWork;
 
-namespace Industry.Front.Web.Api
+namespace Industry.Front.Web.Controllers.Api
 {
     [RoutePrefix("api/customers")]
     [Authorize]
@@ -78,12 +74,12 @@ namespace Industry.Front.Web.Api
         }
 
         // GET: api/Customer/5
-        public CustomerVM Get(int id)
+        public IHttpActionResult Get(int id)
         {
             var customer = _customerService.GetCustomerById(id);
             var customerForm = Mapper.Map<Customer, CustomerVM>(customer);
             customerForm.ContactInfos = Mapper.Map<IEnumerable<ContactInfo>, IEnumerable<ContactInfoVM>>(_contactInfoService.GetContactInfosByCustomerId(customer.Id));
-            return customerForm;
+            return Ok(customerForm);
         }
 
         // POST: api/Customer
@@ -94,8 +90,6 @@ namespace Industry.Front.Web.Api
 
             Customer customer = new Customer();
             Mapper.Map(customerVM, customer);
-            customer.CreatedDate = DateTime.Now;
-            customer.CreatedId = user.Id;
             _customerService.AddOrUpdateCustomer(customer);
             try
             {
@@ -119,8 +113,6 @@ namespace Industry.Front.Web.Api
             var customer = _customerService.GetCustomerById(id);
             Mapper.Map(customerVM, customer);
             //customer.CustomerId = id;
-            customer.ModifiedDate = DateTime.Now;
-            customer.ModifiedId = user.Id;
             customer.ObjectState = ObjectState.Modified; //TODO временно
             _customerService.AddOrUpdateCustomer(customer);
             try
@@ -142,8 +134,6 @@ namespace Industry.Front.Web.Api
 
             
             var customer = _customerService.GetCustomerById(id);
-            customer.ModifiedDate = DateTime.Now;
-            customer.ModifiedId = user.Id;
             customer.IsActive = false;
 
             _customerService.Update(customer);

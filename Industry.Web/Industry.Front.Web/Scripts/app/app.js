@@ -1,1 +1,1 @@
-﻿var app = angular.module('industryApp', ['ngRoute', 'ngResource', 'ui.bootstrap']);
+﻿var erpApp = angular.module('erpApp', ['ngRoute', 'ngResource']);

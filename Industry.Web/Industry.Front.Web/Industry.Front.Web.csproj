@@ -231,9 +231,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\BidController.cs" />
-    <Compile Include="Api\CustomerController.cs" />
-    <Compile Include="Api\ShopperController.cs" />
+    <Compile Include="Controllers\Api\BidController.cs" />
+    <Compile Include="Controllers\Api\CustomerController.cs" />
+    <Compile Include="Controllers\Api\ShopperController.cs" />
     <Compile Include="App_Start\Bootstrapper.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -387,12 +387,17 @@
     <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\app\Controllers\customerCtrl.js" />
+    <Content Include="Scripts\app\app.js" />
+    <Content Include="Scripts\app\config.js" />
+    <Content Include="Scripts\app\Controllers\customerEditCtrl.js" />
+    <Content Include="Scripts\app\Controllers\customersCtrl.js" />
+    <Content Include="Scripts\app\Controllers\homeCtrl.js" />
+    <Content Include="Scripts\app\Controllers\indexCtrl.js" />
     <Content Include="Scripts\app\Directives\jsonover-directive.js" />
     <Content Include="Scripts\app\Directives\Templates\jsonover-directive-template.html" />
     <Content Include="Scripts\app\Filters\substring.js" />
+    <Content Include="Scripts\app\Partials\customerEdit.html" />
     <Content Include="Scripts\app\Partials\customers.html" />
-    <Content Include="Scripts\app\Partials\employees.html" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />

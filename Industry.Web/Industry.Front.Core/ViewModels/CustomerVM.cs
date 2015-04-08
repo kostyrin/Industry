@@ -50,15 +50,6 @@ namespace Industry.Front.Core.ViewModels
 
         public bool IsActive { get; set; }
 
-        //TODO пока не нужно!
-        //public int CreatedId { get; set; }
-        //public int ModifiedId { get; set; }
-
-        //[DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
-        //public DateTime CreatedDate { get; set; }
-
-        //[DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
-        //public DateTime ModifiedDate { get; set; }
         public ObjectState ObjectState { get; set; }
 
         public virtual IEnumerable<ContactInfoVM> ContactInfos  { get; set; }

@@ -6,7 +6,7 @@ using Industry.Front.Core.ViewModels;
 using Industry.Services.Services;
 using Repository.Pattern.UnitOfWork;
 
-namespace Industry.Front.Web.Api
+namespace Industry.Front.Web.Controllers.Api
 {
     public class ShopperController : ApiController
     {

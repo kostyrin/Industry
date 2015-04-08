@@ -46,11 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\ActionType.cs" />
+    <Compile Include="Entities\ActionLog.cs" />
     <Compile Include="Entities\ContactInfo.cs" />
     <Compile Include="Entities\ContactInfoType.cs" />
     <Compile Include="Entities\Contractor.cs" />
+    <Compile Include="Entities\Culture.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\CustomerType.cs" />
+    <Compile Include="Entities\LocaleString.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="EntityCatalog.cs" />
     <Compile Include="EntityDocument.cs" />

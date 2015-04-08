@@ -24,30 +24,26 @@ namespace Industry.Front.Web
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                 "~/Scripts/jquery.unobtrusive*",
                 "~/Scripts/jquery.validate*"));
-
             
-
-            
-
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                         "~/Scripts/angular.js"
                         , "~/Scripts/angular-route.js"
                         , "~/Scripts/angular-resource.js"
-                        
-                        , "~/Scripts/angular-ui/ui-bootstrap-tpls.js"));
+                        //, "~/Scripts/angular-ui/ui-bootstrap-tpls.js"
+                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
-                        //"~/Scripts/App/app.js"
-                        //, "~/Scripts/App/config.js"
-                        "~/Scripts/App/Controllers/customerCtrl.js"
+                        "~/Scripts/App/app.js"
+                        , "~/Scripts/App/config.js"
+                        , "~/Scripts/App/Controllers/*.js"
                         //, "~/Scripts/App/Filters/*.js"
-                        //, "~/Scripts/App/Services/*.js"
+                        //, "~/Scripts/App/Services/customers-service.js"
                         //, "~/Scripts/App/Directives/*.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                   "~/Scripts/bootstrap.js"
-                , "~/Scripts/respond.js"
+                //, "~/Scripts/respond.js"
                 , "~/Content/Theme/js/app.admin.lte.js"
                 //, "~/Content/Theme/js/app.admin.lte.min.js"
                 ));

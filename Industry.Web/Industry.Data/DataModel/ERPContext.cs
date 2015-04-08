@@ -1,5 +1,6 @@
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using Industry.Domain;
 using Industry.Domain.Entities;
 using Repository.Pattern.Ef6;
 
@@ -11,6 +12,11 @@ namespace Industry.Data.DataModel
         {
             Database.SetInitializer(new ERPModelInitializer());
         }
+
+        public DbSet<ActionLog> ActionLogs { get; set; }
+        public DbSet<ActionType> ActionTypes { get; set; }
+        public DbSet<LocaleString> LocaleStrings { get; set; }
+        public DbSet<Culture> Cultures { get; set; }
 
         //Сущности клиентского блока
         public DbSet<Customer> Customers { get; set; }
@@ -34,6 +40,10 @@ namespace Industry.Data.DataModel
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
+            //привязываем ActionLog к FK ActionLogGlobalId в EntityCatalog
+            //modelBuilder.Entity<EntityCatalog>().HasRequired(p => p.ActionLog).WithMany(b => b.EntityCatalogs).HasForeignKey(p => p.ActionLogGlobalId);
+            modelBuilder.Entity<ActionLog>().HasRequired(p => p.ActionType).WithMany(b => b.ActionLogs).HasForeignKey(p => p.ActionTypeId);
         }
     }
 }

@@ -24,18 +24,11 @@ namespace Industry.Domain
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Display(AutoGenerateFilter = false)]
         public long Id { get; set; }
 
-        [Display(ShortName = "Активный")]
         public bool IsActive { get; set; }
-
-        public int CreatedId { get; set; }
-        public int? ModifiedId { get; set; }
-
-        public DateTime CreatedDate { get; set; }
-        public DateTime? ModifiedDate { get; set; }
-
+        public Guid GlobalId { get; set; }
+       
         #endregion
 
         #region Public Methods
@@ -63,7 +56,6 @@ namespace Industry.Domain
         /// Свойство определяющее,обьект новый или нет
         /// </summary>
         [NotMapped]
-        [Display(AutoGenerateFilter = false)]
         public bool IsNew
         {
             get { return Id <= 0; }
