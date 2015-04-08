@@ -17,13 +17,13 @@ namespace Industry.Front.Core.Mapping
             //.ForMember(m => m.Children, o => o.Ignore()) // To avoid automapping attempt
             //.AfterMap((p, o) => { o.Children = ToISet<ChildDto, Child>(p.Children); });
             Mapper.CreateMap<Customer, CustomerListVM>()
-                  .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.Id))
-                  .ForMember(dest => dest.CustomerTypeName, opt => opt.MapFrom(src => src.CustomerType.CustomerTypeName));
+                  .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.Id));
             Mapper.CreateMap<Customer, CustomerVM>()
-                 .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.Id))
-                 .ForMember(dest => dest.CustomerTypeName, opt => opt.MapFrom(src => src.CustomerType.CustomerTypeName));
+                 .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.Id));
             Mapper.CreateMap<ContactInfo, ContactInfoVM>()
                   .ForMember(dest => dest.ContactInfoId, opt => opt.MapFrom(src => src.Id));
+            Mapper.CreateMap<CustomerType, CustomerTypeVM>()
+                 .ForMember(dest => dest.CustomerTypeId, opt => opt.MapFrom(src => src.Id));
 
             Mapper.CreateMap<Shopper, ShopperListVM>()
                   .ForMember(dest => dest.ShopperId, opt => opt.MapFrom(src => src.Id));

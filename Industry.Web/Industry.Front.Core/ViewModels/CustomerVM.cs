@@ -29,22 +29,7 @@ namespace Industry.Front.Core.ViewModels
         [MaxLength(250, ErrorMessage = @"Поле ограничено 250 символами")]
         [Display(ShortName = "Описание", AutoGenerateFilter = false)]
         public string CustomerDescr { get; set; }
-
         
-        #region CustomerType
-
-        /// <summary>
-        /// Тип клиента
-        /// </summary>
-        public string CustomerTypeName { get; set; }
-
-        /// <summary>
-        /// Идентификатор типа клиента
-        /// </summary>
-        public int CustomerTypeId { get; set; }
-
-        #endregion
-
         public int? ManagerUserId { get; set; }
         public string ManagerUserName { get; set; }
 
@@ -53,5 +38,12 @@ namespace Industry.Front.Core.ViewModels
         public ObjectState ObjectState { get; set; }
 
         public virtual IEnumerable<ContactInfoVM> ContactInfos  { get; set; }
+        public virtual IEnumerable<CustomerTypeVM> CustomerTypes { get; set; }
+    }
+
+    public class CustomerTypeVM
+    {
+        public int CustomerTypeId { get; set; }
+        public string CustomerTypeName { get; set; }
     }
 }

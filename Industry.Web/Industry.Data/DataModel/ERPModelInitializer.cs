@@ -116,7 +116,7 @@ namespace Industry.Data.DataModel
                 CustomerCode = "001",
                 CustomerDescr = "Основной покупатель",
                 IsActive = true,
-                CustomerType = customerType,
+                CustomerTypes = new Collection<CustomerType>() { customerType },
                 ObjectState = ObjectState.Added,
                 GlobalId = Guid.NewGuid()
             };

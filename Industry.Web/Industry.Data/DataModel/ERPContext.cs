@@ -44,6 +44,9 @@ namespace Industry.Data.DataModel
             //привязываем ActionLog к FK ActionLogGlobalId в EntityCatalog
             //modelBuilder.Entity<EntityCatalog>().HasRequired(p => p.ActionLog).WithMany(b => b.EntityCatalogs).HasForeignKey(p => p.ActionLogGlobalId);
             modelBuilder.Entity<ActionLog>().HasRequired(p => p.ActionType).WithMany(b => b.ActionLogs).HasForeignKey(p => p.ActionTypeId);
+
+            //modelBuilder.Entity<ProdPricingAdprice>().HasMany(a => a.AdpriceConditions).WithMany(a => a.Adprices).Map(configuration => configuration.ToTable("ProdPricingAdprice_ProdPricingAdpriceCondition"));
+            modelBuilder.Entity<CustomerType>().HasMany(a => a.Customers).WithMany(a => a.CustomerTypes).Map(configuration => configuration.ToTable("Customer_CustomerType"));
         }
     }
 }

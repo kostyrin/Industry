@@ -14,13 +14,13 @@ namespace Industry.Data.Repositories
         public static Customer GetCustomerById(this IRepository<Customer> repository, int customerId)
         {
             return repository.Queryable()
-                             .Include(c => c.CustomerType)
+                             .Include(c => c.CustomerTypes)
                              .Include(c => c.ManagerUser)
                              .FirstOrDefault(s => s.Id == customerId);
         }
         public static IEnumerable<Customer> GetCustomers(this IRepository<Customer> repository)
         {
-            return repository.Queryable().Include(c => c.CustomerType);
+            return repository.Queryable();//.Include(c => c.CustomerType);
         }
 
         public static IEnumerable<Customer> GetCustomersWithParams(this IRepository<Customer> repository, int count, int page, string sortField, string sortOrder, ref int totalCount)
@@ -28,9 +28,9 @@ namespace Industry.Data.Repositories
             var query = repository.Queryable();
             switch (sortField)
             {
-                case "CustomerType":
+                case "CustomerCode":
                 {
-                    query = sortOrder.ToLower() == "asc" ? query.OrderBy(res => res.CustomerType) : query.OrderByDescending(res => res.CustomerType);
+                    query = sortOrder.ToLower() == "asc" ? query.OrderBy(res => res.CustomerCode) : query.OrderByDescending(res => res.CustomerCode);
                     break;
                 }
 

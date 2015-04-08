@@ -83,6 +83,7 @@ namespace Industry.Front.Web.Controllers.Api
             var customer = _customerService.GetCustomerById(id);
             var customerForm = Mapper.Map<Customer, CustomerVM>(customer);
             customerForm.ContactInfos = Mapper.Map<IEnumerable<ContactInfo>, IEnumerable<ContactInfoVM>>(_contactInfoService.GetContactInfosByCustomerId(customer.Id));
+            customerForm.CustomerTypes = Mapper.Map<IEnumerable<CustomerType>, IEnumerable<CustomerTypeVM>>(customer.CustomerTypes);
             return Ok(customerForm);
         }
 

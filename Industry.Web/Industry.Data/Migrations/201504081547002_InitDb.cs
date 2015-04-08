@@ -70,15 +70,12 @@ namespace Industry.Data.Migrations
                         CustomerName = c.String(nullable: false, maxLength: 100),
                         CustomerCode = c.String(maxLength: 50),
                         CustomerDescr = c.String(maxLength: 250),
-                        CustomerTypeId = c.Int(nullable: false),
                         ManagerUserId = c.Int(),
                         IsActive = c.Boolean(nullable: false),
                         GlobalId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.CustomerType", t => t.CustomerTypeId)
                 .ForeignKey("dbo.User", t => t.ManagerUserId)
-                .Index(t => t.CustomerTypeId)
                 .Index(t => t.ManagerUserId);
             
             CreateTable(
@@ -278,6 +275,19 @@ namespace Industry.Data.Migrations
                     })
                 .PrimaryKey(t => t.Id);
             
+            CreateTable(
+                "dbo.Customer_CustomerType",
+                c => new
+                    {
+                        CustomerType_Id = c.Int(nullable: false),
+                        Customer_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.CustomerType_Id, t.Customer_Id })
+                .ForeignKey("dbo.CustomerType", t => t.CustomerType_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Customer", t => t.Customer_Id, cascadeDelete: true)
+                .Index(t => t.CustomerType_Id)
+                .Index(t => t.Customer_Id);
+            
         }
         
         public override void Down()
@@ -290,10 +300,13 @@ namespace Industry.Data.Migrations
             DropForeignKey("dbo.Contractor", "CustomerId", "dbo.Customer");
             DropForeignKey("dbo.ActionLog", "UserId", "dbo.User");
             DropForeignKey("dbo.Customer", "ManagerUserId", "dbo.User");
-            DropForeignKey("dbo.Customer", "CustomerTypeId", "dbo.CustomerType");
+            DropForeignKey("dbo.Customer_CustomerType", "Customer_Id", "dbo.Customer");
+            DropForeignKey("dbo.Customer_CustomerType", "CustomerType_Id", "dbo.CustomerType");
             DropForeignKey("dbo.ContactInfo", "CustomerId", "dbo.Customer");
             DropForeignKey("dbo.ContactInfo", "ContactInfoTypeId", "dbo.ContactInfoType");
             DropForeignKey("dbo.ActionLog", "ActionTypeId", "dbo.ActionType");
+            DropIndex("dbo.Customer_CustomerType", new[] { "Customer_Id" });
+            DropIndex("dbo.Customer_CustomerType", new[] { "CustomerType_Id" });
             DropIndex("dbo.SerialProduct", new[] { "CategoryId" });
             DropIndex("dbo.SerialBid", new[] { "ShopperId" });
             DropIndex("dbo.SerialBidDetail", new[] { "ProductId" });
@@ -303,9 +316,9 @@ namespace Industry.Data.Migrations
             DropIndex("dbo.ContactInfo", new[] { "ContactInfoTypeId" });
             DropIndex("dbo.ContactInfo", new[] { "CustomerId" });
             DropIndex("dbo.Customer", new[] { "ManagerUserId" });
-            DropIndex("dbo.Customer", new[] { "CustomerTypeId" });
             DropIndex("dbo.ActionLog", new[] { "ActionTypeId" });
             DropIndex("dbo.ActionLog", new[] { "UserId" });
+            DropTable("dbo.Customer_CustomerType");
             DropTable("dbo.SerialCategory");
             DropTable("dbo.SerialProduct");
             DropTable("dbo.Shopper");
