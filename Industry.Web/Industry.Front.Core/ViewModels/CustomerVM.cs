@@ -12,23 +12,23 @@ namespace Industry.Front.Core.ViewModels
         /// Наименование
         /// </summary>
         [Required(ErrorMessage = @"Поле обязательно для заполения")]
-        [MaxLength(100, ErrorMessage = @"Поле ограничено 100 символами")] //поле обязательное и ограничено по длине 100
+        [MaxLength(150, ErrorMessage = @"Поле ограничено 100 символами")] //поле обязательное и ограничено по длине 100
         [Display(ShortName = "Наименование")]
-        public string CustomerName { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Код
         /// </summary>
         [MaxLength(50)]
         [Display(ShortName = "Код", AutoGenerateFilter = false)]
-        public string CustomerCode { get; set; }
+        public string Code { get; set; }
 
         /// <summary>
         /// Описание
         /// </summary>
         [MaxLength(250, ErrorMessage = @"Поле ограничено 250 символами")]
         [Display(ShortName = "Описание", AutoGenerateFilter = false)]
-        public string CustomerDescr { get; set; }
+        public string Descr { get; set; }
         
         public int? ManagerUserId { get; set; }
         public string ManagerUserName { get; set; }
@@ -44,6 +44,7 @@ namespace Industry.Front.Core.ViewModels
     public class CustomerTypeVM
     {
         public int CustomerTypeId { get; set; }
-        public string CustomerTypeName { get; set; }
+        public string Name { get; set; }
     }
+
 }

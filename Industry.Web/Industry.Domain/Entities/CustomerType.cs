@@ -12,16 +12,17 @@ namespace Industry.Domain.Entities
         /// Наименование
         /// </summary>
         [Required] [MaxLength(50)]
-        public string CustomerTypeName { get; set; }
+        public string Name { get; set; }
         
         /// <summary>
         /// Клиенты с таким типом
         /// </summary>
         public virtual ICollection<Customer> Customers { get; set; }
+        public virtual ICollection<Contractor> Contractors { get; set; }
 
         public override string ToString()
         {
-            return string.Format("{0}", CustomerTypeName);
+            return string.Format("{0}", Name);
         }
 
         public enum PredefinedTypeIds

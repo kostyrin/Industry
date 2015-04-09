@@ -55,10 +55,10 @@ namespace Industry.Front.Web.Controllers.Api
                 if (contactInfos != null)
                 {
                     var phone = contactInfos.FirstOrDefault(ci => ci.ContactInfoTypeId == (int) ContactInfoType.PredefinedTypeIds.Phone && ci.IsBasic);
-                    if (phone != null) item.Phone = phone.ContactInfoName;
+                    if (phone != null) item.Phone = phone.Name;
 
                     var email = contactInfos.FirstOrDefault(ci => ci.ContactInfoTypeId == (int) ContactInfoType.PredefinedTypeIds.Email && ci.IsBasic);
-                    if (email != null) item.Email = email.ContactInfoName;
+                    if (email != null) item.Email = email.Name;
                 }
             }
             return Ok(customers);
@@ -82,8 +82,6 @@ namespace Industry.Front.Web.Controllers.Api
         {
             var customer = _customerService.GetCustomerById(id);
             var customerForm = Mapper.Map<Customer, CustomerVM>(customer);
-            customerForm.ContactInfos = Mapper.Map<IEnumerable<ContactInfo>, IEnumerable<ContactInfoVM>>(_contactInfoService.GetContactInfosByCustomerId(customer.Id));
-            customerForm.CustomerTypes = Mapper.Map<IEnumerable<CustomerType>, IEnumerable<CustomerTypeVM>>(customer.CustomerTypes);
             return Ok(customerForm);
         }
 

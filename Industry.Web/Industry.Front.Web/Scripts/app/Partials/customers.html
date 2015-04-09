@@ -15,16 +15,16 @@
                 <tr ng-repeat="customer in customers">
                     <td><strong ng-hide="customer.editMode">{{ customer.customerId }}</strong></td>
                     <td>
-                        <p ng-hide="customer.editMode">{{ customer.customerName }}</p>
-                        <input ng-show="customer.editMode" type="text" ng-model="customer.customerName" />
+                        <p ng-hide="customer.editMode">{{ customer.Name }}</p>
+                        <input ng-show="customer.editMode" type="text" ng-model="customer.Name" />
                     </td>
                     <td>
-                        <p ng-hide="customer.editMode">{{ customer.CustomerCode }}</p>
-                        <input ng-show="customer.editMode" type="text" ng-model="customer.CustomerCode" />
+                        <p ng-hide="customer.editMode">{{ customer.Code }}</p>
+                        <input ng-show="customer.editMode" type="text" ng-model="customer.Code" />
                     </td>
                     <td>
-                        <p ng-hide="customer.editMode">{{ customer.CustomerDescr }}</p>
-                        <input ng-show="customer.editMode" type="text" ng-model="customer.CustomerDescr" />
+                        <p ng-hide="customer.editMode">{{ customer.Descr }}</p>
+                        <input ng-show="customer.editMode" type="text" ng-model="customer.Descr" />
                     </td>
                     <td>
                         <p ng-hide="customer.editMode"><a class="fa fa-2x fa-edit" href="/#/customer/edit/{{customer.CustomerId}}"></a></p>

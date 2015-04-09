@@ -27,6 +27,7 @@ namespace Industry.Domain
         public long Id { get; set; }
 
         public bool IsActive { get; set; }
+        [Required]
         public Guid GlobalId { get; set; }
        
         #endregion

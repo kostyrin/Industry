@@ -3,7 +3,7 @@
     public class ShopperListVM
     {
         public int ShopperId { get; set; }
-        public string ShopperName { get; set; }
+        public string Name { get; set; }
         public string ContactName { get; set; }
         public string ContactTitle { get; set; }
         public string Address { get; set; }

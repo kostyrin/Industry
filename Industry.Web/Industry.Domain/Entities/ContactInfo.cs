@@ -11,15 +11,17 @@ namespace Industry.Domain.Entities
     {
         [Required]
         [MaxLength(100)]
-        public string ContactInfoName { get; set; }
-        public string ContactInfoDescr { get; set; }
+        public string Name { get; set; }
+        [MaxLength(150)]
+        public string Descr { get; set; }
         public bool IsBasic { get; set; }
         public int? CustomerId { get; set; }
         public int? ContactId { get; set; }
         public int ContactInfoTypeId { get; set; }
+
         public virtual ContactInfoType ContactInfoType { get; set; }
         public virtual Customer Customer { get; set; }
-        //public virtual Contact Contact { get; set; }
+        public virtual Contact Contact { get; set; }
 
     }
 }

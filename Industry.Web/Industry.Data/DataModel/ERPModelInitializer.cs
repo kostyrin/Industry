@@ -18,6 +18,8 @@ namespace Industry.Data.DataModel
     {
         protected override void Seed(ERPContext context)
         {
+            #region Общие
+
             var admin = new User()
             {
                 Email = "admin@ipositron.ru",
@@ -25,7 +27,6 @@ namespace Industry.Data.DataModel
                 ObjectState = ObjectState.Added,
                 IsActive = true
             };
-
             context.Users.Add(admin);
 
             var cultureEn = new Culture() {Name = "English", Code = "en-GB", ObjectState = ObjectState.Added };
@@ -58,9 +59,191 @@ namespace Industry.Data.DataModel
 
             context.SaveChanges();
 
+            #endregion Общие
+
+            #region Компании
+
+            var customerType = new CustomerType() { Name = "Покупатель", IsActive = true, ObjectState = ObjectState.Added };
+            context.CustomerTypes.Add(new CustomerType() { Name = "Поставщик", IsActive = true, ObjectState = ObjectState.Added });
+            context.CustomerTypes.Add(new CustomerType() { Name = "Виртуальный", IsActive = true, ObjectState = ObjectState.Added });
+            
+            var customer = new Customer()
+            {
+                Name = "Позитрон",
+                Code = "001",
+                Descr = "Основной покупатель",
+                IsActive = true,
+                CustomerTypes = new Collection<CustomerType>() { customerType },
+                ObjectState = ObjectState.Added,
+                GlobalId = Guid.NewGuid()
+            };
+            context.Customers.Add(customer);
+
+            context.SaveChanges();
+
+            #endregion Компании
+
+            #region Контактные Данные
+
+            ContactInfoType phoneType = new ContactInfoType() { ContactInfoTypeName = "Телефон", IsActive = true, ObjectState = ObjectState.Added };
+            ContactInfoType addressType = new ContactInfoType() { ContactInfoTypeName = "Адрес", IsActive = true, ObjectState = ObjectState.Added };
+            ContactInfoType mailType = new ContactInfoType() { ContactInfoTypeName = "E-mail", IsActive = true, ObjectState = ObjectState.Added };
+            ContactInfoType siteType = new ContactInfoType() { ContactInfoTypeName = "Сайт", IsActive = true, ObjectState = ObjectState.Added };
+
+            var contactdatatype = new List<ContactInfoType>
+            {
+                phoneType,
+                addressType,
+                mailType,
+                siteType
+            };
+            contactdatatype.ForEach(cdt => context.ContactInfoTypes.Add(cdt));
+
+            var contactdata = new List<ContactInfo>()
+            {
+                new ContactInfo()
+                {
+                    Name = "+7 (4012) 527 713",
+                    ContactInfoType = phoneType,
+                    Customer = customer,
+                    Descr = "Основной телефон",
+                    IsBasic = true,
+                    IsActive = true, ObjectState = ObjectState.Added,
+                    GlobalId = Guid.NewGuid()
+                },
+                new ContactInfo()
+                {
+                    Name = "236008, Российская Федерация, Калининградская обл, г Калининград, ул Верхнеозерная, д. 24",
+                    ContactInfoType = addressType,
+                    Customer = customer,
+                    Descr = "Основной адрес",
+                    IsBasic = true,
+                    IsActive = true, ObjectState = ObjectState.Added,
+                    GlobalId = Guid.NewGuid()
+                },
+                new ContactInfo()
+                {
+                    Name = "ds@ipositron.ru",
+                    ContactInfoType = mailType,
+                    Customer = customer,
+                    Descr = "Основная почта",
+                    IsBasic = true,
+                    IsActive = true, ObjectState = ObjectState.Added,
+                    GlobalId = Guid.NewGuid()
+                },
+                new ContactInfo()
+                {
+                    Name = "www.ipositron.ru",
+                    ContactInfoType =siteType,
+                    Customer = customer,
+                    Descr = "Основной сайт",
+                    IsBasic = true,
+                    IsActive = true, ObjectState = ObjectState.Added,
+                    GlobalId = Guid.NewGuid()
+                },
+                new ContactInfo()
+                {
+                    Name = "+7 (921) 710 77 13 ",
+                    ContactInfoType = phoneType,
+                    Customer = customer,
+                    Descr = "Мобильный телефон",
+                    IsBasic = true,
+                    IsActive = true, ObjectState = ObjectState.Added,
+                    GlobalId = Guid.NewGuid()
+                },
+            };
+            contactdata.ForEach(cd => context.ContactInfos.Add(cd));
+
+            context.SaveChanges();
+            #endregion
+
+            #region Контрагенты
+
+            var contractortype = new List<ContractorType>()
+            {
+                new ContractorType() {Name = "Юридическое лицо", IsActive = true, ObjectState = ObjectState.Added},
+                new ContractorType() {Name = "Физическое лицо", IsActive = true, ObjectState = ObjectState.Added},
+                new ContractorType() {Name = "ИП", IsActive = true, ObjectState = ObjectState.Added}
+            };
+            contractortype.ForEach(p => context.ContractorTypes.Add(p));
+            context.SaveChanges();
+
+            var contractorforms = new List<ContractorForm>()
+            {
+                new ContractorForm() { Name = "ООО", FullName = "Общество с ограниченной ответственностью", GlobalId = Guid.NewGuid(), IsActive = true, ObjectState = ObjectState.Added},
+                new ContractorForm() { Name = "ИП", FullName = "Индивидуальный предприниматель", GlobalId = Guid.NewGuid(), IsActive = true, ObjectState = ObjectState.Added},
+                new ContractorForm() { Name = "АО", FullName = "Акционерное общество", GlobalId = Guid.NewGuid(), IsActive = true, ObjectState = ObjectState.Added},
+                new ContractorForm() { Name = "ЗАО", FullName = "Закрытое акционерное общество", GlobalId = Guid.NewGuid(), IsActive = true, ObjectState = ObjectState.Added },
+                new ContractorForm() { Name = "МАОУ", FullName = "Муниципальное автономное общеобразовательное учреждение", GlobalId = Guid.NewGuid(), IsActive = true, ObjectState = ObjectState.Added  },
+                new ContractorForm() { Name = "МАУК", FullName = "Муниципальное автономное учреждение культуры", GlobalId = Guid.NewGuid(), IsActive = true, ObjectState = ObjectState.Added },
+                new ContractorForm() { Name = "НОУ", FullName = "Некоммерческое образовательное учреждение", GlobalId = Guid.NewGuid(), IsActive = true, ObjectState = ObjectState.Added },
+                new ContractorForm() { Name = "ОАО", FullName = "Открытое акционерное общество", GlobalId = Guid.NewGuid(), IsActive = true, ObjectState = ObjectState.Added },
+                new ContractorForm() { Name = "УП", FullName = "Унитарное предприятие", GlobalId = Guid.NewGuid(), IsActive = true, ObjectState = ObjectState.Added  },
+                new ContractorForm() { Name = "УФК", FullName = "Учреждение Федерального казначейства", GlobalId = Guid.NewGuid(), IsActive = true, ObjectState = ObjectState.Added },
+                new ContractorForm() { Name = "ФГУП", FullName = "Федеральное государственное унитарное предприятие", GlobalId = Guid.NewGuid(), IsActive = true, ObjectState = ObjectState.Added }
+            };
+            contractorforms.ForEach(p => context.ContractorForms.Add(p));
+            context.SaveChanges();
+
+            var contractor = new Contractor()
+                {
+                    Name = "Позитрон"
+                    , Descr = "Работает без НДС"
+                    , Code = "001"
+                    , Customer = customer
+                    , ContractorType = contractortype.First()
+                    , ContractorForm = contractorforms.First()
+                    , CustomerTypes = new Collection<CustomerType>() { customerType }
+                    , RegistrationAddress = "236008, Российская Федерация, Калининградская обл, г Калининград, ул Верхнеозерная, д. 24"
+                    , PostAddress = "236008, Российская Федерация, Калининградская обл, г Калининград, ул Верхнеозерная, д. 24"
+                    , INN = "3901502273"
+                    , KPP = "390601001"
+                    , OGRN = "1123926045396"
+                    , OKPO = "24399828"
+                    , Phone = "+79217107713"
+                    , Email = "ds@ipositron.ru"
+                    , GlobalId = Guid.NewGuid()
+                    , IsActive = true
+                    , ObjectState = ObjectState.Added
+                };
+            context.Contractors.Add(contractor);
+
+            #endregion Контрагенты
+
+            #region Контакты
+
+            var contact = new Contact()
+                {
+                    Name = "Соня",
+                    LastName = "Демирчиян",
+                    MiddleName = "Апресовна",
+                    Customer = customer,
+                    BirthDate = Convert.ToDateTime("2000-01-01 00:00:00"),
+                    Position = "Офис-менеджер",
+                    IsActive = true,
+                    GlobalId = Guid.NewGuid(),
+                    ObjectState = ObjectState.Added,
+                    ContactInfos = new Collection<ContactInfo>() { new ContactInfo()
+                    {
+                        Name = "+7 (4012) 527 713",
+                        ContactInfoType = phoneType,
+                        IsActive = true,
+                        ObjectState = ObjectState.Added,
+                        GlobalId = Guid.NewGuid()
+                    }}
+                };
+            context.Contacts.Add(contact);
+            context.SaveChanges();
+
+            #endregion Контакты
+
+            //TODO Адреса, Банки, Файлы
+
+            #region Заявки
+
             var shopper = new Shopper()
             {
-                ShopperName = "Покупатель",
+                Name = "Покупатель",
                 Address = "Калининград",
                 IsActive = true,
                 ObjectState = ObjectState.Added,
@@ -102,118 +285,13 @@ namespace Industry.Data.DataModel
                 })
             };
             context.SerialBids.Add(bid);
-
-            var customerType = new CustomerType()
-            {
-                CustomerTypeName = "Покупатель",
-                IsActive = true,
-                ObjectState = ObjectState.Added
-            };
-
-            var customer = new Customer()
-            {
-                CustomerName = "Позитрон",
-                CustomerCode = "001",
-                CustomerDescr = "Основной покупатель",
-                IsActive = true,
-                CustomerTypes = new Collection<CustomerType>() { customerType },
-                ObjectState = ObjectState.Added,
-                GlobalId = Guid.NewGuid()
-            };
-            context.Customers.Add(customer);
-
             context.SaveChanges();
 
-            #region Контактные Данные
+            #endregion Заявки
 
-            ContactInfoType phoneType = new ContactInfoType() { ContactInfoTypeName = "Телефон", IsActive = true, ObjectState = ObjectState.Added };
-            ContactInfoType addressType = new ContactInfoType() { ContactInfoTypeName = "Адрес", IsActive = true, ObjectState = ObjectState.Added };
-            ContactInfoType mailType = new ContactInfoType() { ContactInfoTypeName = "E-mail", IsActive = true, ObjectState = ObjectState.Added };
-            ContactInfoType siteType = new ContactInfoType() { ContactInfoTypeName = "Сайт", IsActive = true, ObjectState = ObjectState.Added };
-
-            var contactdatatype = new List<ContactInfoType>
-            {
-                phoneType,
-                addressType,
-                mailType,
-                siteType
-            };
-            contactdatatype.ForEach(cdt => context.ContactInfoTypes.Add(cdt));
-
-            var contactdata = new List<ContactInfo>()
-            {
-                new ContactInfo()
-                {
-                    ContactInfoName = "+7 (4012) 527 713",
-                    ContactInfoType = phoneType,
-                    Customer = customer,
-                    ContactInfoDescr = "Основной телефон",
-                    IsBasic = true,
-                    IsActive = true, ObjectState = ObjectState.Added,
-                    GlobalId = Guid.NewGuid()
-                },
-                new ContactInfo()
-                {
-                    ContactInfoName = "236008, Российская Федерация, Калининградская обл, г Калининград, ул Верхнеозерная, д. 24",
-                    ContactInfoType = addressType,
-                    Customer = customer,
-                    ContactInfoDescr = "Основной адрес",
-                    IsBasic = true,
-                    IsActive = true, ObjectState = ObjectState.Added,
-                    GlobalId = Guid.NewGuid()
-                },
-                new ContactInfo()
-                {
-                    ContactInfoName = "ds@ipositron.ru",
-                    ContactInfoType = mailType,
-                    Customer = customer,
-                    ContactInfoDescr = "Основная почта",
-                    IsBasic = true,
-                    IsActive = true, ObjectState = ObjectState.Added,
-                    GlobalId = Guid.NewGuid()
-                },
-                new ContactInfo()
-                {
-                    ContactInfoName = "www.ipositron.ru",
-                    ContactInfoType =siteType,
-                    Customer = customer,
-                    ContactInfoDescr = "Основной сайт",
-                    IsBasic = true,
-                    IsActive = true, ObjectState = ObjectState.Added,
-                    GlobalId = Guid.NewGuid()
-                },
-                new ContactInfo()
-                {
-                    ContactInfoName = "+7 (921) 710 77 13 ",
-                    ContactInfoType = phoneType,
-                    Customer = customer,
-                    ContactInfoDescr = "Мобильный телефон",
-                    IsBasic = true,
-                    IsActive = true, ObjectState = ObjectState.Added,
-                    GlobalId = Guid.NewGuid()
-                },
-            };
-            contactdata.ForEach(cd => context.ContactInfos.Add(cd));
-
-            context.SaveChanges();
-            #endregion
-
-            context.CustomerTypes.Add(new CustomerType() { CustomerTypeName = "Поставщик", IsActive = true, ObjectState = ObjectState.Added });
-            context.CustomerTypes.Add(new CustomerType() { CustomerTypeName = "Виртуальный", IsActive = true, ObjectState = ObjectState.Added });
+            
 
             #region activelog
-
-            //var action1 = new ActionLog()
-            //{
-            //    User = admin,
-            //    EntityGlobalId = shopper.GlobalId,
-            //    ActionType = actionTypeAddRu,
-            //    Date = DateTime.Now,
-            //    Comment = "Добавлен автоматически",
-            //    Mnemocode = shopper.GetType().Name,
-            //    ObjectState = ObjectState.Added
-            //};
-            //context.ActionLogs.Add(action1);
 
             var log = new Collection<ActionLog>()
             {
@@ -223,8 +301,15 @@ namespace Industry.Data.DataModel
                 new ActionLog().SaveByIds(admin.Id, product.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", product.GetType()),
                 new ActionLog().SaveByIds(admin.Id, bid.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", product.GetType()),
                 new ActionLog().SaveByIds(admin.Id, customer.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", customer.GetType()),
+                new ActionLog().SaveByIds(admin.Id, contractor.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", contractor.GetType()),
+                new ActionLog().SaveByIds(admin.Id, contact.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", contact.GetType()),
+                new ActionLog().SaveByIds(admin.Id, shopper.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", shopper.GetType()),
+                new ActionLog().SaveByIds(admin.Id, category.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", category.GetType()),
+                new ActionLog().SaveByIds(admin.Id, product.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", product.GetType()),
+                new ActionLog().SaveByIds(admin.Id, bid.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", bid.GetType()),
             };
             contactdata.ForEach(ci => log.Add(new ActionLog().SaveByIds(admin.Id, ci.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", ci.GetType())));
+            contractorforms.ForEach(cf => log.Add(new ActionLog().SaveByIds(admin.Id, cf.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", cf.GetType())));
             context.ActionLogs.AddRange(log);
 
             #endregion activelog

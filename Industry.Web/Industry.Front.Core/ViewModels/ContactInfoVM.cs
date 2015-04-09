@@ -5,8 +5,8 @@ namespace Industry.Front.Core.ViewModels
     public class ContactInfoVM
     {
         public int ContactInfoId { get; set; }
-        public string ContactInfoName { get; set; }
-        public string ContactInfoDescr { get; set; }
+        public string Name { get; set; }
+        public string Descr { get; set; }
         public bool IsBasic { get; set; }
         public int? CustomerId { get; set; }
         public int? ContactId { get; set; }

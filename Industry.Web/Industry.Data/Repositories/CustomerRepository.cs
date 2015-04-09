@@ -15,7 +15,9 @@ namespace Industry.Data.Repositories
         {
             return repository.Queryable()
                              .Include(c => c.CustomerTypes)
-                             .Include(c => c.ManagerUser)
+                             .Include(ci => ci.ContactInfos)
+                             .Include(u => u.ManagerUser)
+                             .Include(cont => cont.Contractors)
                              .FirstOrDefault(s => s.Id == customerId);
         }
         public static IEnumerable<Customer> GetCustomers(this IRepository<Customer> repository)
@@ -28,15 +30,15 @@ namespace Industry.Data.Repositories
             var query = repository.Queryable();
             switch (sortField)
             {
-                case "CustomerCode":
+                case "Code":
                 {
-                    query = sortOrder.ToLower() == "asc" ? query.OrderBy(res => res.CustomerCode) : query.OrderByDescending(res => res.CustomerCode);
+                    query = sortOrder.ToLower() == "asc" ? query.OrderBy(res => res.Code) : query.OrderByDescending(res => res.Code);
                     break;
                 }
 
                 default:
                 {
-                    query = sortOrder.ToLower() == "asc" ? query.OrderBy(res => res.CustomerName) : query.OrderByDescending(res => res.CustomerName);
+                    query = sortOrder.ToLower() == "asc" ? query.OrderBy(res => res.Name) : query.OrderByDescending(res => res.Name);
                     break;
                 }
             }

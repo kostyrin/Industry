@@ -9,33 +9,52 @@ namespace Industry.Domain.Entities
 {
     public class Contractor: EntityCatalog
     {
-        [Required] [MaxLength(100)]
-        public string ContractorName { get; set; }
+        [Required] [MaxLength(150)]
+        public string Name { get; set; }
+        [MaxLength(250)]
         public string FullName { get; set; }
+        [MaxLength(50)]
         public string Code { get; set; }
+        [MaxLength(150)]
         public string Descr { get; set; }
-        public string INN { get; set; }
-        public string KPP { get; set; }
-        public string OGRN { get; set; }
-        public string OKPO { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public string PostAddress { get; set; }
+
+        public bool IsRussainAdress { get; set; }
+        [MaxLength(250)]
         public string RegistrationAddress { get; set; }
-        public string Account { get; set; }
-        public string Bank { get; set; }
-        public string BIK { get; set; }
-        public string CorrAccount { get; set; }
+        [MaxLength(250)]
+        public string PostAddress { get; set; }
+        [MaxLength(250)]
+        public string Passport { get; set; }
+        [MaxLength(50)]
+        public string INN { get; set; }
+        [MaxLength(50)]
+        public string KPP { get; set; }
+        [MaxLength(50)]
+        public string OGRN { get; set; }
+        [MaxLength(50)]
+        public string OKPO { get; set; }
+        [MaxLength(150)]
+        public string Phone { get; set; }
+        [MaxLength(150)]
+        public string Email { get; set; }
+
+        //Данные для печати
+        [MaxLength(150)]
         public string PrintInface { get; set; }
+        [MaxLength(150)]
         public string PrintOn { get; set; }
+        [MaxLength(150)]
         public string PrintPosition { get; set; }
+        [MaxLength(150)]
         public string PrintFullFIO { get; set; }
+
         public int ContractorTypeId { get; set; }
         public int ContractorFormId { get; set; }
         public int? CustomerId { get; set; }
 
-        //public virtual ContractorType ContractorType { get; set; }
-        //public virtual ContractorForm ContractorForm { get; set; }
+        public virtual ContractorType ContractorType { get; set; }
+        public virtual ContractorForm ContractorForm { get; set; }
         public virtual Customer Customer { get; set; }
+        public virtual ICollection<CustomerType> CustomerTypes { get; set; }
     }
 }

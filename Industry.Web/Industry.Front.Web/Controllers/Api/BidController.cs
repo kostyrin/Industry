@@ -27,7 +27,7 @@ namespace Industry.Front.Web.Controllers.Api
             foreach (var bid in bidsDetails)
             {
                 var shopper = _shopperService.GetShopperById(bid.ShopperId);
-                bid.Shopper = shopper.ShopperName;
+                bid.Shopper = shopper.Name;
             }
             return bidsDetails;
         }
