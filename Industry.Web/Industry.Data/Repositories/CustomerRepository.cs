@@ -20,7 +20,7 @@ namespace Industry.Data.Repositories
         }
         public static IEnumerable<Customer> GetCustomers(this IRepository<Customer> repository)
         {
-            return repository.Queryable();//.Include(c => c.CustomerType);
+            return repository.Queryable().Include(c => c.CustomerTypes);
         }
 
         public static IEnumerable<Customer> GetCustomersWithParams(this IRepository<Customer> repository, int count, int page, string sortField, string sortOrder, ref int totalCount)
