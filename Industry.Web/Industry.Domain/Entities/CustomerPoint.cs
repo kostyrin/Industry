@@ -7,26 +7,27 @@ using System.Threading.Tasks;
 
 namespace Industry.Domain.Entities
 {
-    public class ContactInfo : EntityCatalog
+    public class CustomerPoint: EntityCatalog
     {
-        public ContactInfo()
+        public CustomerPoint()
         {
             IsActive = true;
         }
 
-        [Required]
-        [MaxLength(100)]
+        [StringLength(150), Required]
         public string Name { get; set; }
+        [MaxLength(250)]
+        public string Address { get; set; }
         [MaxLength(150)]
+        public string Phone { get; set; }
+        [MaxLength(150)]
+        public string Email { get; set; }
+        public bool IsDelivery { get; set; }
+        [MaxLength(250)]
         public string Descr { get; set; }
-        public bool IsBasic { get; set; }
-        public int? CustomerId { get; set; }
-        public int? ContactId { get; set; }
-        public int ContactInfoTypeId { get; set; }
 
-        public virtual ContactInfoType ContactInfoType { get; set; }
+        public int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
-        public virtual Contact Contact { get; set; }
 
     }
 }

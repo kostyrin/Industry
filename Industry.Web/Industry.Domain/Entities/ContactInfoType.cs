@@ -9,6 +9,11 @@ namespace Industry.Domain.Entities
 {
     public class ContactInfoType: EntityBase
     {
+        public ContactInfoType()
+        {
+            IsActive = true;
+        }
+
         [Required][MaxLength(50)]
         public string ContactInfoTypeName { get; set; }
 

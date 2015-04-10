@@ -40,9 +40,7 @@ namespace Industry.Services.Services
 
         public bool AddActionLog(int userId, Guid globalId, int actionTypeId, string comments, Type type)
         {
-            var actionLog = new ActionLog();
-            actionLog.SaveByIds(userId, globalId, actionTypeId, comments, type);
-            _repository.Insert(actionLog);
+            _repository.Insert(ActionLog.SaveByIds(userId, globalId, actionTypeId, comments, type));
             return true;
         }
     }

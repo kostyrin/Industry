@@ -52,9 +52,9 @@
     <Compile Include="DataModel\ERPContext.cs" />
     <Compile Include="DataModel\ERPModelInitializer.cs" />
     <Compile Include="DataModule.cs" />
-    <Compile Include="Migrations\201504091548234_CreateCustomer.cs" />
-    <Compile Include="Migrations\201504091548234_CreateCustomer.Designer.cs">
-      <DependentUpon>201504091548234_CreateCustomer.cs</DependentUpon>
+    <Compile Include="Migrations\201504101335416_CreateCompany.cs" />
+    <Compile Include="Migrations\201504101335416_CreateCompany.Designer.cs">
+      <DependentUpon>201504101335416_CreateCompany.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\SerialShopperBid.cs" />
@@ -89,8 +89,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504091548234_CreateCustomer.resx">
-      <DependentUpon>201504091548234_CreateCustomer.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504101335416_CreateCompany.resx">
+      <DependentUpon>201504101335416_CreateCompany.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

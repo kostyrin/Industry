@@ -8,6 +8,11 @@ namespace Industry.Domain.Entities
 {
     public class ActionType: EntityBase
     {
+        public ActionType()
+        {
+            IsActive = true;
+        }
+
         public string Name { get; set; }
         public virtual ICollection<ActionLog> ActionLogs { get; set; }
     }

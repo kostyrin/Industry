@@ -8,6 +8,11 @@ namespace Industry.Domain.Entities
 {
     public class LocaleString : EntityBase
     {
+        public LocaleString()
+        {
+            IsActive = true;
+        }
+
         public string Name { get; set; }
         public string Value { get; set; }
         public int CultureId { get; set; }

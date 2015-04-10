@@ -8,6 +8,10 @@ namespace Industry.Domain.Entities
 {
     public class User : EntityCatalog
     {
+        public User()
+        {
+            this.IsActive = true;
+        }
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -6,7 +6,8 @@ namespace Industry.Domain.Entities
     {
         public Shopper()
         {
-            this.Bids = new List<SerialBid>();
+            //this.Bids = new List<SerialBid>();
+            IsActive = true;
         }
 
         public string Name { get; set; }

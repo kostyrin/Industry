@@ -13,21 +13,18 @@ namespace Industry.Front.Core.ViewModels
         /// </summary>
         [Required(ErrorMessage = @"Поле обязательно для заполения")]
         [MaxLength(150, ErrorMessage = @"Поле ограничено 100 символами")] //поле обязательное и ограничено по длине 100
-        [Display(ShortName = "Наименование")]
         public string Name { get; set; }
 
         /// <summary>
         /// Код
         /// </summary>
         [MaxLength(50)]
-        [Display(ShortName = "Код", AutoGenerateFilter = false)]
         public string Code { get; set; }
 
         /// <summary>
         /// Описание
         /// </summary>
         [MaxLength(250, ErrorMessage = @"Поле ограничено 250 символами")]
-        [Display(ShortName = "Описание", AutoGenerateFilter = false)]
         public string Descr { get; set; }
         
         public int? ManagerUserId { get; set; }
@@ -37,8 +34,10 @@ namespace Industry.Front.Core.ViewModels
 
         public ObjectState ObjectState { get; set; }
 
-        public virtual IEnumerable<ContactInfoVM> ContactInfos  { get; set; }
+        public virtual IEnumerable<ContactInfoListVM> ContactInfos  { get; set; }
+        public virtual IEnumerable<ContactListVM> Contacts { get; set; }
         public virtual IEnumerable<CustomerTypeVM> CustomerTypes { get; set; }
+        public virtual IEnumerable<CustomerPointListVM> CustomerPoints { get; set; }
     }
 
     public class CustomerTypeVM

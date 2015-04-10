@@ -7,7 +7,8 @@ namespace Industry.Domain.Entities
     {
         public SerialProduct()
         {
-            this.BidDetails = new List<SerialBidDetail>();
+            //this.BidDetails = new List<SerialBidDetail>();
+            IsActive = true;
         }
 
         public string ProductName { get; set; }

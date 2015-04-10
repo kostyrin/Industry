@@ -8,6 +8,11 @@ namespace Industry.Domain.Entities
 {
     public class Culture: EntityBase
     {
+        public Culture()
+        {
+            IsActive = true;
+        }
+
         public string Name { get; set; }
         public string Code { get; set; }
 

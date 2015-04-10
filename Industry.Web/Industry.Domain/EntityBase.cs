@@ -2,10 +2,10 @@
 //===================================================================================
 
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Repository.Pattern.Ef6;
-using Repository.Pattern.Infrastructure;
 
 namespace Industry.Domain
 {

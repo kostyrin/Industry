@@ -21,6 +21,7 @@ namespace Industry.Data.DataModel
         //Сущности клиентского блока
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CustomerType> CustomerTypes { get; set; }
+        public DbSet<CustomerPoint> CustomerPoints { get; set; }
         public DbSet<ContactInfo> ContactInfos { get; set; }
         public DbSet<ContactInfoType> ContactInfoTypes { get; set; }
         public DbSet<Contractor> Contractors { get; set; }

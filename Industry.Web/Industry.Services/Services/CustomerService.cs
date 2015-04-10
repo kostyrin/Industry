@@ -13,6 +13,7 @@ namespace Industry.Services.Services
     public interface ICustomerService : IService<Customer>
     {
         Customer GetCustomerById(int shopperId);
+        Customer GetCustomerGraphById(int shopperId);
         IEnumerable<Customer> GetCustomers();
         IEnumerable<Customer> GetCustomersWithParams(int count, int page, string sortField, string sortOrder, ref int totalCount);
         Customer AddOrUpdateCustomer(Customer customer);
@@ -33,6 +34,11 @@ namespace Industry.Services.Services
         public Customer GetCustomerById(int shopperId)
         {
             return _repository.GetCustomerById(shopperId);
+        }
+
+        public Customer GetCustomerGraphById(int shopperId)
+        {
+            return _repository.GetCustomerGraphById(shopperId);
         }
 
         public IEnumerable<Customer> GetCustomers()

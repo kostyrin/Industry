@@ -18,6 +18,8 @@ namespace Industry.Data.DataModel
     {
         protected override void Seed(ERPContext context)
         {
+            var log = new Collection<ActionLog>();
+
             #region Общие
 
             var admin = new User()
@@ -25,7 +27,7 @@ namespace Industry.Data.DataModel
                 Email = "admin@ipositron.ru",
                 GlobalId = Guid.NewGuid(),
                 ObjectState = ObjectState.Added,
-                IsActive = true
+                //IsActive = true
             };
             context.Users.Add(admin);
 
@@ -63,16 +65,15 @@ namespace Industry.Data.DataModel
 
             #region Компании
 
-            var customerType = new CustomerType() { Name = "Покупатель", IsActive = true, ObjectState = ObjectState.Added };
-            context.CustomerTypes.Add(new CustomerType() { Name = "Поставщик", IsActive = true, ObjectState = ObjectState.Added });
-            context.CustomerTypes.Add(new CustomerType() { Name = "Виртуальный", IsActive = true, ObjectState = ObjectState.Added });
+            var customerType = new CustomerType() { Name = "Покупатель", ObjectState = ObjectState.Added };
+            context.CustomerTypes.Add(new CustomerType() { Name = "Поставщик", ObjectState = ObjectState.Added });
+            context.CustomerTypes.Add(new CustomerType() { Name = "Виртуальный", ObjectState = ObjectState.Added });
             
             var customer = new Customer()
             {
                 Name = "Позитрон",
                 Code = "001",
                 Descr = "Основной покупатель",
-                IsActive = true,
                 CustomerTypes = new Collection<CustomerType>() { customerType },
                 ObjectState = ObjectState.Added,
                 GlobalId = Guid.NewGuid()
@@ -237,7 +238,27 @@ namespace Industry.Data.DataModel
 
             #endregion Контакты
 
-            //TODO Адреса, Банки, Файлы
+            #region Адреса
+
+            var point = new CustomerPoint()
+            {
+                Name = "Центральный офис региона",
+                Address = "236008, Российская Федерация, Калининградская обл, г Калининград, ул Верхнеозерная, д. 24",
+                Phone = "+79217107713",
+                Email = "ds@ipositron.ru",
+                Descr = "Звонить с 09 до 18 по МСК",
+                ObjectState = ObjectState.Added,
+                GlobalId = Guid.NewGuid(),
+                Customer = customer
+            };
+            context.CustomerPoints.Add(point);
+            log.Add(ActionLog.SaveByIds(admin.Id, point.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", point.GetType()));
+
+            #endregion Адреса
+
+            //TODO Файлы (в отдельную базу и контекст)
+
+            //TODO Банки, р/с
 
             #region Заявки
 
@@ -293,23 +314,22 @@ namespace Industry.Data.DataModel
 
             #region activelog
 
-            var log = new Collection<ActionLog>()
-            {
-                new ActionLog().SaveByIds(admin.Id, admin.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", admin.GetType()),
-                new ActionLog().SaveByIds(admin.Id, shopper.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", shopper.GetType()),
-                new ActionLog().SaveByIds(admin.Id, category.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", category.GetType()),
-                new ActionLog().SaveByIds(admin.Id, product.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", product.GetType()),
-                new ActionLog().SaveByIds(admin.Id, bid.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", product.GetType()),
-                new ActionLog().SaveByIds(admin.Id, customer.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", customer.GetType()),
-                new ActionLog().SaveByIds(admin.Id, contractor.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", contractor.GetType()),
-                new ActionLog().SaveByIds(admin.Id, contact.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", contact.GetType()),
-                new ActionLog().SaveByIds(admin.Id, shopper.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", shopper.GetType()),
-                new ActionLog().SaveByIds(admin.Id, category.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", category.GetType()),
-                new ActionLog().SaveByIds(admin.Id, product.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", product.GetType()),
-                new ActionLog().SaveByIds(admin.Id, bid.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", bid.GetType()),
-            };
-            contactdata.ForEach(ci => log.Add(new ActionLog().SaveByIds(admin.Id, ci.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", ci.GetType())));
-            contractorforms.ForEach(cf => log.Add(new ActionLog().SaveByIds(admin.Id, cf.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", cf.GetType())));
+            log.Add(ActionLog.SaveByIds(admin.Id, admin.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", admin.GetType()));
+            log.Add(ActionLog.SaveByIds(admin.Id, admin.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", admin.GetType()));
+            log.Add(ActionLog.SaveByIds(admin.Id, shopper.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", shopper.GetType()));
+            log.Add(ActionLog.SaveByIds(admin.Id, category.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", category.GetType()));
+            log.Add(ActionLog.SaveByIds(admin.Id, product.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", product.GetType()));
+            log.Add(ActionLog.SaveByIds(admin.Id, bid.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", product.GetType()));
+            log.Add(ActionLog.SaveByIds(admin.Id, customer.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", customer.GetType()));
+            log.Add(ActionLog.SaveByIds(admin.Id, contractor.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", contractor.GetType()));
+            log.Add(ActionLog.SaveByIds(admin.Id, contact.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", contact.GetType()));
+            log.Add(ActionLog.SaveByIds(admin.Id, shopper.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", shopper.GetType()));
+            log.Add(ActionLog.SaveByIds(admin.Id, category.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", category.GetType()));
+            log.Add(ActionLog.SaveByIds(admin.Id, product.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", product.GetType()));
+            log.Add(ActionLog.SaveByIds(admin.Id, bid.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", bid.GetType()));
+
+            contactdata.ForEach(ci => log.Add(ActionLog.SaveByIds(admin.Id, ci.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", ci.GetType())));
+            contractorforms.ForEach(cf => log.Add(ActionLog.SaveByIds(admin.Id, cf.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", cf.GetType())));
             context.ActionLogs.AddRange(log);
 
             #endregion activelog

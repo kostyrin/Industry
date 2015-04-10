@@ -6,7 +6,8 @@ namespace Industry.Domain.Entities
     {
         public SerialCategory()
         {
-            this.Products = new List<SerialProduct>();
+            //this.Products = new List<SerialProduct>();
+            IsActive = true;
         }
 
         public string CategoryName { get; set; }

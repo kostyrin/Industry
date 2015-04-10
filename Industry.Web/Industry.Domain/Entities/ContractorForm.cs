@@ -9,6 +9,11 @@ namespace Industry.Domain.Entities
 {
     public class ContractorForm : EntityCatalog
     {
+        public ContractorForm()
+        {
+            IsActive = true;
+        }
+
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }

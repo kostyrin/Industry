@@ -13,11 +13,18 @@ namespace Industry.Data.Repositories
     {
         public static Customer GetCustomerById(this IRepository<Customer> repository, int customerId)
         {
+            return repository.Queryable().FirstOrDefault(s => s.Id == customerId);
+        }
+
+        public static Customer GetCustomerGraphById(this IRepository<Customer> repository, int customerId)
+        {
             return repository.Queryable()
-                             .Include(c => c.CustomerTypes)
-                             .Include(ci => ci.ContactInfos)
+                             .Include(ct => ct.CustomerTypes)
+                             .Include(ci => ci.ContactInfos.Select(cit => cit.ContactInfoType))
                              .Include(u => u.ManagerUser)
                              .Include(cont => cont.Contractors)
+                             .Include(c => c.Contacts)
+                             .Include(cp => cp.CustomerPoints)
                              .FirstOrDefault(s => s.Id == customerId);
         }
         public static IEnumerable<Customer> GetCustomers(this IRepository<Customer> repository)

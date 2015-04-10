@@ -1,8 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Repository.Pattern.Ef6;
-using Repository.Pattern.Infrastructure;
 
 namespace Industry.Domain
 {
@@ -25,10 +25,13 @@ namespace Industry.Domain
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-
+        
         public bool IsActive { get; set; }
         [Required]
         public Guid GlobalId { get; set; }
+
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
        
         #endregion
 

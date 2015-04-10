@@ -8,6 +8,11 @@ namespace Industry.Domain.Entities
     /// </summary>
     public class CustomerType : EntityBase 
     {
+        public CustomerType()
+        {
+            IsActive = true;
+        }
+
         /// <summary>
         /// Наименование
         /// </summary>

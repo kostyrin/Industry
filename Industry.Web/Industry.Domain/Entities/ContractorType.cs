@@ -8,6 +8,11 @@ namespace Industry.Domain.Entities
 {
     public class ContractorType : EntityBase 
     {
+        public ContractorType()
+        {
+            IsActive = true;
+        }
+
         public string Name { get; set; }
 
         public virtual ICollection<Contractor> Contractors { get; set; }

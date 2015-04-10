@@ -8,6 +8,7 @@ namespace Industry.Domain.Entities
         public SerialBid()
         {
             this.BidDetails = new List<SerialBidDetail>();
+            IsActive = true;
         }
 
         public int ShopperId { get; set; }

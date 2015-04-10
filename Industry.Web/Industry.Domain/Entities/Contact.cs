@@ -9,6 +9,11 @@ namespace Industry.Domain.Entities
 {
     public class Contact : EntityCatalog
     {
+        public Contact()
+        {
+            IsActive = true;
+        }
+
         [Required] [MaxLength(100)]
         public string Name { get; set; }
 

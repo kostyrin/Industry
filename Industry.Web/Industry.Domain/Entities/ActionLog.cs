@@ -27,43 +27,46 @@ namespace Industry.Domain.Entities
         public virtual User User { get; set; }
         public virtual ActionType ActionType { get; set; }
 
-        public ActionLog Save(User user, Guid globalId, ActionType actionType, string comment, Type entityType)
+        public static ActionLog Save(User user, Guid globalId, ActionType actionType, string comment, Type entityType)
         {
-            this.User = user;
-            this.EntityGlobalId = globalId;
-            this.ActionType = actionType;
-            this.Comment = comment;
-            this.Mnemocode = entityType.Name;
-            this.Date = DateTime.Now;
-            this.ObjectState = ObjectState.Added;
+            var actionLog = new ActionLog();
+            actionLog.User = user;
+            actionLog.EntityGlobalId = globalId;
+            actionLog.ActionType = actionType;
+            actionLog.Comment = comment;
+            actionLog.Mnemocode = entityType.Name;
+            actionLog.Date = DateTime.Now;
+            actionLog.ObjectState = ObjectState.Added;
 
-            return this;
+            return actionLog;
         }
 
-        public ActionLog SaveTypeId(User user, Guid globalId, int typeId, string comment, Type entityType)
+        public static ActionLog SaveTypeId(User user, Guid globalId, int typeId, string comment, Type entityType)
         {
-            this.User = user;
-            this.EntityGlobalId = globalId;
-            this.ActionTypeId = typeId;
-            this.Comment = comment;
-            this.Mnemocode = entityType.Name;
-            this.Date = DateTime.Now;
-            this.ObjectState = ObjectState.Added;
+            var actionLog = new ActionLog();
+            actionLog.User = user;
+            actionLog.EntityGlobalId = globalId;
+            actionLog.ActionTypeId = typeId;
+            actionLog.Comment = comment;
+            actionLog.Mnemocode = entityType.Name;
+            actionLog.Date = DateTime.Now;
+            actionLog.ObjectState = ObjectState.Added;
 
-            return this;
+            return actionLog;
         }
 
-        public ActionLog SaveByIds(int userId, Guid globalId, int actionTypeId, string comment, Type entityType)
+        public static ActionLog SaveByIds(int userId, Guid globalId, int actionTypeId, string comment, Type entityType)
         {
-            this.UserId = userId;
-            this.EntityGlobalId = globalId;
-            this.ActionTypeId = actionTypeId;
-            this.Comment = comment;
-            this.Mnemocode = entityType.Name;
-            this.Date = DateTime.Now;
-            this.ObjectState = ObjectState.Added;
+            var actionLog = new ActionLog();
+            actionLog.UserId = userId;
+            actionLog.EntityGlobalId = globalId;
+            actionLog.ActionTypeId = actionTypeId;
+            actionLog.Comment = comment;
+            actionLog.Mnemocode = entityType.Name;
+            actionLog.Date = DateTime.Now;
+            actionLog.ObjectState = ObjectState.Added;
 
-            return this;
+            return actionLog;
         }
         
     }

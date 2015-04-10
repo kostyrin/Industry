@@ -13,4 +13,10 @@ namespace Industry.Front.Core.ViewModels
         public int ContactInfoTypeId { get; set; }
         public ObjectState ObjectState { get; set; }
     }
+
+    public class ContactInfoTypeVM
+    {
+        public int ContactInfoTypeId { get; set; }
+        public string ContactInfoTypeName { get; set; }
+    }
 }

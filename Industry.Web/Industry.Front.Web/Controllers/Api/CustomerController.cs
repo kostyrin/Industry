@@ -80,7 +80,7 @@ namespace Industry.Front.Web.Controllers.Api
         // GET: api/Customer/5
         public IHttpActionResult Get(int id)
         {
-            var customer = _customerService.GetCustomerById(id);
+            var customer = _customerService.GetCustomerGraphById(id);
             var customerForm = Mapper.Map<Customer, CustomerVM>(customer);
             return Ok(customerForm);
         }

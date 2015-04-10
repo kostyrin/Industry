@@ -3,7 +3,7 @@ namespace Industry.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CreateCustomer : DbMigration
+    public partial class CreateCompany : DbMigration
     {
         public override void Up()
         {
@@ -200,6 +200,25 @@ namespace Industry.Data.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.CustomerPoint",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 150),
+                        Address = c.String(maxLength: 250),
+                        Phone = c.String(maxLength: 150),
+                        Email = c.String(maxLength: 150),
+                        IsDelivery = c.Boolean(nullable: false),
+                        Descr = c.String(maxLength: 250),
+                        CustomerId = c.Int(nullable: false),
+                        IsActive = c.Boolean(nullable: false),
+                        GlobalId = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Customer", t => t.CustomerId)
+                .Index(t => t.CustomerId);
+            
+            CreateTable(
                 "dbo.Culture",
                 c => new
                     {
@@ -262,6 +281,7 @@ namespace Industry.Data.Migrations
                         ShipCountry = c.String(),
                         IsActive = c.Boolean(nullable: false),
                         GlobalId = c.Guid(nullable: false),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Shopper", t => t.ShopperId)
@@ -360,6 +380,7 @@ namespace Industry.Data.Migrations
             DropForeignKey("dbo.Customer", "ManagerUserId", "dbo.User");
             DropForeignKey("dbo.Customer_CustomerType", "CustomerType_Id", "dbo.CustomerType");
             DropForeignKey("dbo.Customer_CustomerType", "Customer_Id", "dbo.Customer");
+            DropForeignKey("dbo.CustomerPoint", "CustomerId", "dbo.Customer");
             DropForeignKey("dbo.Contractor_CustomerType", "CustomerType_Id", "dbo.CustomerType");
             DropForeignKey("dbo.Contractor_CustomerType", "Contractor_Id", "dbo.Contractor");
             DropForeignKey("dbo.Contractor", "CustomerId", "dbo.Customer");
@@ -379,6 +400,7 @@ namespace Industry.Data.Migrations
             DropIndex("dbo.SerialBidDetail", new[] { "ProductId" });
             DropIndex("dbo.SerialBidDetail", new[] { "BidId" });
             DropIndex("dbo.LocaleString", new[] { "CultureId" });
+            DropIndex("dbo.CustomerPoint", new[] { "CustomerId" });
             DropIndex("dbo.Contractor", new[] { "CustomerId" });
             DropIndex("dbo.Contractor", new[] { "ContractorFormId" });
             DropIndex("dbo.Contractor", new[] { "ContractorTypeId" });
@@ -398,6 +420,7 @@ namespace Industry.Data.Migrations
             DropTable("dbo.SerialBidDetail");
             DropTable("dbo.LocaleString");
             DropTable("dbo.Culture");
+            DropTable("dbo.CustomerPoint");
             DropTable("dbo.CustomerType");
             DropTable("dbo.ContractorType");
             DropTable("dbo.ContractorForm");
