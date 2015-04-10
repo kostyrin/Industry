@@ -34,10 +34,11 @@ namespace Industry.Front.Core.ViewModels
 
         public ObjectState ObjectState { get; set; }
 
-        public virtual IEnumerable<ContactInfoListVM> ContactInfos  { get; set; }
-        public virtual IEnumerable<ContactListVM> Contacts { get; set; }
+        public virtual IEnumerable<ContactInfoVM> ContactInfos { get; set; }
+        public virtual IEnumerable<ContractorVM> Contractors { get; set; }
+        public virtual IEnumerable<ContactVM> Contacts { get; set; }
         public virtual IEnumerable<CustomerTypeVM> CustomerTypes { get; set; }
-        public virtual IEnumerable<CustomerPointListVM> CustomerPoints { get; set; }
+        public virtual IEnumerable<CustomerPointVM> CustomerPoints { get; set; }
     }
 
     public class CustomerTypeVM

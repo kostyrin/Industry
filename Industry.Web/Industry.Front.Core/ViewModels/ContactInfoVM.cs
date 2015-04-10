@@ -12,6 +12,8 @@ namespace Industry.Front.Core.ViewModels
         public int? ContactId { get; set; }
         public int ContactInfoTypeId { get; set; }
         public ObjectState ObjectState { get; set; }
+
+        public virtual ContactInfoTypeVM ContactInfoType { get; set; }
     }
 
     public class ContactInfoTypeVM

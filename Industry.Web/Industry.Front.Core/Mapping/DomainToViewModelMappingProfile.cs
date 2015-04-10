@@ -21,8 +21,11 @@ namespace Industry.Front.Core.Mapping
             Mapper.CreateMap<CustomerType, CustomerTypeVM>().ForMember(dest => dest.CustomerTypeId, opt => opt.MapFrom(src => src.Id));
             Mapper.CreateMap<ContactInfo, ContactInfoVM>().ForMember(dest => dest.ContactInfoId, opt => opt.MapFrom(src => src.Id));
             Mapper.CreateMap<ContactInfo, ContactInfoListVM>().ForMember(dest => dest.ContactInfoId, opt => opt.MapFrom(src => src.Id));
+            Mapper.CreateMap<ContactInfoType, ContactInfoTypeVM>().ForMember(dest => dest.ContactInfoTypeId, opt => opt.MapFrom(src => src.Id));
             Mapper.CreateMap<Contact, ContactListVM>().ForMember(dest => dest.ContactId, opt => opt.MapFrom(src => src.Id));
-            Mapper.CreateMap<CustomerPoint, CustomerPointListVM>().ForMember(dest => dest.CustomerPointId, opt => opt.MapFrom(src => src.Id));
+            Mapper.CreateMap<Contact, ContactVM>().ForMember(dest => dest.ContactId, opt => opt.MapFrom(src => src.Id));
+            Mapper.CreateMap<CustomerPoint, CustomerPointVM>().ForMember(dest => dest.CustomerPointId, opt => opt.MapFrom(src => src.Id));
+            Mapper.CreateMap<Contractor, ContractorVM>().ForMember(dest => dest.ContractorId, opt => opt.MapFrom(src => src.Id));
             
 
             Mapper.CreateMap<Shopper, ShopperListVM>()

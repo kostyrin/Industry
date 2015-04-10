@@ -56,7 +56,9 @@
     <Compile Include="ViewModels\ContactInfoListVM.cs" />
     <Compile Include="ViewModels\ContactInfoVM.cs" />
     <Compile Include="ViewModels\ContactListVM.cs" />
-    <Compile Include="ViewModels\CustomerPointListVM.cs" />
+    <Compile Include="ViewModels\ContactVM.cs" />
+    <Compile Include="ViewModels\ContractorVM.cs" />
+    <Compile Include="ViewModels\CustomerPointVM.cs" />
     <Compile Include="ViewModels\CustomerVM.cs" />
     <Compile Include="ViewModels\CustomerListVM.cs" />
     <Compile Include="ViewModels\PagedCollectionVM.cs" />

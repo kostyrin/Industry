@@ -19,9 +19,8 @@ namespace Industry.Domain.Entities
         public string Code { get; set; } 
         [MaxLength(250)]
         public string Descr { get; set; }
+
         public int? ManagerUserId { get; set; }
-
-
         public virtual User ManagerUser { get; set; }
         public virtual ICollection<CustomerType> CustomerTypes { get; set; }
         public virtual ICollection<CustomerPoint> CustomerPoints { get; set; }
