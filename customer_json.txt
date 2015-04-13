@@ -1,5 +1,4 @@
 {
-  "$id": "1",
   "customerId": 1,
   "name": "Позитрон",
   "code": "001",
@@ -10,7 +9,6 @@
   "objectState": 0,
   "contactInfos": [
     {
-      "$id": "2",
       "contactInfoId": 1,
       "name": "+7 (4012) 527 713",
       "descr": "Основной телефон",
@@ -20,13 +18,11 @@
       "contactInfoTypeId": 1,
       "objectState": 0,
       "contactInfoType": {
-        "$id": "3",
         "contactInfoTypeId": 1,
         "contactInfoTypeName": "Телефон"
       }
     },
     {
-      "$id": "4",
       "contactInfoId": 2,
       "name": "+7 (921) 710 77 13 ",
       "descr": "Мобильный телефон",
@@ -36,11 +32,11 @@
       "contactInfoTypeId": 1,
       "objectState": 0,
       "contactInfoType": {
-        "$ref": "3"
+        "contactInfoTypeId": 1,
+        "contactInfoTypeName": "Телефон"
       }
     },
     {
-      "$id": "5",
       "contactInfoId": 3,
       "name": "236008, Российская Федерация, Калининградская обл, г Калининград, ул Верхнеозерная, д. 24",
       "descr": "Основной адрес",
@@ -50,13 +46,11 @@
       "contactInfoTypeId": 2,
       "objectState": 0,
       "contactInfoType": {
-        "$id": "6",
         "contactInfoTypeId": 2,
         "contactInfoTypeName": "Адрес"
       }
     },
     {
-      "$id": "7",
       "contactInfoId": 4,
       "name": "ds@ipositron.ru",
       "descr": "Основная почта",
@@ -66,13 +60,11 @@
       "contactInfoTypeId": 3,
       "objectState": 0,
       "contactInfoType": {
-        "$id": "8",
         "contactInfoTypeId": 3,
         "contactInfoTypeName": "E-mail"
       }
     },
     {
-      "$id": "9",
       "contactInfoId": 5,
       "name": "www.ipositron.ru",
       "descr": "Основной сайт",
@@ -82,7 +74,6 @@
       "contactInfoTypeId": 4,
       "objectState": 0,
       "contactInfoType": {
-        "$id": "10",
         "contactInfoTypeId": 4,
         "contactInfoTypeName": "Сайт"
       }
@@ -90,7 +81,6 @@
   ],
   "contractors": [
     {
-      "$id": "11",
       "contractorId": 1,
       "name": "Позитрон",
       "code": "001",
@@ -102,7 +92,6 @@
   ],
   "contacts": [
     {
-      "$id": "12",
       "contactId": 1,
       "name": "Соня",
       "lastName": "Демирчиян",
@@ -119,14 +108,12 @@
   ],
   "customerTypes": [
     {
-      "$id": "13",
       "customerTypeId": 1,
       "name": "Покупатель"
     }
   ],
   "customerPoints": [
     {
-      "$id": "14",
       "customerPointId": 1,
       "name": "Центральный офис региона",
       "address": "236008, Российская Федерация, Калининградская обл, г Калининград, ул Верхнеозерная, д. 24",

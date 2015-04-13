@@ -24,10 +24,15 @@ namespace Industry.Front.Web
             formatters.Remove(formatters.XmlFormatter);
 
             JsonSerializerSettings jsonSettings = formatters.JsonFormatter.SerializerSettings;
-            jsonSettings.Formatting = Formatting.Indented;
+
+#if DEBUG 
+            jsonSettings.Formatting = Formatting.Indented;    
+#endif
+            
+
             jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
-            formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
+            //formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
 
             // Web API routes
             config.MapHttpAttributeRoutes();
