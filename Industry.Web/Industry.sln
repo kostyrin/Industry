@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Industry.Services", "Indust
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Industry.Front.Core", "Industry.Front.Core\Industry.Front.Core.csproj", "{16907CAC-BB66-4836-A1E6-A8AC2028ABDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Industry.Front.Web", "Industry.Front.Web\Industry.Front.Web.csproj", "{A7BFDB02-A4AB-4B47-80AA-5FDB0E20C68F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Industry.Front.API", "Industry.Front.API\Industry.Front.API.csproj", "{A7BFDB02-A4AB-4B47-80AA-5FDB0E20C68F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Industry.Common", "Industry.Common\Industry.Common.csproj", "{B477EE85-A242-4175-8895-2DB92048E461}"
 EndProject

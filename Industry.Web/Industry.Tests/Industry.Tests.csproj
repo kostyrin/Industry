@@ -158,9 +158,9 @@
       <Project>{16907cac-bb66-4836-a1e6-a8ac2028abda}</Project>
       <Name>Industry.Front.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Industry.Front.Web\Industry.Front.Web.csproj">
+    <ProjectReference Include="..\Industry.Front.API\Industry.Front.API.csproj">
       <Project>{a7bfdb02-a4ab-4b47-80aa-5fdb0e20c68f}</Project>
-      <Name>Industry.Front.Web</Name>
+      <Name>Industry.Front.API</Name>
     </ProjectReference>
     <ProjectReference Include="..\Industry.Services\Industry.Services.csproj">
       <Project>{13798359-3c9f-44c3-a72f-0d32421dfae7}</Project>
