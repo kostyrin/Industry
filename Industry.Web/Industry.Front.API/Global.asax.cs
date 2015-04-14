@@ -15,11 +15,12 @@ namespace Industry.Front.API
             //System.Data.Entity.Database.SetInitializer(new ERPModelInitializer());
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            Bootstrapper.Run();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             System.Data.Entity.Database.SetInitializer(new ApplicationDbInitializer());
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Bootstrapper.Run();
+            
         }
     }
 }

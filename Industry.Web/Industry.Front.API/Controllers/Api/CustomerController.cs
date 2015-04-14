@@ -15,7 +15,7 @@ using Repository.Pattern.UnitOfWork;
 namespace Industry.Front.API.Controllers.Api
 {
     [RoutePrefix("api/customers")]
-    [Authorize]
+    //[Authorize]
     public class CustomerController : ApiController
     {
         private readonly IActionLogService _actionLogService;
