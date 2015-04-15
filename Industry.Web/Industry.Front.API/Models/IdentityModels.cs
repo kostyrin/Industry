@@ -7,7 +7,6 @@ using Industry.Data.DataModel;
 using Industry.Domain.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Owin.Security.OAuth;
 using Repository.Pattern.Infrastructure;
 
 namespace Industry.Front.API.Models

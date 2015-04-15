@@ -4,7 +4,6 @@ using Autofac;
 using Autofac.Integration.WebApi;
 using Industry.Data.DataModel;
 using Industry.Domain.Entities;
-using Industry.Front.API.Models;
 using Industry.Front.Core.Mapping;
 using System.Web.Http;
 using Industry.Services.Services;
