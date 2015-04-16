@@ -18,12 +18,8 @@ namespace Industry.Front.ConsoleTest
         const string _pass = "123456";
         const string _baseAddress = "http://localhost:1380";
 
-        static void Main(string[] args)
+        public void Register()
         {
-            
-            
-            string AccessToken = "";
-
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(_baseAddress);
             var postData = new List<KeyValuePair<string, string>>();
@@ -32,21 +28,33 @@ namespace Industry.Front.ConsoleTest
             postData.Add(new KeyValuePair<string, string>("ConfirmPassword", _pass));
             HttpContent content = new FormUrlEncodedContent(postData);
 
+            HttpResponseMessage response = httpClient.PostAsync(_baseAddress + "/api/Account/Register", content).Result;
+
+            System.Console.WriteLine(response.Content.ReadAsStringAsync().Result);
+
+            System.Console.ReadLine();
+        }
+
+        static void Main(string[] args)
+        {
+            string AccessToken = "";
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(_baseAddress);
+            
             var response = httpClient.PostAsync("Token", new StringContent("grant_type=password&username=" + _login + "&password=" + _pass, Encoding.UTF8)).Result;
 
-            //HttpResponseMessage response = httpClient.PostAsync(baseAddress + "/api/Account/Register", content).Result;
             response.EnsureSuccessStatusCode();
             AccessToken = response.Content.ReadAsStringAsync().Result;
-            var token = Newtonsoft.Json.JsonConvert.DeserializeObject<TokenResponseModel>(AccessToken);
+            var token = JsonConvert.DeserializeObject<TokenResponseModel>(AccessToken);
 
             //response = httpClient.GetAsync(baseAddress + "/api/customer").Result;
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
             response = httpClient.GetAsync(_baseAddress + "/api/customer").Result;
 
-            System.Console.WriteLine(token.AccessToken);
-            System.Console.WriteLine(response.Content.ReadAsStringAsync().Result);
-            
-            System.Console.ReadLine();
+            Console.WriteLine(token.AccessToken);
+            Console.WriteLine(response.Content.ReadAsStringAsync().Result);
+            Console.ReadLine();
         }
     }
 }
