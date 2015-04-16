@@ -76,13 +76,13 @@ namespace Industry.Domain
         /// <returns><see cref="M:System.Object.Equals"/></returns>
         public override bool Equals(object obj)
         {
-            if (obj == null || !(obj is EntityBase))
+            if (obj == null || !(obj is EntityCatalog))
                 return false;
 
             if (Object.ReferenceEquals(this, obj))
                 return true;
 
-            EntityBase item = (EntityBase)obj;
+            EntityCatalog item = (EntityCatalog)obj;
 
             if (item.IsTransient() || this.IsTransient())
                 return false;
