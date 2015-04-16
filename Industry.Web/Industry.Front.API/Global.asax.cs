@@ -12,7 +12,7 @@ namespace Industry.Front.API
             //System.Data.Entity.Database.SetInitializer(new ERPModelInitializer());
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            //Bootstrapper.Run();
+            Bootstrapper.Run();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }

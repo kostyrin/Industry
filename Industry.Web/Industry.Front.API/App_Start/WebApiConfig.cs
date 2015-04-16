@@ -19,10 +19,9 @@ namespace Industry.Front.API
             //config.EnableCors();
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
-            //TODO Авторизация!
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
-            //config.Filters.Add(new AuthorizeAttribute());
+            config.Filters.Add(new AuthorizeAttribute());
 
             MediaTypeFormatterCollection formatters = config.Formatters;
             formatters.Remove(formatters.XmlFormatter);
@@ -36,7 +35,7 @@ namespace Industry.Front.API
 
             jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
-            formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
+            //formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
 
             // Web API routes
             config.MapHttpAttributeRoutes();

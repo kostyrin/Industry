@@ -1,36 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security;
 using System.Text;
+using System.Threading.Tasks;
+using Industry.Front.API.Models;
+using Newtonsoft.Json;
 
 namespace Industry.Front.ConsoleTest
 {
     class Program
     {
+        const string _login = "admin@ipositron.ru";
+        const string _pass = "123456";
+        const string _baseAddress = "http://localhost:1380";
+
         static void Main(string[] args)
         {
-            const string baseAddress = "http://localhost:1380";
-            const string login = "admin@ipositron.ru";
-            const string pass = "123456";
+            
+            
+            string AccessToken = "";
 
             HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(baseAddress);
+            httpClient.BaseAddress = new Uri(_baseAddress);
             var postData = new List<KeyValuePair<string, string>>();
-            postData.Add(new KeyValuePair<string, string>("Email", login));
-            postData.Add(new KeyValuePair<string, string>("Password", pass));
-            postData.Add(new KeyValuePair<string, string>("ConfirmPassword", pass));
+            postData.Add(new KeyValuePair<string, string>("Email", _login));
+            postData.Add(new KeyValuePair<string, string>("Password", _pass));
+            postData.Add(new KeyValuePair<string, string>("ConfirmPassword", _pass));
             HttpContent content = new FormUrlEncodedContent(postData);
 
-            var response = httpClient.PostAsync("Token", new StringContent("grant_type=password&username=" + login + "&password=" + pass, Encoding.UTF8)).Result;
+            var response = httpClient.PostAsync("Token", new StringContent("grant_type=password&username=" + _login + "&password=" + _pass, Encoding.UTF8)).Result;
 
             //HttpResponseMessage response = httpClient.PostAsync(baseAddress + "/api/Account/Register", content).Result;
             response.EnsureSuccessStatusCode();
-            string AccessToken = response.Content.ReadAsStringAsync().Result;
-            //AccessToken = Newtonsoft.Json.JsonConvert.DeserializeObject<string>(AccessToken);
+            AccessToken = response.Content.ReadAsStringAsync().Result;
+            var token = Newtonsoft.Json.JsonConvert.DeserializeObject<TokenResponseModel>(AccessToken);
 
             //response = httpClient.GetAsync(baseAddress + "/api/customer").Result;
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
+            response = httpClient.GetAsync(_baseAddress + "/api/customer").Result;
 
-            System.Console.WriteLine(AccessToken);
+            System.Console.WriteLine(token.AccessToken);
             System.Console.WriteLine(response.Content.ReadAsStringAsync().Result);
             
             System.Console.ReadLine();
