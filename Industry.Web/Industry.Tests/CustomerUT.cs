@@ -7,7 +7,7 @@ using System.Web.Http.Routing;
 using Industry.Domain.Entities;
 using Industry.Data.Repositories;
 using Industry.Front.Core.ViewModels;
-using Industry.Front.API.Controllers.Api;
+using Industry.Front.API.Controllers;
 using Industry.Services.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;

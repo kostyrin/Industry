@@ -4,6 +4,7 @@ using Autofac;
 using Autofac.Integration.WebApi;
 using Industry.Data.DataModel;
 using Industry.Domain.Entities;
+using Industry.Front.API.Models;
 using Industry.Front.Core.Mapping;
 using System.Web.Http;
 using Industry.Services.Services;
@@ -50,13 +51,11 @@ namespace Industry.Front.API
             containerBuilder.RegisterType<CustomerService>().As<ICustomerService>().InstancePerRequest();
             containerBuilder.RegisterType<ContactInfoService>().As<IContactInfoService>().InstancePerRequest();
 
-            
-            
-            //containerBuilder.Register(c => new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())
-            //{
-            //    /*Avoids UserStore invoking SaveChanges on every actions.*/
-            //    //AutoSaveChanges = false
-            //})).As<UserManager<ApplicationUser>>().InstancePerRequest();
+            containerBuilder.Register(c => new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())
+            {
+                /*Avoids UserStore invoking SaveChanges on every actions.*/
+                //AutoSaveChanges = false
+            })).As<UserManager<ApplicationUser>>().InstancePerRequest();
 
             containerBuilder.RegisterApiControllers(System.Reflection.Assembly.GetExecutingAssembly());
 

@@ -1,5 +1,7 @@
 ﻿using System.Web;
 using System.Web.Http;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace Industry.Front.API
 {
@@ -8,9 +10,11 @@ namespace Industry.Front.API
         protected void Application_Start()
         {
             //System.Data.Entity.Database.SetInitializer(new ERPModelInitializer());
+            AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            Bootstrapper.Run();
-            //FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            //Bootstrapper.Run();
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
     }
 }

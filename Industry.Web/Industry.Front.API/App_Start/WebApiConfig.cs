@@ -20,8 +20,8 @@ namespace Industry.Front.API
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
             //TODO Авторизация!
-            //config.SuppressDefaultHostAuthentication();
-            //config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            config.SuppressDefaultHostAuthentication();
+            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
             //config.Filters.Add(new AuthorizeAttribute());
 
             MediaTypeFormatterCollection formatters = config.Formatters;
@@ -29,14 +29,14 @@ namespace Industry.Front.API
 
             JsonSerializerSettings jsonSettings = formatters.JsonFormatter.SerializerSettings;
 
-#if DEBUG 
-            jsonSettings.Formatting = Formatting.Indented;    
+#if DEBUG
+            jsonSettings.Formatting = Formatting.Indented;
 #endif
-            
+
 
             jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
-            //formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
+            formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
 
             // Web API routes
             config.MapHttpAttributeRoutes();
