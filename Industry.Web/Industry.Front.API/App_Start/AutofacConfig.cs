@@ -32,33 +32,36 @@ namespace Industry.Front.API
             config.DependencyResolver = new AutofacWebApiDependencyResolver(Container);
         }
 
-        public static void RegisterTypes(ContainerBuilder containerBuilder)
+        public static void RegisterTypes(ContainerBuilder builder)
         {
             // Register Web API controller in executing assembly.
-            containerBuilder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-            containerBuilder.RegisterType<ERPContext>().As<IDataContextAsync>().AsImplementedInterfaces().InstancePerLifetimeScope();
-            containerBuilder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>().AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterType<ERPContext>().As<IDataContextAsync>().AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>().AsImplementedInterfaces().InstancePerLifetimeScope();
             //TODO RegisterGeneric???
-            containerBuilder.Register(d => new RepositoryProvider(new RepositoryFactories())).As<IRepositoryProvider>().InstancePerLifetimeScope();
+            builder.Register(d => new RepositoryProvider(new RepositoryFactories())).As<IRepositoryProvider>().InstancePerLifetimeScope();
 
-            containerBuilder.RegisterType<Repository<ActionLog>>().As<IRepositoryAsync<ActionLog>>().InstancePerRequest();
-            containerBuilder.RegisterType<Repository<Customer>>().As<IRepositoryAsync<Customer>>().InstancePerRequest();
-            containerBuilder.RegisterType<Repository<ContactInfo>>().As<IRepositoryAsync<ContactInfo>>().InstancePerRequest();
-            containerBuilder.RegisterType<Repository<ContactInfoType>>().As<IRepositoryAsync<ContactInfoType>>().InstancePerRequest();
-            containerBuilder.RegisterType<Repository<User>>().As<IRepositoryAsync<User>>().InstancePerRequest();
-            containerBuilder.RegisterType<ActionLogService>().As<IActionLogService>().InstancePerRequest();
-            containerBuilder.RegisterType<UserService>().As<IUserService>().InstancePerRequest();
-            containerBuilder.RegisterType<CustomerService>().As<ICustomerService>().InstancePerRequest();
-            containerBuilder.RegisterType<ContactInfoService>().As<IContactInfoService>().InstancePerRequest();
+            //builder.RegisterModule(new LogInjectionModule());
+            builder.RegisterType<Repository<ActionLog>>().As<IRepositoryAsync<ActionLog>>().InstancePerRequest();
+            builder.RegisterType<Repository<Customer>>().As<IRepositoryAsync<Customer>>().InstancePerRequest();
+            builder.RegisterType<Repository<Contractor>>().As<IRepositoryAsync<Contractor>>().InstancePerRequest();
+            builder.RegisterType<Repository<ContactInfo>>().As<IRepositoryAsync<ContactInfo>>().InstancePerRequest();
+            builder.RegisterType<Repository<ContactInfoType>>().As<IRepositoryAsync<ContactInfoType>>().InstancePerRequest();
+            builder.RegisterType<Repository<User>>().As<IRepositoryAsync<User>>().InstancePerRequest();
+            builder.RegisterType<ActionLogService>().As<IActionLogService>().InstancePerRequest();
+            builder.RegisterType<UserService>().As<IUserService>().InstancePerRequest();
+            builder.RegisterType<CustomerService>().As<ICustomerService>().InstancePerRequest();
+            builder.RegisterType<ContractorService>().As<IContractorService>().InstancePerRequest();
+            builder.RegisterType<ContactInfoService>().As<IContactInfoService>().InstancePerRequest();
 
-            containerBuilder.Register(c => new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())
+            builder.Register(c => new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())
             {
                 /*Avoids UserStore invoking SaveChanges on every actions.*/
                 //AutoSaveChanges = false
             })).As<UserManager<ApplicationUser>>().InstancePerRequest();
 
-            containerBuilder.RegisterApiControllers(System.Reflection.Assembly.GetExecutingAssembly());
+            builder.RegisterApiControllers(System.Reflection.Assembly.GetExecutingAssembly());
         }
     }
 }

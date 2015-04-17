@@ -51,12 +51,15 @@ namespace Industry.Front.ConsoleTest
             response.EnsureSuccessStatusCode();
             AccessToken = response.Content.ReadAsStringAsync().Result;
             var token = JsonConvert.DeserializeObject<TokenResponseModel>(AccessToken);
+            Console.WriteLine(token.AccessToken);
 
             //response = httpClient.GetAsync(baseAddress + "/api/customer").Result;
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
             response = httpClient.GetAsync(_baseAddress + "/api/customer").Result;
-
-            Console.WriteLine(token.AccessToken);
+            Console.WriteLine(response.Content.ReadAsStringAsync().Result);
+            
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
+            response = httpClient.GetAsync(_baseAddress + "/api/contractor").Result;
             Console.WriteLine(response.Content.ReadAsStringAsync().Result);
             Console.ReadLine();
         }

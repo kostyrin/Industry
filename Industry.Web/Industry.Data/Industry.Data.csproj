@@ -62,6 +62,7 @@
     <Compile Include="Repositories\ActionLogRepository.cs" />
     <Compile Include="Repositories\BidRepository.cs" />
     <Compile Include="Repositories\ContactInfoRepository.cs" />
+    <Compile Include="Repositories\ContractorRepository.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\ShopperRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
