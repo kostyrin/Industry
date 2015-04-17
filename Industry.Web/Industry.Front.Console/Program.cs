@@ -14,7 +14,7 @@ namespace Industry.Front.ConsoleTest
 {
     class Program
     {
-        const string _login = "admin@ipositron.ru";
+        const string _login = "test3@ipositron.ru";
         const string _pass = "123456";
         const string _baseAddress = "http://localhost:1380";
 
@@ -30,16 +30,17 @@ namespace Industry.Front.ConsoleTest
 
             HttpResponseMessage response = httpClient.PostAsync(_baseAddress + "/api/Account/Register", content).Result;
 
-            System.Console.WriteLine(response.Content);
+            
             System.Console.WriteLine(response.Content.ReadAsStringAsync().Result);
+            System.Console.WriteLine("Done.");
 
             System.Console.ReadLine();
         }
 
         static void Main(string[] args)
         {
-            //Register();
-            //return;
+            Register();
+            return;
 
             string AccessToken = "";
 

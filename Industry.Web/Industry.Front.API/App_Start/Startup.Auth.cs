@@ -22,7 +22,7 @@ namespace Industry.Front.API
         public void ConfigureAuth(IAppBuilder app)
         {
 
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.CreatePerOwinContext(AuthDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
             //app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);

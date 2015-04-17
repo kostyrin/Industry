@@ -23,25 +23,26 @@ namespace Industry.Front.API.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class AuthDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
+        public AuthDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            Database.SetInitializer(new ApplicationDbInitializer());
         }
 
-        public static ApplicationDbContext Create()
+        public static AuthDbContext Create()
         {
-            return new ApplicationDbContext();
+            return new AuthDbContext();
         }
     }
 
-    public class ApplicationDbInitializer : CreateDatabaseIfNotExists<ApplicationDbContext>
+    public class ApplicationDbInitializer : CreateDatabaseIfNotExists<AuthDbContext>
     {
-        protected override void Seed(ApplicationDbContext context)
+        protected override void Seed(AuthDbContext context)
         {
-            try
-            {
+            //try
+            //{
                 var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
                 userManager.UserValidator = new UserValidator<ApplicationUser>(userManager)
                 {
@@ -80,12 +81,12 @@ namespace Industry.Front.API.Models
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
+            //}
+            //catch (Exception ex)
+            //{
 
-                throw ex;
-            }
+            //    throw ex;
+            //}
 
             //context.Users.Add(new ApplicationUser { Email = "abc@yahoo.com", Password = "Marlabs" });
             //context.SaveChanges();           

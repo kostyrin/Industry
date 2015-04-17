@@ -8,6 +8,7 @@ using Industry.Common.Enums;
 using Industry.Domain.Entities;
 using Industry.Front.Core.ViewModels;
 using Industry.Services.Services;
+using log4net;
 using Microsoft.AspNet.Identity;
 using Repository.Pattern.Infrastructure;
 using Repository.Pattern.UnitOfWork;
@@ -22,24 +23,28 @@ namespace Industry.Front.API.Controllers
         private readonly IContactInfoService _contactInfoService;
         private readonly IUserService _userService;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
+        private readonly ILog _log;
 
         public CustomerController( IActionLogService actionLogService
                                 , ICustomerService customerService
                                 , IContactInfoService contactInfoService
                                 , IUserService userService
-                                , IUnitOfWorkAsync unitOfWorkAsync)
+                                , IUnitOfWorkAsync unitOfWorkAsync
+                                , ILog logger)
         {
             _actionLogService = actionLogService;
             _customerService = customerService;
             _contactInfoService = contactInfoService;
             _userService = userService;
             _unitOfWorkAsync = unitOfWorkAsync;
+            _log = logger;
         }
 
         
         // GET: api/Customer
         public IHttpActionResult Get()
         {
+            _log.Info("GET: api/Customer");
             var customers = Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerListVM>>(_customerService.GetCustomers());
             foreach (var item in customers)
             {

@@ -1,10 +1,12 @@
-﻿using System.Reflection;
+﻿using System.Data.Entity;
+using System.Reflection;
 using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
 using Industry.Data.DataModel;
 using Industry.Domain.Entities;
 using Industry.Front.API.Models;
+using Industry.Front.Core.Logging;
 using Industry.Services.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -38,11 +40,12 @@ namespace Industry.Front.API
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             builder.RegisterType<ERPContext>().As<IDataContextAsync>().AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterType<AuthDbContext>().As<DbContext>().AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>().AsImplementedInterfaces().InstancePerLifetimeScope();
             //TODO RegisterGeneric???
             builder.Register(d => new RepositoryProvider(new RepositoryFactories())).As<IRepositoryProvider>().InstancePerLifetimeScope();
 
-            //builder.RegisterModule(new LogInjectionModule());
+            builder.RegisterModule(new LoggingModule());
             builder.RegisterType<Repository<ActionLog>>().As<IRepositoryAsync<ActionLog>>().InstancePerRequest();
             builder.RegisterType<Repository<Customer>>().As<IRepositoryAsync<Customer>>().InstancePerRequest();
             builder.RegisterType<Repository<Contractor>>().As<IRepositoryAsync<Contractor>>().InstancePerRequest();
@@ -55,7 +58,7 @@ namespace Industry.Front.API
             builder.RegisterType<ContractorService>().As<IContractorService>().InstancePerRequest();
             builder.RegisterType<ContactInfoService>().As<IContactInfoService>().InstancePerRequest();
 
-            builder.Register(c => new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())
+            builder.Register(c => new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new AuthDbContext())
             {
                 /*Avoids UserStore invoking SaveChanges on every actions.*/
                 //AutoSaveChanges = false

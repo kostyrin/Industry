@@ -355,7 +355,7 @@ namespace Industry.Front.API.Controllers
                         };
                         db.Users.Add(usr);
 
-                        db.ActionLogs.Add(ActionLog.SaveTypeId(usr, usr.GlobalId, (int) ActionTypeNames.Common.Added, "Добавлен автоматически", usr.GetType()));
+                        db.ActionLogs.Add(ActionLog.SaveTypeId(usr, usr.GlobalId, (int)ActionTypeNames.Common.Added, "Добавлен автоматически", usr.GetType()));
                         await db.SaveChangesAsync();
                     }
                 }
