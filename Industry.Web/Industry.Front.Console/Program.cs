@@ -14,11 +14,11 @@ namespace Industry.Front.ConsoleTest
 {
     class Program
     {
-        const string _login = "admin@ipositron.ru";
+        const string _login = "c@ipositron.ru";
         const string _pass = "123456";
         const string _baseAddress = "http://localhost:1380";
 
-        public void Register()
+        public static void Register()
         {
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(_baseAddress);
@@ -30,6 +30,7 @@ namespace Industry.Front.ConsoleTest
 
             HttpResponseMessage response = httpClient.PostAsync(_baseAddress + "/api/Account/Register", content).Result;
 
+            System.Console.WriteLine(response.Content);
             System.Console.WriteLine(response.Content.ReadAsStringAsync().Result);
 
             System.Console.ReadLine();
@@ -37,6 +38,9 @@ namespace Industry.Front.ConsoleTest
 
         static void Main(string[] args)
         {
+            //Register();
+            //return;
+
             string AccessToken = "";
 
             HttpClient httpClient = new HttpClient();
@@ -50,7 +54,7 @@ namespace Industry.Front.ConsoleTest
 
             //response = httpClient.GetAsync(baseAddress + "/api/customer").Result;
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
-            response = httpClient.GetAsync(_baseAddress + "/api/customer").Result;
+            response = httpClient.GetAsync(_baseAddress + "/api/customer/1").Result;
 
             Console.WriteLine(token.AccessToken);
             Console.WriteLine(response.Content.ReadAsStringAsync().Result);

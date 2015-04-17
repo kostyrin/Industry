@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Industry.Common.Enums;
+using Industry.Data.DataModel;
+using Industry.Domain.Entities;
 using Industry.Front.API.Models;
 using Industry.Front.API.Providers;
 using Industry.Front.API.Results;
@@ -15,6 +19,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
+using Repository.Pattern.Infrastructure;
 
 namespace Industry.Front.API.Controllers
 {
@@ -329,11 +334,41 @@ namespace Industry.Front.API.Controllers
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            IdentityResult resultUser = await UserManager.CreateAsync(user, model.Password);
 
-            if (!result.Succeeded)
+            IdentityResult resultRole = UserManager.AddToRole(user.Id, "User");
+
+            if (resultUser.Succeeded && resultRole.Succeeded)
             {
-                return GetErrorResult(result);
+                using (var db = new ERPContext())
+                {
+                    User usr = db.Users.FirstOrDefault(u => u.Email == user.Email);
+                    if (usr == null)
+                    {
+                        usr = new User()
+                        {
+                            Email = user.Email,
+                            GlobalUserId = user.Id,
+                            GlobalId = Guid.NewGuid(),
+                            ObjectState = ObjectState.Added,
+                            //IsActive = true
+                        };
+                        db.Users.Add(usr);
+
+                        db.ActionLogs.Add(ActionLog.SaveTypeId(usr, usr.GlobalId, (int) ActionTypeNames.Common.Added, "Добавлен автоматически", usr.GetType()));
+                        await db.SaveChangesAsync();
+                    }
+                }
+            }
+
+            if (!resultUser.Succeeded)
+            {
+                return GetErrorResult(resultUser);
+            }
+
+            if (!resultRole.Succeeded)
+            {
+                return GetErrorResult(resultRole);
             }
 
             return Ok();

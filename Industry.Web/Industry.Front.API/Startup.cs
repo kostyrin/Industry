@@ -43,28 +43,15 @@ namespace Industry.Front.API
 
             jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
-            // Web API routes
-            config.MapHttpAttributeRoutes();
+            AutofacConfig.Initialize(config);
 
-            config.Routes.MapHttpRoute(
-                "DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional });
+            RouteConfig.MapRoutes(config);
 
-            var builder = new ContainerBuilder();
-
-            AutofacConfig.ConfigureWebApiContainer(builder);
-
-            // Register Web API controller in executing assembly.
-            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-
-            var container = builder.Build();
-
-            // Create and assign a dependency resolver for Web API to use.
-            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-
+            //TODO нужно разобраться!
             // This should be the first middleware added to the IAppBuilder.
-            app.UseAutofacMiddleware(container);
+            //app.UseAutofacMiddleware(container);
+            //app.UseCors(CorsOptions.AllowAll);
 
-            app.UseCors(CorsOptions.AllowAll);
             ConfigureAuth(app);
 
             app.UseWebApi(config);

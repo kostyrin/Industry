@@ -9,13 +9,12 @@ namespace Industry.Front.API
     {
         protected void Application_Start()
         {
+            //TODO Используем OWIN смотри Startup
             //System.Data.Entity.Database.SetInitializer(new ERPModelInitializer());
-            AreaRegistration.RegisterAllAreas();
-
-            //TODO Используем OWIN
+            //AreaRegistration.RegisterAllAreas();
             //GlobalConfiguration.Configure(WebApiConfig.Register); 
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            //FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            //RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
     }
 }
