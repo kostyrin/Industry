@@ -13,6 +13,7 @@ namespace Industry.Data.DataModel
             Database.SetInitializer(new ERPModelInitializer());
         }
 
+        public DbSet<Log> Logs { get; set; }
         public DbSet<ActionLog> ActionLogs { get; set; }
         public DbSet<ActionType> ActionTypes { get; set; }
         public DbSet<LocaleString> LocaleStrings { get; set; }
@@ -20,7 +21,7 @@ namespace Industry.Data.DataModel
 
         //Сущности клиентского блока
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<CustomerType> CustomerTypes { get; set; }
+        public DbSet<CompanyType> CompanyTypes { get; set; }
         public DbSet<CustomerPoint> CustomerPoints { get; set; }
         public DbSet<ContactInfo> ContactInfos { get; set; }
         public DbSet<ContactInfoType> ContactInfoTypes { get; set; }
@@ -48,8 +49,8 @@ namespace Industry.Data.DataModel
             //привязываем ActionLog к FK ActionLogGlobalId в EntityCatalog
             //modelBuilder.Entity<ActionLog>().HasRequired(p => p.ActionType).WithMany(b => b.ActionLogs).HasForeignKey(p => p.ActionTypeId);
 
-            modelBuilder.Entity<Customer>().HasMany(a => a.CustomerTypes).WithMany(a => a.Customers).Map(configuration => configuration.ToTable("Customer_CustomerType"));
-            modelBuilder.Entity<Contractor>().HasMany(a => a.CustomerTypes).WithMany(a => a.Contractors).Map(configuration => configuration.ToTable("Contractor_CustomerType"));
+            modelBuilder.Entity<Customer>().HasMany(a => a.CompanyTypes).WithMany(a => a.Customers).Map(configuration => configuration.ToTable("Customer_CompanyType"));
+            modelBuilder.Entity<Contractor>().HasMany(a => a.CompanyTypes).WithMany(a => a.Contractors).Map(configuration => configuration.ToTable("Contractor_CompanyType"));
         }
     }
 }

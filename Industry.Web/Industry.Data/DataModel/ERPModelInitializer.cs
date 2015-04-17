@@ -65,16 +65,16 @@ namespace Industry.Data.DataModel
 
             #region Компании
 
-            var customerType = new CustomerType() { Name = "Покупатель", ObjectState = ObjectState.Added };
-            context.CustomerTypes.Add(new CustomerType() { Name = "Поставщик", ObjectState = ObjectState.Added });
-            context.CustomerTypes.Add(new CustomerType() { Name = "Виртуальный", ObjectState = ObjectState.Added });
+            var companyType = new CompanyType() { Name = "Покупатель", ObjectState = ObjectState.Added };
+            context.CompanyTypes.Add(new CompanyType() { Name = "Поставщик", ObjectState = ObjectState.Added });
+            context.CompanyTypes.Add(new CompanyType() { Name = "Виртуальный", ObjectState = ObjectState.Added });
             
             var customer = new Customer()
             {
                 Name = "Позитрон",
                 Code = "001",
                 Descr = "Основной покупатель",
-                CustomerTypes = new Collection<CustomerType>() { customerType },
+                CompanyTypes = new Collection<CompanyType>() { companyType },
                 ObjectState = ObjectState.Added,
                 GlobalId = Guid.NewGuid()
             };
@@ -194,7 +194,7 @@ namespace Industry.Data.DataModel
                     , Customer = customer
                     , ContractorType = contractortype.First()
                     , ContractorForm = contractorforms.First()
-                    , CustomerTypes = new Collection<CustomerType>() { customerType }
+                    , CompanyTypes = new Collection<CompanyType>() { companyType }
                     , RegistrationAddress = "236008, Российская Федерация, Калининградская обл, г Калининград, ул Верхнеозерная, д. 24"
                     , PostAddress = "236008, Российская Федерация, Калининградская обл, г Калининград, ул Верхнеозерная, д. 24"
                     , INN = "3901502273"

@@ -22,7 +22,7 @@ namespace Industry.Domain.Entities
 
         public int? ManagerUserId { get; set; }
         public virtual User ManagerUser { get; set; }
-        public virtual ICollection<CustomerType> CustomerTypes { get; set; }
+        public virtual ICollection<CompanyType> CompanyTypes { get; set; }
         public virtual ICollection<CustomerPoint> CustomerPoints { get; set; }
         public virtual ICollection<ContactInfo> ContactInfos { get; set; }
         public virtual ICollection<Contractor> Contractors { get; set; }

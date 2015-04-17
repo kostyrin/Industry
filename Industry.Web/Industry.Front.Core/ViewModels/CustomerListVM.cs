@@ -19,7 +19,7 @@ namespace Industry.Front.Core.ViewModels
         public bool IsActive { get; set; }
         public ObjectState ObjectState { get; set; }
 
-        public virtual IEnumerable<CustomerTypeVM> CustomerTypes { get; set; }
+        public virtual IEnumerable<CompanyTypeVM> CompanyTypes { get; set; }
         
     }
 }

@@ -60,6 +60,6 @@ namespace Industry.Domain.Entities
         public virtual ContractorType ContractorType { get; set; }
         public virtual ContractorForm ContractorForm { get; set; }
         public virtual Customer Customer { get; set; }
-        public virtual ICollection<CustomerType> CustomerTypes { get; set; }
+        public virtual ICollection<CompanyType> CompanyTypes { get; set; }
     }
 }

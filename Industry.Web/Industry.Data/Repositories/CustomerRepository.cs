@@ -19,7 +19,7 @@ namespace Industry.Data.Repositories
         public static Customer GetCustomerGraphById(this IRepository<Customer> repository, int customerId)
         {
             return repository.Queryable()
-                             .Include(ct => ct.CustomerTypes)
+                             .Include(ct => ct.CompanyTypes)
                              .Include(ci => ci.ContactInfos.Select(cit => cit.ContactInfoType))
                              .Include(u => u.ManagerUser)
                              .Include(cont => cont.Contractors)
@@ -29,7 +29,7 @@ namespace Industry.Data.Repositories
         }
         public static IEnumerable<Customer> GetCustomers(this IRepository<Customer> repository)
         {
-            return repository.Queryable().Include(c => c.CustomerTypes);
+            return repository.Queryable().Include(c => c.CompanyTypes);
         }
 
         public static IEnumerable<Customer> GetCustomersWithParams(this IRepository<Customer> repository, int count, int page, string sortField, string sortOrder, ref int totalCount)

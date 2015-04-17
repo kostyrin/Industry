@@ -57,8 +57,9 @@
     <Compile Include="Entities\Culture.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\CustomerPoint.cs" />
-    <Compile Include="Entities\CustomerType.cs" />
+    <Compile Include="Entities\CompanyType.cs" />
     <Compile Include="Entities\LocaleString.cs" />
+    <Compile Include="Entities\Log.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="EntityCatalog.cs" />
     <Compile Include="EntityDocument.cs" />

@@ -37,13 +37,13 @@ namespace Industry.Front.Core.ViewModels
         public virtual IEnumerable<ContactInfoVM> ContactInfos { get; set; }
         public virtual IEnumerable<ContractorVM> Contractors { get; set; }
         public virtual IEnumerable<ContactVM> Contacts { get; set; }
-        public virtual IEnumerable<CustomerTypeVM> CustomerTypes { get; set; }
+        public virtual IEnumerable<CompanyTypeVM> CompanyTypes { get; set; }
         public virtual IEnumerable<CustomerPointVM> CustomerPoints { get; set; }
     }
 
-    public class CustomerTypeVM
+    public class CompanyTypeVM
     {
-        public int CustomerTypeId { get; set; }
+        public int CompanyTypeId { get; set; }
         public string Name { get; set; }
     }
 

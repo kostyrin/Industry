@@ -18,7 +18,7 @@ namespace Industry.Front.Core.Mapping
             //.AfterMap((p, o) => { o.Children = ToISet<ChildDto, Child>(p.Children); });
             Mapper.CreateMap<Customer, CustomerListVM>().ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.Id));
             Mapper.CreateMap<Customer, CustomerVM>().ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.Id));
-            Mapper.CreateMap<CustomerType, CustomerTypeVM>().ForMember(dest => dest.CustomerTypeId, opt => opt.MapFrom(src => src.Id));
+            Mapper.CreateMap<CompanyType, CompanyTypeVM>().ForMember(dest => dest.CompanyTypeId, opt => opt.MapFrom(src => src.Id));
             Mapper.CreateMap<ContactInfo, ContactInfoVM>().ForMember(dest => dest.ContactInfoId, opt => opt.MapFrom(src => src.Id));
             Mapper.CreateMap<ContactInfo, ContactInfoListVM>().ForMember(dest => dest.ContactInfoId, opt => opt.MapFrom(src => src.Id));
             Mapper.CreateMap<ContactInfoType, ContactInfoTypeVM>().ForMember(dest => dest.ContactInfoTypeId, opt => opt.MapFrom(src => src.Id));

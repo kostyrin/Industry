@@ -6,9 +6,9 @@ namespace Industry.Domain.Entities
     /// <summary>
     /// Тип клиента
     /// </summary>
-    public class CustomerType : EntityBase 
+    public class CompanyType : EntityBase 
     {
-        public CustomerType()
+        public CompanyType()
         {
             IsActive = true;
         }

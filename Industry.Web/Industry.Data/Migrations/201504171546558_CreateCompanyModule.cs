@@ -3,7 +3,7 @@ namespace Industry.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CreateCompany : DbMigration
+    public partial class CreateCompanyModule : DbMigration
     {
         public override void Up()
         {
@@ -79,53 +79,11 @@ namespace Industry.Data.Migrations
                 .Index(t => t.ManagerUserId);
             
             CreateTable(
-                "dbo.ContactInfo",
+                "dbo.CompanyType",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 100),
-                        Descr = c.String(maxLength: 150),
-                        IsBasic = c.Boolean(nullable: false),
-                        CustomerId = c.Int(),
-                        ContactId = c.Int(),
-                        ContactInfoTypeId = c.Int(nullable: false),
-                        IsActive = c.Boolean(nullable: false),
-                        GlobalId = c.Guid(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Contact", t => t.ContactId)
-                .ForeignKey("dbo.ContactInfoType", t => t.ContactInfoTypeId)
-                .ForeignKey("dbo.Customer", t => t.CustomerId)
-                .Index(t => t.CustomerId)
-                .Index(t => t.ContactId)
-                .Index(t => t.ContactInfoTypeId);
-            
-            CreateTable(
-                "dbo.Contact",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 100),
-                        LastName = c.String(maxLength: 100),
-                        MiddleName = c.String(maxLength: 100),
-                        BirthDate = c.DateTime(),
-                        Position = c.String(maxLength: 100),
-                        Image = c.Binary(),
-                        Descr = c.String(maxLength: 150),
-                        CustomerId = c.Int(nullable: false),
-                        IsActive = c.Boolean(nullable: false),
-                        GlobalId = c.Guid(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Customer", t => t.CustomerId)
-                .Index(t => t.CustomerId);
-            
-            CreateTable(
-                "dbo.ContactInfoType",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        ContactInfoTypeName = c.String(nullable: false, maxLength: 50),
+                        Name = c.String(nullable: false, maxLength: 50),
                         IsActive = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
@@ -190,11 +148,53 @@ namespace Industry.Data.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.CustomerType",
+                "dbo.ContactInfo",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 50),
+                        Name = c.String(nullable: false, maxLength: 100),
+                        Descr = c.String(maxLength: 150),
+                        IsBasic = c.Boolean(nullable: false),
+                        CustomerId = c.Int(),
+                        ContactId = c.Int(),
+                        ContactInfoTypeId = c.Int(nullable: false),
+                        IsActive = c.Boolean(nullable: false),
+                        GlobalId = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Contact", t => t.ContactId)
+                .ForeignKey("dbo.ContactInfoType", t => t.ContactInfoTypeId)
+                .ForeignKey("dbo.Customer", t => t.CustomerId)
+                .Index(t => t.CustomerId)
+                .Index(t => t.ContactId)
+                .Index(t => t.ContactInfoTypeId);
+            
+            CreateTable(
+                "dbo.Contact",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 100),
+                        LastName = c.String(maxLength: 100),
+                        MiddleName = c.String(maxLength: 100),
+                        BirthDate = c.DateTime(),
+                        Position = c.String(maxLength: 100),
+                        Image = c.Binary(),
+                        Descr = c.String(maxLength: 150),
+                        CustomerId = c.Int(nullable: false),
+                        IsActive = c.Boolean(nullable: false),
+                        GlobalId = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Customer", t => t.CustomerId)
+                .Index(t => t.CustomerId);
+            
+            CreateTable(
+                "dbo.ContactInfoType",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        ContactInfoTypeName = c.String(nullable: false, maxLength: 50),
                         IsActive = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
@@ -242,6 +242,20 @@ namespace Industry.Data.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Culture", t => t.CultureId)
                 .Index(t => t.CultureId);
+            
+            CreateTable(
+                "dbo.Log",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Date = c.DateTime(nullable: false),
+                        Level = c.String(),
+                        Message = c.String(),
+                        Exception = c.String(),
+                        Ticket = c.Guid(),
+                        IsActive = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.SerialBidDetail",
@@ -342,30 +356,30 @@ namespace Industry.Data.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Contractor_CustomerType",
+                "dbo.Contractor_CompanyType",
                 c => new
                     {
                         Contractor_Id = c.Int(nullable: false),
-                        CustomerType_Id = c.Int(nullable: false),
+                        CompanyType_Id = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.Contractor_Id, t.CustomerType_Id })
+                .PrimaryKey(t => new { t.Contractor_Id, t.CompanyType_Id })
                 .ForeignKey("dbo.Contractor", t => t.Contractor_Id, cascadeDelete: true)
-                .ForeignKey("dbo.CustomerType", t => t.CustomerType_Id, cascadeDelete: true)
+                .ForeignKey("dbo.CompanyType", t => t.CompanyType_Id, cascadeDelete: true)
                 .Index(t => t.Contractor_Id)
-                .Index(t => t.CustomerType_Id);
+                .Index(t => t.CompanyType_Id);
             
             CreateTable(
-                "dbo.Customer_CustomerType",
+                "dbo.Customer_CompanyType",
                 c => new
                     {
                         Customer_Id = c.Int(nullable: false),
-                        CustomerType_Id = c.Int(nullable: false),
+                        CompanyType_Id = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.Customer_Id, t.CustomerType_Id })
+                .PrimaryKey(t => new { t.Customer_Id, t.CompanyType_Id })
                 .ForeignKey("dbo.Customer", t => t.Customer_Id, cascadeDelete: true)
-                .ForeignKey("dbo.CustomerType", t => t.CustomerType_Id, cascadeDelete: true)
+                .ForeignKey("dbo.CompanyType", t => t.CompanyType_Id, cascadeDelete: true)
                 .Index(t => t.Customer_Id)
-                .Index(t => t.CustomerType_Id);
+                .Index(t => t.CompanyType_Id);
             
         }
         
@@ -378,56 +392,57 @@ namespace Industry.Data.Migrations
             DropForeignKey("dbo.LocaleString", "CultureId", "dbo.Culture");
             DropForeignKey("dbo.ActionLog", "UserId", "dbo.User");
             DropForeignKey("dbo.Customer", "ManagerUserId", "dbo.User");
-            DropForeignKey("dbo.Customer_CustomerType", "CustomerType_Id", "dbo.CustomerType");
-            DropForeignKey("dbo.Customer_CustomerType", "Customer_Id", "dbo.Customer");
             DropForeignKey("dbo.CustomerPoint", "CustomerId", "dbo.Customer");
-            DropForeignKey("dbo.Contractor_CustomerType", "CustomerType_Id", "dbo.CustomerType");
-            DropForeignKey("dbo.Contractor_CustomerType", "Contractor_Id", "dbo.Contractor");
-            DropForeignKey("dbo.Contractor", "CustomerId", "dbo.Customer");
-            DropForeignKey("dbo.Contractor", "ContractorTypeId", "dbo.ContractorType");
-            DropForeignKey("dbo.Contractor", "ContractorFormId", "dbo.ContractorForm");
             DropForeignKey("dbo.ContactInfo", "CustomerId", "dbo.Customer");
             DropForeignKey("dbo.ContactInfo", "ContactInfoTypeId", "dbo.ContactInfoType");
             DropForeignKey("dbo.Contact", "CustomerId", "dbo.Customer");
             DropForeignKey("dbo.ContactInfo", "ContactId", "dbo.Contact");
+            DropForeignKey("dbo.Customer_CompanyType", "CompanyType_Id", "dbo.CompanyType");
+            DropForeignKey("dbo.Customer_CompanyType", "Customer_Id", "dbo.Customer");
+            DropForeignKey("dbo.Contractor", "CustomerId", "dbo.Customer");
+            DropForeignKey("dbo.Contractor", "ContractorTypeId", "dbo.ContractorType");
+            DropForeignKey("dbo.Contractor", "ContractorFormId", "dbo.ContractorForm");
+            DropForeignKey("dbo.Contractor_CompanyType", "CompanyType_Id", "dbo.CompanyType");
+            DropForeignKey("dbo.Contractor_CompanyType", "Contractor_Id", "dbo.Contractor");
             DropForeignKey("dbo.ActionLog", "ActionTypeId", "dbo.ActionType");
-            DropIndex("dbo.Customer_CustomerType", new[] { "CustomerType_Id" });
-            DropIndex("dbo.Customer_CustomerType", new[] { "Customer_Id" });
-            DropIndex("dbo.Contractor_CustomerType", new[] { "CustomerType_Id" });
-            DropIndex("dbo.Contractor_CustomerType", new[] { "Contractor_Id" });
+            DropIndex("dbo.Customer_CompanyType", new[] { "CompanyType_Id" });
+            DropIndex("dbo.Customer_CompanyType", new[] { "Customer_Id" });
+            DropIndex("dbo.Contractor_CompanyType", new[] { "CompanyType_Id" });
+            DropIndex("dbo.Contractor_CompanyType", new[] { "Contractor_Id" });
             DropIndex("dbo.SerialProduct", new[] { "CategoryId" });
             DropIndex("dbo.SerialBid", new[] { "ShopperId" });
             DropIndex("dbo.SerialBidDetail", new[] { "ProductId" });
             DropIndex("dbo.SerialBidDetail", new[] { "BidId" });
             DropIndex("dbo.LocaleString", new[] { "CultureId" });
             DropIndex("dbo.CustomerPoint", new[] { "CustomerId" });
-            DropIndex("dbo.Contractor", new[] { "CustomerId" });
-            DropIndex("dbo.Contractor", new[] { "ContractorFormId" });
-            DropIndex("dbo.Contractor", new[] { "ContractorTypeId" });
             DropIndex("dbo.Contact", new[] { "CustomerId" });
             DropIndex("dbo.ContactInfo", new[] { "ContactInfoTypeId" });
             DropIndex("dbo.ContactInfo", new[] { "ContactId" });
             DropIndex("dbo.ContactInfo", new[] { "CustomerId" });
+            DropIndex("dbo.Contractor", new[] { "CustomerId" });
+            DropIndex("dbo.Contractor", new[] { "ContractorFormId" });
+            DropIndex("dbo.Contractor", new[] { "ContractorTypeId" });
             DropIndex("dbo.Customer", new[] { "ManagerUserId" });
             DropIndex("dbo.ActionLog", new[] { "ActionTypeId" });
             DropIndex("dbo.ActionLog", new[] { "UserId" });
-            DropTable("dbo.Customer_CustomerType");
-            DropTable("dbo.Contractor_CustomerType");
+            DropTable("dbo.Customer_CompanyType");
+            DropTable("dbo.Contractor_CompanyType");
             DropTable("dbo.SerialCategory");
             DropTable("dbo.SerialProduct");
             DropTable("dbo.Shopper");
             DropTable("dbo.SerialBid");
             DropTable("dbo.SerialBidDetail");
+            DropTable("dbo.Log");
             DropTable("dbo.LocaleString");
             DropTable("dbo.Culture");
             DropTable("dbo.CustomerPoint");
-            DropTable("dbo.CustomerType");
-            DropTable("dbo.ContractorType");
-            DropTable("dbo.ContractorForm");
-            DropTable("dbo.Contractor");
             DropTable("dbo.ContactInfoType");
             DropTable("dbo.Contact");
             DropTable("dbo.ContactInfo");
+            DropTable("dbo.ContractorType");
+            DropTable("dbo.ContractorForm");
+            DropTable("dbo.Contractor");
+            DropTable("dbo.CompanyType");
             DropTable("dbo.Customer");
             DropTable("dbo.User");
             DropTable("dbo.ActionType");
