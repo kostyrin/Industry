@@ -14,7 +14,7 @@ using Repository.Pattern.UnitOfWork;
 
 namespace Industry.Front.API.Controllers
 {
-    [RoutePrefix("api/customers")]
+    [RoutePrefix("api/customer")]
     public class CustomerController : ApiController
     {
         private readonly IActionLogService _actionLogService;
@@ -40,7 +40,6 @@ namespace Industry.Front.API.Controllers
         // GET: api/Customer
         public IHttpActionResult Get()
         {
-            var id = RequestContext.Principal.Identity.GetUserId();
             var customers = Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerListVM>>(_customerService.GetCustomers());
             foreach (var item in customers)
             {

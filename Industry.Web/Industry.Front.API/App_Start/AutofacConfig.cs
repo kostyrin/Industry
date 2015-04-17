@@ -1,16 +1,11 @@
-﻿
-
-using Autofac;
+﻿using Autofac;
 using Autofac.Integration.WebApi;
 using Industry.Data.DataModel;
 using Industry.Domain.Entities;
 using Industry.Front.API.Models;
-using Industry.Front.Core.Mapping;
-using System.Web.Http;
 using Industry.Services.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
 using Repository.Pattern.DataContext;
 using Repository.Pattern.Ef6;
 using Repository.Pattern.Ef6.Factories;
@@ -19,22 +14,8 @@ using Repository.Pattern.UnitOfWork;
 
 namespace Industry.Front.API
 {
-    public static class Bootstrapper
+    public static class AutofacConfig
     {
-        public static void Run()
-        {
-            ConfigureAutofacContainer();
-            //Configure AutoMapper
-            AutoMapperConfiguration.Configure();
-        }
-
-        public static void ConfigureAutofacContainer()
-        {
-
-            var webApiContainerBuilder = new ContainerBuilder();
-            ConfigureWebApiContainer(webApiContainerBuilder);
-        }
-
         public static void ConfigureWebApiContainer(ContainerBuilder containerBuilder)
         {
             containerBuilder.RegisterType<ERPContext>().As<IDataContextAsync>().AsImplementedInterfaces().InstancePerLifetimeScope();
@@ -58,10 +39,6 @@ namespace Industry.Front.API
             })).As<UserManager<ApplicationUser>>().InstancePerRequest();
 
             containerBuilder.RegisterApiControllers(System.Reflection.Assembly.GetExecutingAssembly());
-
-            //IContainer container = containerBuilder.Build();
-            //GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
-
     }
 }

@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Formatting;
 using System.Reflection;
 using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
+using Industry.Front.Core.Mapping;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
+using Microsoft.Owin.Security.OAuth;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Owin;
 
 [assembly: OwinStartup(typeof(Industry.Front.API.Startup))]
@@ -17,31 +23,56 @@ namespace Industry.Front.API
         public void Configuration(IAppBuilder app)
         {
 
-            //var config = new HttpConfiguration();
+            var config = new HttpConfiguration();
 
-            //config.Routes.MapHttpRoute(
-            //    "DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional });
+            config.SuppressDefaultHostAuthentication();
+            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
-            //var builder = new ContainerBuilder();
+            //TODO почему не работает
+            config.Filters.Add(new AuthorizeAttribute());
 
-            //Bootstrapper.ConfigureWebApiContainer(builder);
-            //// Register Web API controller in executing assembly.
-            //builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+            MediaTypeFormatterCollection formatters = config.Formatters;
+            formatters.Remove(formatters.XmlFormatter);
 
-            //var container = builder.Build();
+            JsonSerializerSettings jsonSettings = formatters.JsonFormatter.SerializerSettings;
 
-            //// Create and assign a dependency resolver for Web API to use.
-            //config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+#if DEBUG
+            jsonSettings.Formatting = Formatting.Indented;
+#endif
 
-            //// This should be the first middleware added to the IAppBuilder.
-            //app.UseAutofacMiddleware(container);
 
-            //// Make sure the Autofac lifetime scope is passed to Web API.
-            //app.UseAutofacWebApi(config);
+            jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
-            //app.UseWebApi(config);
+            // Web API routes
+            config.MapHttpAttributeRoutes();
 
+            config.Routes.MapHttpRoute(
+                "DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional });
+
+            var builder = new ContainerBuilder();
+
+            AutofacConfig.ConfigureWebApiContainer(builder);
+
+            // Register Web API controller in executing assembly.
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+
+            var container = builder.Build();
+
+            // Create and assign a dependency resolver for Web API to use.
+            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+
+            // This should be the first middleware added to the IAppBuilder.
+            app.UseAutofacMiddleware(container);
+
+            app.UseCors(CorsOptions.AllowAll);
             ConfigureAuth(app);
+
+            app.UseWebApi(config);
+
+            // Make sure the Autofac lifetime scope is passed to Web API.
+            app.UseAutofacWebApi(config);
+
+            AutoMapperConfiguration.Configure();
         }
     }
 }
