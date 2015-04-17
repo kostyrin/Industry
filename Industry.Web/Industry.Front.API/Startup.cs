@@ -24,25 +24,7 @@ namespace Industry.Front.API
         {
 
             var config = new HttpConfiguration();
-
-            config.SuppressDefaultHostAuthentication();
-            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
-
-            //TODO почему не работает
-            config.Filters.Add(new AuthorizeAttribute());
-
-            MediaTypeFormatterCollection formatters = config.Formatters;
-            formatters.Remove(formatters.XmlFormatter);
-
-            JsonSerializerSettings jsonSettings = formatters.JsonFormatter.SerializerSettings;
-
-#if DEBUG
-            jsonSettings.Formatting = Formatting.Indented;
-#endif
-
-
-            jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-
+            
             AutofacConfig.Initialize(config);
 
             RouteConfig.MapRoutes(config);
