@@ -39,8 +39,8 @@ namespace Industry.Front.ConsoleTest
 
         static void Main(string[] args)
         {
-            Register();
-            return;
+            //Register();
+            //return;
 
             string AccessToken = "";
 

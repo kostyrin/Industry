@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Reflection;
 using System.Web.Http;
 using Autofac;
@@ -32,6 +33,9 @@ namespace Industry.Front.API
             Container = builder.Build();
 
             config.DependencyResolver = new AutofacWebApiDependencyResolver(Container);
+
+            ILogger logger = Container.Resolve<ILogger>();
+            logger.Info("log4net OK"); 
         }
 
         public static void RegisterTypes(ContainerBuilder builder)
@@ -45,7 +49,8 @@ namespace Industry.Front.API
             //TODO RegisterGeneric???
             builder.Register(d => new RepositoryProvider(new RepositoryFactories())).As<IRepositoryProvider>().InstancePerLifetimeScope();
 
-            builder.RegisterModule(new LoggingModule());
+            builder.Register(l => LoggingModule.GetLogger(typeof(Object))).As<ILogger>().InstancePerLifetimeScope();
+            //builder.RegisterModule(new LoggingModule());
             builder.RegisterType<Repository<ActionLog>>().As<IRepositoryAsync<ActionLog>>().InstancePerRequest();
             builder.RegisterType<Repository<Customer>>().As<IRepositoryAsync<Customer>>().InstancePerRequest();
             builder.RegisterType<Repository<Contractor>>().As<IRepositoryAsync<Contractor>>().InstancePerRequest();

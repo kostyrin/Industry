@@ -6,6 +6,7 @@ using System.Web.Http;
 using AutoMapper;
 using Industry.Common.Enums;
 using Industry.Domain.Entities;
+using Industry.Front.Core.Logging;
 using Industry.Front.Core.ViewModels;
 using Industry.Services.Services;
 using log4net;
@@ -23,14 +24,14 @@ namespace Industry.Front.API.Controllers
         private readonly IContactInfoService _contactInfoService;
         private readonly IUserService _userService;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
-        private readonly ILog _log;
+        private readonly ILogger _log;
 
         public CustomerController( IActionLogService actionLogService
                                 , ICustomerService customerService
                                 , IContactInfoService contactInfoService
                                 , IUserService userService
                                 , IUnitOfWorkAsync unitOfWorkAsync
-                                , ILog logger)
+                                , ILogger logger)
         {
             _actionLogService = actionLogService;
             _customerService = customerService;
@@ -45,6 +46,7 @@ namespace Industry.Front.API.Controllers
         public IHttpActionResult Get()
         {
             _log.Info("GET: api/Customer");
+            _log.Error("error");
             var customers = Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerListVM>>(_customerService.GetCustomers());
             foreach (var item in customers)
             {

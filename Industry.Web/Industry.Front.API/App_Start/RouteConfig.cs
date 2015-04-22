@@ -15,7 +15,7 @@ namespace Industry.Front.API
         {
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
-            config.Filters.Add(new AuthorizeAttribute());
+            //config.Filters.Add(new AuthorizeAttribute());
 
             MediaTypeFormatterCollection formatters = config.Formatters;
             formatters.Remove(formatters.XmlFormatter);

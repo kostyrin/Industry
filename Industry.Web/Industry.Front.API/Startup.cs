@@ -42,6 +42,8 @@ namespace Industry.Front.API
             app.UseAutofacWebApi(config);
 
             AutoMapperConfiguration.Configure();
+
+            
         }
     }
 }
