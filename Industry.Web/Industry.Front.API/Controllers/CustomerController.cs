@@ -45,7 +45,7 @@ namespace Industry.Front.API.Controllers
         // GET: api/Customer
         public IHttpActionResult Get()
         {
-            _log.Info("GET: api/Customer");
+            _log.Info("GET: api/Customer", this);
             _log.Error("error");
             var customers = Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerListVM>>(_customerService.GetCustomers());
             foreach (var item in customers)
